@@ -1,0 +1,270 @@
+<!--
+   JavaServer Faces in Action example code, Copyright (C) 2004 Kito D. Mann.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+<component>
+	<description>Displays information about the current enviornment for debugging purposes.
+   </description>
+	<display-name>Debug</display-name>
+	<component-type>jia.Debug</component-type>
+	<component-class>org.jia.components.UIDebug</component-class>
+</component>
+<component>
+    <description>A simple date entry component.</description>
+    <display-name>Input Date</display-name>
+    <component-type>jia.InputDate</component-type>
+    <component-class>org.jia.components.UIInputDate</component-class>
+    <property>
+        <description>CSS Style</description>
+        <display-name>styleClass</display-name>
+        <icon>
+            <small-icon>icons/styleClass.jpg</small-icon>
+        </icon>
+        <property-name>styleClass</property-name>
+        <property-class>String</property-class>
+    </property>
+    <property>
+        <description>True if the year is to be displayed. </description>
+        <display-name>showYear</display-name>
+        <icon>
+            <small-icon>icons/showYear.jpg</small-icon>
+        </icon>
+        <property-name>showYear</property-name>
+        <property-class>Boolean</property-class>
+        <default-value>false</default-value>
+    </property>
+    <property>
+        <description>True if the day of the week should be displayed.</description>
+        <display-name>showDay</display-name>
+        <icon>
+            <small-icon>icons/styleClass.jpg</small-icon>
+        </icon>
+        <property-name>showDay</property-name>
+        <property-class>Boolean</property-class>
+        <default-value>true</default-value>
+        <suggested-value>true</suggested-value>
+    </property>
+    <property>
+        <description>True if the month should be displayed</description>
+        <display-name>showMonth</display-name>
+        <icon>
+            <small-icon>icons/showMonth.jpg</small-icon>
+        </icon>
+        <property-name>showMonth</property-name>
+        <property-class>Boolean</property-class>
+        <default-value>true</default-value>
+        <suggested-value>true</suggested-value>
+    </property>
+    <property>
+        <description>True if the time should be displayed.</description>
+        <display-name>showTime</display-name>
+        <icon>
+            <small-icon>icons/showTime.jpg</small-icon>
+        </icon>
+        <property-name>showTime</property-name>
+        <property-class>Boolean</property-class>
+        <default-value>false</default-value>
+    </property>
+</component>
+
+<component>
+    <description>
+      Displays a set of buttons (in a table) that execute action methods.
+    </description>
+    <display-name>Navigator</display-name>
+    <component-type>jia.Navigator</component-type>
+    <component-class>org.jia.components.UINavigator</component-class>
+</component>
+
+<component>
+    <description>Displays RSS feeds from a given URL.</description>
+    <display-name>HeadlineViewer</display-name>
+    <component-type>jia.HeadlineViewer</component-type>
+    <component-class>org.jia.components.UIHeadlineViewer</component-class>
+</component>
+
+<validator>
+    <description>
+      Validates an input control based on a regular expression.
+      </description>
+    <display-name>RegularExpressionValidator</display-name>
+    <icon>
+      <small-icon>images/regex_small.gif</small-icon>
+      <large-icon>images/regex_large.gif</large-icon>
+    </icon>
+    <validator-id>jia.RegularExpressionValidator</validator-id>
+    <validator-class>
+      org.jia.validators.RegularExpressionValidator
+    </validator-class>
+    <property>
+        <description>Regular expression.
+        </description>
+        <icon>
+          <small-icon>images/regex.gif</small-icon>
+        </icon>
+        <property-name>expression</property-name>
+        <property-class>java.lang.String</property-class>
+    </property>
+    <property>
+        <description>
+           Error message to be dispayed (optional).
+        </description>
+        <property-name>errorMessage</property-name>
+        <property-class>java.lang.String</property-class>
+    </property>
+</validator>
+
+<converter>
+  <description>
+    Converts a User object to and from a String.
+  </description>
+  <display-name>UserConverter</display-name>
+  <icon>
+    <small-icon>images/user_small.gif</small-icon>
+    <large-icon>images/user_large.gif</large-icon>
+  </icon>
+  <converter-id>jia.User</converter-id>
+  <converter-class>org.jia.converters.UserConverter
+  </converter-class>
+  <property>
+    <description>
+       The display style for the user's name.
+    </description>
+    <property-name>style</property-name>
+    <property-class>java.lang.String</property-class>
+  </property>
+  <property>
+    <description>Determines whether or not the user's role should be shown.
+    </description>
+    <property-name>showRole</property-name>
+    <property-class>java.lang.String</property-class>
+    <default-value>false</default-value>
+  </property>
+</converter>
+
+<render-kit>
+  <renderer>
+      <display-name>Rollover Button</display-name>
+      <component-family>javax.faces.Command</component-family>
+      <renderer-type>jia.RolloverButton</renderer-type>
+      <renderer-class>org.jia.components.RolloverButtonRenderer</renderer-class>
+  </renderer>
+  <renderer>
+      <display-name>Rollover Button (decorated)</display-name>
+      <component-family>javax.faces.Command</component-family>
+      <renderer-type>jia.RolloverButtonDecorator</renderer-type>
+      <renderer-class>org.jia.components.RolloverButtonDecoratorRender</renderer-class>
+  </renderer>
+  <renderer>
+    <description>
+       A Toolbar renderer.
+    </description>
+    <display-name>Toolbar</display-name>
+    <icon>
+      <small-icon>icons/toolbar_small.gif</small-icon>
+      <large-icon>icons/toolbar_large.gif</large-icon>
+    </icon>
+    <component-family>jia.Navigator</component-family>
+    <renderer-type>jia.Toolbar</renderer-type>
+    <renderer-class>org.jia.components.ToolbarRenderer</renderer-class>
+    <attribute>
+      <description>The CSS style for the header.</description>
+      <display-name>headerClass</display-name>
+      <icon>
+         <small-icon>icons/toolbar_css.gif</small-icon>
+      </icon>
+      <attribute-name>headerClass</attribute-name>
+      <attribute-class>String</attribute-class>
+    </attribute>
+    <attribute>
+      <description>The CSS style for each item.</description>
+      <display-name>itemClass</display-name>
+      <icon>
+         <small-icon>icons/toolbar_css.gif</small-icon>
+      </icon>
+      <attribute-name>itemClass</attribute-name>
+      <attribute-class>String</attribute-class>
+    </attribute>
+    <attribute>
+      <description>The CSS style for the selected item.</description>
+      <display-name>selectedItemClass</display-name>
+      <icon>
+         <small-icon>icons/toolbar_css.gif</small-icon>
+      </icon>
+      <attribute-name>selectedItemClass</attribute-name>
+      <attribute-class>String</attribute-class>
+    </attribute>
+    <attribute>
+      <description>The CSS style for the each item's icon.</description>
+      <display-name>iconClass</display-name>
+      <icon>
+         <small-icon>icons/toolbar_css.gif</small-icon>
+      </icon>
+      <attribute-name>iconClass</attribute-name>
+      <attribute-class>String</attribute-class>
+    </attribute>
+    <attribute>
+      <description>Direction – either HORIZONTAL or VERTICAL</description>
+      <display-name>layout</display-name>
+      <icon>
+         <small-icon>icons/toolbar_layout.gif</small-icon>
+      </icon>
+      <attribute-name>layout</attribute-name>
+      <attribute-class>String</attribute-class>
+      <default-value>VERTICAL</default-value>
+    </attribute>
+  </renderer>
+</render-kit>
+
+<managed-bean>
+    <description>FeedManager for use with UIHeadlineViewer</description>
+    <managed-bean-name>UIHeadlineViewerFeedManager</managed-bean-name>
+    <managed-bean-class>de.nava.informa.utils.FeedManager</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+</managed-bean>
+<managed-bean>
+    <description />
+    <managed-bean-name>testForm</managed-bean-name>
+    <managed-bean-class>org.jia.examples.TestForm</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+<navigation-rule>
+    <from-view-id>/UINavigator.jsp</from-view-id>
+    <navigation-case>
+        <from-outcome>next</from-outcome>
+        <to-view-id>/UINavigator_2.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+<navigation-rule>
+    <from-view-id>/UINavigator_2.jsp</from-view-id>
+    <navigation-case>
+        <from-outcome>previous</from-outcome>
+        <to-view-id>/UINavigator.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+  <from-view-id>test.jsp</from-view-id>
+  <navigation-case>
+   <from-action>#{testForm.placeOrder}</from-action>
+   <from-outcome>success</from-outcome>
+   <to-view-id>/UserConverter.jsp</to-view-id>
+  </navigation-case>
+</navigation-rule>
+
+</faces-config>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--  $pia-lab-ignore-file(hibernate-repository)$ -->
+
+<beans>
+
+<bean id="sessionFactory" 
+  	 class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<property name="hibernateProperties">
+		<props>
+			<prop key="hibernate.show_sql">true</prop>
+			<prop key="hibernate.hbm2ddl.auto">create</prop> 
+			<prop key="hibernate.cache.use_query_cache">false</prop> 
+			<prop key="hibernate.jdbc.batch_size">0</prop>  <!--  debugging -->
+            <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+<!--        <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop> -->
+		</props>
+	</property>
+
+	<property name="dataSource" ref="dataSource"/>
+	
+	<property name="mappingLocations">
+		<list>
+			<!--  eager relationships -->
+			<value>classpath:org/jia/ptrack/domain/hibernate/eager/Project.eager.hbm.xml</value>
+			<value>classpath:org/jia/ptrack/domain/hibernate/eager/Operation.eager.hbm.xml</value>
+			<value>classpath:org/jia/ptrack/domain/hibernate/eager/User.eager.hbm.xml</value>
+
+			<value>classpath:org/jia/ptrack/domain/hibernate/ProjectType.hbm.xml</value>
+			<value>classpath:org/jia/ptrack/domain/hibernate/StateMachine.hbm.xml</value>
+			<value>classpath:org/jia/ptrack/domain/hibernate/Status.hbm.xml</value>
+			<value>classpath:org/jia/ptrack/domain/hibernate/Department.hbm.xml</value>
+		</list>
+	</property>
+
+
+</bean>
+
+
+</beans>
