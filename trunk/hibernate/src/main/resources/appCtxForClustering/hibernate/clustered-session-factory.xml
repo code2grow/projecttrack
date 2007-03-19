@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!--  TODO We should have a common session-factory -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="configLocation"
+			value="classpath:/clustered-hibernate.cfg.xml" />
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.dialect">
+					${hibernate.dialect}
+				</prop>
+				<prop key="hibernate.cache.provider_class"> <!-- org.hibernate.cache.OSCacheProvider -->
+					com.tangosol.coherence.hibernate.CoherenceCacheProvider
+				</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+
+
+	</bean>
+
+</beans>

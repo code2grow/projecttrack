@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>createProject</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">createProject</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ptrack/acegilogin.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>j_username</td>
+	<td>proj_mgr</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>j_password</td>
+	<td>faces</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>(proj_mgr)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create New</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>javascript{'XXX project' + (new Date()).getTime()}</td>
+	<td>projectname</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_id10:nameInput</td>
+	<td>${projectname}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>_id10:typeSelectOne</td>
+	<td>label=External Desktop Application</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_id10:requirementsInput</td>
+	<td>Chris Richardson</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_id10:requirementsEmailInput</td>
+	<td>chris@chrisrichardson.net</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document.forms[1].elements['_id10:artifactSelect'][3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_id10:commentsInput</td>
+	<td>This is a great project.
+We should do it.
+</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>_id10:_id37</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Inbox - approve or reject projects</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//td[text() = '${projectname}']</td>
+	<td>${projectname}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//td[text() = '${projectname}']/following-sibling::td/a[text() = 'Details']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>${projectname}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>External Desktop Application</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[3]/td[2]/span</td>
+	<td>Sean Sullivan</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Chris Richardson</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>chris@chrisrichardson.net</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>This is a great project. We should do it.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTitle</td>
+	<td>ProjectTrack - Project details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>_id10:_id46</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Welcome to Project Track</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
