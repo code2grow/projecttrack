@@ -1,4 +1,4 @@
-REM Windows script for adding JTA jar
+REM Windows script for adding various jars
 
 call mvn install:install-file -DgeneratePom -DgroupId=javax.jsf -DartifactId=jsf-api -Dversion=jsf-1_1_01 -Dpackaging=jar -Dfile=lib\jsf-api.jar
 call mvn install:install-file -DgeneratePom -DgroupId=javax.jsf -DartifactId=jsf-impl -Dversion=jsf-1_1_01 -Dpackaging=jar -Dfile=lib\jsf-impl.jar
