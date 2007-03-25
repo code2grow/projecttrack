@@ -2,7 +2,7 @@ This is a maven 2 project (maven.apache.org)
 
 To build it type the following commands:
 
-addj2eejars.bat
+addj2eejars.bat - this installs jars from the lib directory into your local repository
 
 mvn install
 
