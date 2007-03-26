@@ -167,13 +167,6 @@
 									<context>ptrack</context>
 								</properties>
 							</deployable>
-							<!-- 
-								<deployable>
-								<groupId>com.glassbox</groupId>
-								<artifactId>glassbox</artifactId>
-								<type>war</type>
-								</deployable>
-							-->
 						</deployables>
 					</configuration>
 				</configuration>
