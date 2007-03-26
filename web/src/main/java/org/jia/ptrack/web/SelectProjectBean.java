@@ -175,4 +175,9 @@ public class SelectProjectBean  extends BaseBean
 
     return Constants.SUCCESS_OUTCOME;
   }
+  
+  // FIXME - Kito what should this do?
+  public String getSort() {
+	  return null;
+  }
 }
