@@ -55,18 +55,14 @@
 			<artifactId>hsqldb</artifactId>
 			<version>1.7.2.2</version>
 		</dependency>
-		<dependency>
-			<groupId>postgres</groupId>
-			<artifactId>postgres</artifactId>
-			<version>8.1-407.jdbc3</version>
-		</dependency>
 
 		<dependency>
-			<groupId>cargo</groupId>
-			<artifactId>cargo</artifactId>
-			<version>0.8</version>
-			<scope>test</scope>
+		    <groupId>org.codehaus.cargo</groupId>
+		    <artifactId>cargo-core-uberjar</artifactId>
+		    <version>0.8</version>
+		    <scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>ant</groupId>
 			<artifactId>ant</artifactId>
@@ -98,26 +94,19 @@
 
 
 		<dependency>
-			<groupId>selenium</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<version>0.8</version>
-			<scope>test</scope>
+	        <groupId>org.openqa.selenium.client-drivers</groupId>
+	        <artifactId>selenium-java-client-driver</artifactId>
+	        <version>0.9.1-SNAPSHOT</version>
+	        <scope>test</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>selenium</groupId>
+			<groupId>org.openqa.selenium.server</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>0.8</version>
-			<scope>test</scope>
+			<version>0.9.0</version>
+	        <scope>test</scope>
 		</dependency>
 
-		<!-- Selenium does not like this version 
-			<dependency>
-			<groupId>jetty</groupId>
-			<artifactId>org.mortbay.jetty</artifactId>
-			<version>5.1.4</version>
-			</dependency>
-		-->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>

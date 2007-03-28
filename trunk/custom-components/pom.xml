@@ -27,12 +27,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>informa</groupId>
-			<artifactId>informa</artifactId>
-			<version>0.4.5</version>
-		</dependency>
-
-		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>1.0</version>
