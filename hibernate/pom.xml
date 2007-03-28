@@ -37,11 +37,7 @@
 			<version>1.7.2.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>postgres</groupId>
-			<artifactId>postgres</artifactId>
-			<version>8.1-407.jdbc3</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
