@@ -2,10 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<!--  $pia-lab-ignore-file(hibernate-orm)$ -->
+<!--  $pia-lab-begin(hibernate-orm)$ -->
 
 <hibernate-mapping package="org.jia.ptrack.domain"
 	default-access="field">
+
 
 	<class name="Project" dynamic-update="true">
 		
@@ -56,3 +57,5 @@
 	</query>
 
 </hibernate-mapping>
+
+<!--  $pia-lab-end(hibernate-orm)$ -->
