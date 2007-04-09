@@ -2,11 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<!--  $pia-lab-begin(hibernate-orm)$ -->
 
 <hibernate-mapping package="org.jia.ptrack.domain"
 	default-access="field">
 
+<!--  $pia-lab-begin(hibernate-orm)$ -->
 
 	<class name="Project" dynamic-update="true">
 		
@@ -56,6 +56,7 @@
              left join fetch p.artifacts where status.role = :role
 	</query>
 
+<!--  $pia-lab-end(hibernate-orm)$ -->
+
 </hibernate-mapping>
 
-<!--  $pia-lab-end(hibernate-orm)$ -->
