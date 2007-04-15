@@ -11,13 +11,13 @@
 	<name>PTrack Project</name>
 
 	<modules>
-		<module>util</module>
 		<module>domain</module>
 		<module>hibernate</module>
-		<module>web</module>
 		<module>custom-components</module>
-		<module>webapp</module>
 		<module>services</module>
+		<module>webapp</module>
+		<module>web-util</module>
+		<module>web</module>
 		<module>functionalTests</module>
 		<module>helloWorld</module>
 	</modules>
