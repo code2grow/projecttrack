@@ -18,11 +18,12 @@
 package org.jia.ptrack.web;
 
 import java.util.List;
+
 import javax.faces.component.UIData;
 import javax.faces.event.ActionEvent;
 
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class ShowHistoryBean extends BaseBean
 {
@@ -60,9 +61,9 @@ public class ShowHistoryBean extends BaseBean
 	  // objects that are on later pages.
     try {
 		return getProjectCoordinator().get(getVisit().getCurrentProject().getId()).getHistory();
-	} catch (ObjectNotFoundException e) {
+	} catch (ObjectRetrievalFailureException e) {
 		throw new UnsupportedOperationException();
-	} catch (DataStoreException e) {
+	} catch (DataAccessException e) {
 		throw new UnsupportedOperationException();
 	}
   }

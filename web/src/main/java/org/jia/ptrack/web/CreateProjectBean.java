@@ -24,8 +24,8 @@ import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
-import org.jia.ptrack.domain.DataStoreException;
 import org.jia.ptrack.domain.Project;
+import org.springframework.dao.DataAccessException;
 
 public class CreateProjectBean extends BaseBean
 {
@@ -124,7 +124,7 @@ public class CreateProjectBean extends BaseBean
 
     Project project = getVisit().getCurrentProject();
     try { getProjectCoordinator().add(project); }
-    catch (DataStoreException e)
+    catch (DataAccessException e)
     {
       Utils.reportError(facesContext, "A database error has occrred",
                        "Error adding project", e);
