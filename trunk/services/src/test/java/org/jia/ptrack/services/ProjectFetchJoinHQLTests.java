@@ -3,8 +3,6 @@ package org.jia.ptrack.services;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 import org.jia.ptrack.domain.RoleType;
@@ -13,7 +11,7 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class ProjectFetchJoinHQLTests extends AbstractDependencyInjectionSpringContextTests {
 
-	private IProjectCoordinator coordinator;
+	private ProjectCoordinator coordinator;
 
 	protected String[] getConfigLocations() {
 		return new String[] { "classpath*:appCtx/**/*.xml",
@@ -23,7 +21,7 @@ public class ProjectFetchJoinHQLTests extends AbstractDependencyInjectionSpringC
 				"classpath:appCtx/security/testing-acegi-security.xml"  };
 	}
 
-	public void setProjectCoordinator(IProjectCoordinator coordinator) {
+	public void setProjectCoordinator(ProjectCoordinator coordinator) {
 		this.coordinator = coordinator;
 	}
 
@@ -38,8 +36,7 @@ public class ProjectFetchJoinHQLTests extends AbstractDependencyInjectionSpringC
 		SecurityTestUtil.setUser("proj_mgr", "faces", new RoleType[] {});
 	}
 
-	public void testGetAllProjects() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetAllProjects()  {
 		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
 		List projects = coordinator.getAllProjects(ProjectColumnType.NAME);
 		for (Iterator it = projects.iterator(); it.hasNext();) {

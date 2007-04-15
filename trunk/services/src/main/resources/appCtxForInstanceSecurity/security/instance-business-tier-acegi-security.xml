@@ -13,12 +13,12 @@
         <property name="afterInvocationManager"  ref="afterInvocationManager" />
 		<property name="objectDefinitionSource">
 			<value>
-				org.jia.ptrack.services.IProjectCoordinator.getProjectsWaitingForApproval=ROLE_PROJECT_APPROVER, AFTER_ACL_COLLECTION_READ
-				org.jia.ptrack.services.IProjectCoordinator.getAllProjects=IS_AUTHENTICATED_REMEMBERED, AFTER_ACL_COLLECTION_READ
-				org.jia.ptrack.services.IProjectCoordinator.get=IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_READ
-				org.jia.ptrack.services.IProjectCoordinator.changeStatus=ACL_CHANGE_STATUS
-				org.jia.ptrack.services.IProjectCoordinator.add=ROLE_PROJECT_CREATOR
-				org.jia.ptrack.services.IProjectCoordinator.*=IS_AUTHENTICATED_REMEMBERED
+				org.jia.ptrack.services.ProjectCoordinator.getProjectsWaitingForApproval=ROLE_PROJECT_APPROVER, AFTER_ACL_COLLECTION_READ
+				org.jia.ptrack.services.ProjectCoordinator.getAllProjects=IS_AUTHENTICATED_REMEMBERED, AFTER_ACL_COLLECTION_READ
+				org.jia.ptrack.services.ProjectCoordinator.get=IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_READ
+				org.jia.ptrack.services.ProjectCoordinator.changeStatus=ACL_CHANGE_STATUS
+				org.jia.ptrack.services.ProjectCoordinator.add=ROLE_PROJECT_CREATOR
+				org.jia.ptrack.services.ProjectCoordinator.*=IS_AUTHENTICATED_REMEMBERED
 			</value>	
 		</property>
 	</bean>

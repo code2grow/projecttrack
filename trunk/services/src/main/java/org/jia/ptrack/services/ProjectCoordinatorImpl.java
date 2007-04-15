@@ -2,8 +2,6 @@ package org.jia.ptrack.services;
 
 import java.util.List;
 
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 import org.jia.ptrack.domain.ProjectRepository;
@@ -13,7 +11,7 @@ import org.jia.ptrack.domain.StateMachineRepository;
 import org.jia.ptrack.domain.User;
 import org.jia.ptrack.domain.UserRepository;
 
-public class ProjectCoordinatorImpl implements IProjectCoordinator {
+public class ProjectCoordinatorImpl implements ProjectCoordinator {
 
 	ProjectRepository projectRepository;
 	StateMachineRepository stateMachineRepository;
@@ -31,7 +29,7 @@ public class ProjectCoordinatorImpl implements IProjectCoordinator {
 		this.securityInfo = securityInfo;
 	}
 
-	public Project add(Project project) throws DataStoreException {
+	public Project add(Project project){
 		StateMachine sm = stateMachineRepository.findTheStateMachine();
 	    project.setInitialStatus(sm.getInitialStatus());
 	    project.setInitiatedBy(getUser());
@@ -39,18 +37,15 @@ public class ProjectCoordinatorImpl implements IProjectCoordinator {
 		return project;
 	}
 
-	public Project get(String id) throws ObjectNotFoundException,
-			DataStoreException {
+	public Project get(int id) {
 		return projectRepository.get(id);
 	}
 
-	public List getAllProjects(ProjectColumnType sortColumn)
-			throws ObjectNotFoundException, DataStoreException {
+	public List getAllProjects(ProjectColumnType sortColumn) {
 		return projectRepository.getAllProjects(sortColumn);
 	}
 
-	public List getProjectsWaitingForApproval(ProjectColumnType sortColumn)
-			throws ObjectNotFoundException, DataStoreException {
+	public List getProjectsWaitingForApproval(ProjectColumnType sortColumn) {
 		RoleType role = getRoleForLoggedInUser();
 		return projectRepository.getProjectsWaitingApprovalByRole(role, sortColumn);
 	}
@@ -66,7 +61,7 @@ public class ProjectCoordinatorImpl implements IProjectCoordinator {
 		return user;
 	}
 
-	public boolean changeStatus(Project project, boolean approve, String comments) throws ObjectNotFoundException, DataStoreException {
+	public boolean changeStatus(Project project, boolean approve, String comments) {
 		project = projectRepository.update(project);
 		User user = getUser();
 		return project.changeStatus(approve, user, comments);

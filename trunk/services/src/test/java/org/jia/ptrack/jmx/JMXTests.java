@@ -8,7 +8,7 @@ import javax.management.ObjectName;
 
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.UserFactory;
-import org.jia.ptrack.services.IProjectCoordinator;
+import org.jia.ptrack.services.ProjectCoordinator;
 import org.jia.ptrack.services.SecurityTestUtil;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
@@ -27,7 +27,7 @@ public class JMXTests extends AbstractDependencyInjectionSpringContextTests {
 		MBeanServer server = servers.get(0);
 		ObjectName mbeanName = new ObjectName("bean:name=ptrack1");
 		assertEquals(0L, server.getAttribute(mbeanName, "add"));
-		IProjectCoordinator projectCoordinator = (IProjectCoordinator) applicationContext.getBean("projectCoordinator", IProjectCoordinator.class);
+		ProjectCoordinator projectCoordinator = (ProjectCoordinator) applicationContext.getBean("projectCoordinator", ProjectCoordinator.class);
 		projectCoordinator.add(new Project());
 		assertEquals(1L, server.getAttribute(mbeanName, "add"));
 	}

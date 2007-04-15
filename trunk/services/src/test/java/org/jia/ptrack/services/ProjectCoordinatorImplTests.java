@@ -10,7 +10,7 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 public class ProjectCoordinatorImplTests extends
 		AbstractDependencyInjectionSpringContextTests {
 
-	private IProjectCoordinator coordinator;
+	private ProjectCoordinator coordinator;
 
 	private HibernateInitializer initializer;
 
@@ -23,7 +23,7 @@ public class ProjectCoordinatorImplTests extends
 				"classpath:appCtx/security/testing-acegi-security.xml" };
 	}
 
-	public void setProjectCoordinator(IProjectCoordinator coordinator) {
+	public void setProjectCoordinator(ProjectCoordinator coordinator) {
 		this.coordinator = coordinator;
 	}
 
