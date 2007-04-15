@@ -2,7 +2,6 @@ package org.jia.ptrack.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -21,12 +20,16 @@ public class Project
   private String name;
   private User initiatedBy;
   private String description;
-  private java.util.List operationHistory;
+  private java.util.List<Operation> operationHistory;
   private List artifacts;
   private ProjectType type;
   private int id;
   
   // private int version;
+  
+	public int getId() {
+		return id;
+	}
   
   private Status status;
 
@@ -88,7 +91,7 @@ public class Project
     return description;
   }
 
-  public List getHistory()
+  public List<Operation> getHistory()
   {
     return operationHistory;
   }
@@ -123,13 +126,13 @@ public class Project
     return status;
   }
 
-  public synchronized boolean changeStatus(boolean approve, User user,
+  public boolean changeStatus(boolean approve, User user,
                                            String comments)
   {
     return changeStatus(new Date(), approve, user, comments);
   }
 
-  public synchronized boolean changeStatus(Date date, boolean approve,
+  public boolean changeStatus(Date date, boolean approve,
                                            User user,
                                            String comments)
   {
@@ -139,14 +142,11 @@ public class Project
                                      "set before the status can be changed.");
     }
 
-    if (!status.isValidStateChange(approve))
+	if (status.isValidStateChange(approve, user.getRole()))
     {
       return false;
     }
 
-    if (!user.getRole().equals(status.getRole()))
-    	return false;
-    	
     Status fromStatus = status;
     Status toStatus = null;
 
@@ -173,18 +173,6 @@ public class Project
       this.status = initialStatus;
     }
   }
-
-//  public void setIdMap(java.util.Map idMap)
-//  {
-//    this.idMap = idMap;
-//  }
-//
-//  public java.util.Map getIdMap()
-//  {
-//    Map idMap = new HashMap();
-//    idMap.put(name, id);
-//    return idMap;
-//  }
 
   public void setInitialComments(String initialComments)
   {
@@ -214,11 +202,9 @@ public class Project
     this.requirementsContact.setEmail(requirementsContactEmail);
   }
 
-public String getId() {
-	return Integer.toString(id);
-}
-
-public boolean isValidStateChange(boolean approve) {
-	return getStatus().isValidStateChange(approve);
-}
+  
+	
+	public boolean isValidStateChange(boolean approve) {
+		return getStatus().isValidStateChange(approve);
+	}
 }

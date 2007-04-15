@@ -4,17 +4,17 @@
 package org.jia.ptrack.domain;
 
 public class Status  {
-	int id;
+	private int id;
 
-	String name;
+	private String name;
 
-	Status rejectionStatus;
+	private Status rejectionStatus;
 
-	Status approvalStatus;
+	private Status approvalStatus;
 
-	boolean initialState;
+	private boolean initialState;
 
-	boolean finalState;
+	private boolean finalState;
 
 	RoleType role;
 
@@ -30,6 +30,10 @@ public class Status  {
 	}
 
 
+	public int getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -38,30 +42,41 @@ public class Status  {
 		return role;
 	}
 
+	void setApprovalStatus(Status approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
+
 	public Status getApprovalStatus() {
 		return approvalStatus;
 	}
 
-	public Status getRejectionStatus() {
-		return rejectionStatus;
-	}
-
-	public boolean isFinalState() {
-		return finalState;
+	void setInitialState(boolean initialState) {
+		this.initialState = initialState;
 	}
 
 	public boolean isInitialState() {
 		return initialState;
 	}
 
+	public void setFinalState(boolean finalState) {
+		this.finalState = finalState;
+	}
+
+	public boolean isFinalState() {
+		return finalState;
+	}
+
+	public void setRejectionStatus(Status rejectionStatus) {
+		this.rejectionStatus = rejectionStatus;
+	}
+
+	public Status getRejectionStatus() {
+		return rejectionStatus;
+	}
+
 	public String toString() {
 		return name;
 	}
-
-// Don't think we need this
-//	public boolean equals(Object other) {
-//		return ((Status) other).getId().equals(id);
-//	}
 
 	public boolean isValidStateChange(boolean approve) {
 		if (approve) {
@@ -72,8 +87,9 @@ public class Status  {
 	}
 
 
-	public String getId() {
-		return Integer.toString(id); // FIXME
+	boolean isValidStateChange(boolean approve, RoleType userRole) {
+		return !isValidStateChange(approve) || !role.equals(userRole);
 	}
 
+	
 }

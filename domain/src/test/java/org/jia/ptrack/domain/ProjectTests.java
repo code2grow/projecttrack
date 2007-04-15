@@ -1,5 +1,7 @@
 package org.jia.ptrack.domain;
 
+import java.util.Arrays;
+
 import junit.framework.TestCase;
 
 public class ProjectTests extends TestCase {
@@ -10,13 +12,10 @@ public class ProjectTests extends TestCase {
 	private User businessAnalyst;
 
 	protected void setUp() throws Exception {
-		Department department = new Department("IT");
-		projectManager = UserFactory.makeProjectManager(department);
-		businessAnalyst = UserFactory.makeBusinessAnalyst(department);
-		StateMachine stateMachine = new DefaultStateMachineFactory().makeStateMachine("test");
-		Status initialStatus = stateMachine.getInitialStatus();
-		p = new Project(initialStatus);
-		p.setInitiatedBy(projectManager);
+		PTrackWorld world = new PTrackWorld();
+		projectManager = world.getProjectManager();
+		businessAnalyst = world.getBusinessAnalyst();
+		p = world.getProject();
 	}
 
 	public void testProjectApproval() {
@@ -33,10 +32,55 @@ public class ProjectTests extends TestCase {
 		assertEquals(((Operation)p.getHistory().get(2)).getComments(), "Fantastic");
 	}
 
+	public void testProjectRejection() {
+		assertTrue(p.changeStatus(true, projectManager, "Excellent"));
+		assertTrue(p.changeStatus(false, projectManager, "Aweful"));
+		assertEquals(2, p.getHistory().size());
+		
+		assertEquals(((Operation)p.getHistory().get(0)).getComments(), "Excellent");
+		assertEquals(((Operation)p.getHistory().get(1)).getComments(), "Aweful");
+
+		assertFalse(p.changeStatus(false, projectManager, "Very bad"));
+		assertEquals(2, p.getHistory().size());
+}
+
+	public void testProjectDisallowedRejection() {
+		assertTrue(p.isValidStateChange(true));
+		assertFalse(p.isValidStateChange(false));
+		assertFalse(p.changeStatus(false, projectManager, "Aweful"));
+		assertTrue(p.getHistory().isEmpty());
+	}
+
 	public void testProjectApproval_invalidRole() {
 		assertEquals(0, p.getHistory().size());
 		assertFalse(p.changeStatus(true, businessAnalyst, "Excellent"));
 		assertEquals(0, p.getHistory().size());
+	}
+	
+	public void testArtifacts() {
+		assertEquals(0, p.getArtifacts().length);
+		ArtifactType[] artifacts = new ArtifactType[]{ArtifactType.ARCHITECTURE, ArtifactType.DEPLOYMENT};
+		p.setArtifacts(artifacts);
+		assertEquals(2, p.getArtifacts().length);
+		assertTrue(Arrays.equals(artifacts, p.getArtifacts()));
+	}
+	
+	public void testRequiredContactEmail() {
+		String email1 = "foo@bar.com";
+		String email2 = "baz@bar.com";
+		p.setRequirementsContactEmail(email1);
+		assertEquals(email1, p.getRequirementsContactEmail());
+		p.setRequirementsContactEmail(email2);
+		assertEquals(email2, p.getRequirementsContactEmail());
+	}
+
+	public void testRequiredContactName() {
+		String name1 = "Foo Bar";
+		String name2 = "Baz Not";
+		p.setRequirementsContactName(name1);
+		assertEquals(name1, p.getRequirementsContactName());
+		p.setRequirementsContactName(name2);
+		assertEquals(name2, p.getRequirementsContactName());
 	}
 
 }
