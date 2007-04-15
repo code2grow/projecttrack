@@ -14,10 +14,10 @@
 		<property name="accessDecisionManager" ref="accessDecisionManager" />
 		<property name="objectDefinitionSource">
 			<value>
-				org.jia.ptrack.services.IProjectCoordinator.getProjectsWaitingForApproval=ROLE_PROJECT_APPROVER
-				org.jia.ptrack.services.IProjectCoordinator.add=ROLE_PROJECT_CREATOR
-				org.jia.ptrack.services.IProjectCoordinator.changeStatus=ROLE_PROJECT_APPROVER
-				org.jia.ptrack.services.IProjectCoordinator.*=ROLE_PROJECT_VIEWER
+				org.jia.ptrack.services.ProjectCoordinator.getProjectsWaitingForApproval=ROLE_PROJECT_APPROVER
+				org.jia.ptrack.services.ProjectCoordinator.add=ROLE_PROJECT_CREATOR
+				org.jia.ptrack.services.ProjectCoordinator.changeStatus=ROLE_PROJECT_APPROVER
+				org.jia.ptrack.services.ProjectCoordinator.*=ROLE_PROJECT_VIEWER
 			</value>	
 		</property>
 	</bean>
@@ -25,7 +25,7 @@
 	<aop:config>
 
 		<aop:pointcut id="coordinatorMethod"
-			expression="execution(public * org.jia.ptrack.services.IProjectCoordinator.*(..))" />
+			expression="execution(public * org.jia.ptrack.services.ProjectCoordinator.*(..))" />
 
 		<aop:advisor pointcut-ref="coordinatorMethod" order="-1" advice-ref="projectCoordinatorSecurityManager" />
 

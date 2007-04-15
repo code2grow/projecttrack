@@ -28,7 +28,7 @@
 
 	<bean id="testBean" class="org.jia.ptrack.jmx.ExampleMBeanImpl">
 		<property name="interfaceType"
-			value="org.jia.ptrack.services.IProjectCoordinator" />
+			value="org.jia.ptrack.services.ProjectCoordinator" />
 		<property name="methodCounter" ref="methodCountingAspect" />
 	</bean>
 
@@ -36,7 +36,7 @@
 
 		<aop:aspect id="txnRetryAspect" ref="methodCountingAspect">
 			<aop:around method="recordMethodInvocation"
-				pointcut="execution(public * org.jia.ptrack.services.IProjectCoordinator.*(..))" />
+				pointcut="execution(public * org.jia.ptrack.services.ProjectCoordinator.*(..))" />
 		</aop:aspect>
 
 	</aop:config>

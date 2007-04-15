@@ -1,8 +1,6 @@
 package org.jia.ptrack.services;
 
 import org.acegisecurity.AccessDeniedException;
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 import org.jia.ptrack.domain.ProjectFactory;
@@ -16,7 +14,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
 	private HibernateInitializer initializer;
 
-	private IProjectCoordinator coordinator;
+	private ProjectCoordinator coordinator;
 
 	private StateMachineRepository stateMachineRepository;
 
@@ -30,7 +28,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 				"classpath:appCtxForInstanceSecurity/security/instance-business-tier-acegi-security.xml" };
 	}
 
-	public void setProjectCoordinator(IProjectCoordinator coordinator) {
+	public void setProjectCoordinator(ProjectCoordinator coordinator) {
 		this.coordinator = coordinator;
 	}
 
@@ -56,15 +54,13 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		assertNotNull(project.getInitiatedBy().getDepartment());
 	}
 
-	public void testGetAccessSameDepartments() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetAccessSameDepartments(){
 
 		System.out.println("Getting project 1");
 		assertNotNull(coordinator.get(project.getId()));
 	}
 
-	public void testGetAccessUpperManager() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetAccessUpperManager(){
 
 		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
 
@@ -72,8 +68,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		assertNotNull(coordinator.get(project.getId()));
 	}
 
-	public void testGetAccessAcrossDepartments()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testGetAccessAcrossDepartments() {
 
 		System.out.println("Getting project 1");
 		assertNotNull(coordinator.get(project.getId()));
@@ -95,8 +90,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		}
 	}
 
-	public void testChangeStatusSameDepartments()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testChangeStatusSameDepartments() {
 
 		SecurityTestUtil.setUser(initializer
 				.getMarketingDepartmentProjectManager());
@@ -104,8 +98,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
 	}
 
-	public void testChangeStatusAcrossDepartments()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testChangeStatusAcrossDepartments() {
 
 		try {
 			SecurityTestUtil.setUser(initializer
@@ -117,29 +110,29 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		}
 	}
 
-	public void testGetAllProjectsInIT() throws ObjectNotFoundException, DataStoreException {
+	public void testGetAllProjectsInIT() {
 		SecurityTestUtil.setUser(initializer.getItDepartmentProjectManager());
 		System.out.println("calling method");
 		assertEquals(3, coordinator.getAllProjects(ProjectColumnType.NAME).size());
 		System.out.println("done calling method");
 	}
 
-	public void testGetAllProjectsInMarketing() throws ObjectNotFoundException, DataStoreException {
+	public void testGetAllProjectsInMarketing() {
 		SecurityTestUtil.setUser(initializer.getMarketingDepartmentProjectManager());
 		assertEquals(1, coordinator.getAllProjects(ProjectColumnType.NAME).size());
 	}
 
-	public void testGetAllProjectsForUpper() throws ObjectNotFoundException, DataStoreException {
+	public void testGetAllProjectsForUpper() {
 		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
 		assertEquals(4, coordinator.getAllProjects(ProjectColumnType.NAME).size());
 	}
 	
-	public void testGetProjectsWaitingApprovalInIT() throws ObjectNotFoundException, DataStoreException {
+	public void testGetProjectsWaitingApprovalInIT() {
 		SecurityTestUtil.setUser(initializer.getItDepartmentProjectManager());
 		assertEquals(2, coordinator.getProjectsWaitingForApproval(ProjectColumnType.NAME).size());
 	}
 	
-	public void testGetProjectsWaitingApprovalInMarketing() throws ObjectNotFoundException, DataStoreException {
+	public void testGetProjectsWaitingApprovalInMarketing() {
 		SecurityTestUtil.setUser(initializer.getMarketingDepartmentProjectManager());
 		assertEquals(1, coordinator.getProjectsWaitingForApproval(ProjectColumnType.NAME).size());
 	}

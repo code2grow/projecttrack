@@ -3,8 +3,6 @@ package org.jia.ptrack.services;
 import java.util.List;
 
 import org.acegisecurity.AccessDeniedException;
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectFactory;
 import org.jia.ptrack.domain.StateMachineRepository;
@@ -13,7 +11,7 @@ import org.jia.ptrack.domain.UserFactory;
 
 public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
-	private IProjectCoordinator coordinator;
+	private ProjectCoordinator coordinator;
 
 	private StateMachineRepository stateMachineRepository;
 
@@ -23,7 +21,7 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 				"classpath:appCtx/security/testing-acegi-security.xml" };
 	}
 
-	public void setProjectCoordinator(IProjectCoordinator coordinator) {
+	public void setProjectCoordinator(ProjectCoordinator coordinator) {
 		this.coordinator = coordinator;
 	}
 
@@ -33,14 +31,14 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 	}
 
 	public void testGetProjectsWaitingForProjectManager()
-			throws ObjectNotFoundException, DataStoreException {
+			{
 		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
 		List projects = coordinator.getProjectsWaitingForApproval(null);
 		assertNotNull(projects);
 	}
 
 	public void testGetProjectsWaitingForUpperManagement()
-			throws ObjectNotFoundException, DataStoreException {
+			{
 		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
 		try {
 			coordinator.getProjectsWaitingForApproval(null);
@@ -49,16 +47,14 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		}
 	}
 
-	public void testAddByProjectManager() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testAddByProjectManager()  {
 		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
 		Status initialStatus = stateMachineRepository.findTheStateMachine()
 				.getInitialStatus();
 		coordinator.add(ProjectFactory.makeProject3(initialStatus, null));
 	}
 
-	public void testAddByBusinessAnalyst() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testAddByBusinessAnalyst() {
 		SecurityTestUtil.setUser(UserFactory.makeBusinessAnalyst(null));
 		try {
 			Status initialStatus = stateMachineRepository.findTheStateMachine()
@@ -70,7 +66,7 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 	}
 
 	public void testChangeStatusProjectManager()
-			throws ObjectNotFoundException, DataStoreException {
+			{
 		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
 		List projects = coordinator.getAllProjects(null);
 		Project project = (Project) projects.get(0);
@@ -78,7 +74,7 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 	}
 
 	public void testChangeStatusUpperManager()
-	throws ObjectNotFoundException, DataStoreException {
+	{
 		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
 		List projects = coordinator.getAllProjects(null);
 		Project project = (Project) projects.get(0);

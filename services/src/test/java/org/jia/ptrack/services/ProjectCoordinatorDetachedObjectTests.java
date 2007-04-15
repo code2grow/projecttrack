@@ -3,12 +3,9 @@ package org.jia.ptrack.services;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Operation;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.domain.RoleType;
 import org.jia.ptrack.domain.UserFactory;
 import org.jia.ptrack.domain.hibernate.HibernateInitializer;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
@@ -16,7 +13,7 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 public class ProjectCoordinatorDetachedObjectTests extends
 		AbstractDependencyInjectionSpringContextTests {
 
-	private IProjectCoordinator coordinator;
+	private ProjectCoordinator coordinator;
 
 	private HibernateInitializer initializer;
 
@@ -30,7 +27,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 				};
 	}
 
-	public void setProjectCoordinator(IProjectCoordinator coordinator) {
+	public void setProjectCoordinator(ProjectCoordinator coordinator) {
 		this.coordinator = coordinator;
 	}
 
@@ -49,8 +46,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 		SecurityTestUtil.setUser(initializer.getItDepartmentProjectManager());
 	}
 
-	public void testGetProject() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetProject() {
 		Project project = coordinator.get(initializer.getProject1().getId());
 		assertFalse(project.getHistory().isEmpty());
 		assertHistory(project.getHistory());
@@ -86,8 +82,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 
 	}
 
-	public void testGetProjectsWaitingForApproval()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testGetProjectsWaitingForApproval() {
 		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
 		List projects = coordinator
 				.getProjectsWaitingForApproval(ProjectColumnType.NAME);
@@ -99,18 +94,5 @@ public class ProjectCoordinatorDetachedObjectTests extends
 		assertEquals(2, projects.size());
 	}
 
-// This is tested by ProjectFetchJoinHQLTests
-//	public void testGetAllProjects()
-//			throws ObjectNotFoundException, DataStoreException {
-//		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
-//		List projects = coordinator
-//				.getAllProjects(ProjectColumnType.NAME);
-//		for (Iterator it = projects.iterator(); it.hasNext();) {
-//			Project project = (Project) it.next();
-//			assertNotNull(project.getStatus().toString());
-//			assertNotNull(project.getStatus().getRole());
-//		}
-//		assertEquals(3, projects.size());
-//	}
 
 }
