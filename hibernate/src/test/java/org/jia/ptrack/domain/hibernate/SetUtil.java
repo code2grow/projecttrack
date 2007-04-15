@@ -1,4 +1,4 @@
-package org.ptrack.domain.hibernate;
+package org.jia.ptrack.domain.hibernate;
 
 import java.util.Collections;
 import java.util.HashSet;

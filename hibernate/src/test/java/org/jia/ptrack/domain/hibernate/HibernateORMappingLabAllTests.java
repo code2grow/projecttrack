@@ -1,4 +1,4 @@
-package org.ptrack.domain.hibernate;
+package org.jia.ptrack.domain.hibernate;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

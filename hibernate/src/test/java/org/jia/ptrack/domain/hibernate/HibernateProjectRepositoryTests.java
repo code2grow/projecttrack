@@ -14,7 +14,6 @@ import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
 import org.jia.ptrack.domain.UserFactory;
-import org.ptrack.domain.hibernate.HibernatePTrackTestConstants;
 import org.springframework.dao.support.DataAccessUtils;
 
 public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {

@@ -1,4 +1,4 @@
-package org.ptrack.domain.hibernate;
+package org.jia.ptrack.domain.hibernate;
 
 public class HibernatePTrackTestConstants {
 
