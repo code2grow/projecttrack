@@ -21,7 +21,7 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 		getHibernateTemplate().save(project);
 	}
 
-	public Project get(String id)  {
+	public Project get(int id)  {
 		// pia-lab-method-stub(hibernate-repository)
 		Project project = (Project) getHibernateTemplate().get(Project.class,
 								new Integer(id));

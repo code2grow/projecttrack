@@ -5,8 +5,6 @@ import java.util.List;
 import net.chrisrichardson.ormunit.hibernate.HibernatePersistenceTests;
 import net.chrisrichardson.util.TxnCallback;
 
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 import org.jia.ptrack.domain.ProjectFactory;
@@ -40,7 +38,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		initialStatus = sm.getInitialStatus();
 	}
 
-	public void testAddProject() throws DataStoreException {
+	public void testAddProject()  {
 		Project project = ProjectFactory.makeProject3(initialStatus, null);
 		projectRepository.add(project);
 
@@ -49,8 +47,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 
 	}
 
-	public void testGetProject() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetProject()  {
 		final Project project = ProjectFactory.makeProject3(initialStatus, null);
 		getHibernateTemplate().save(project);
 
@@ -59,24 +56,20 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		assertEquals(project.getId(), p2.getId());
 	}
 
-	public void testGetAllProjectsSortedByByName() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetAllProjectsSortedByByName()  {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.NAME));
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.NAME));
 	}
 
-	public void testGetAllProjectsSortedByByRole() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetAllProjectsSortedByByRole() {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.ROLE));
 	}
 
-	public void testGetAllProjectsSortedByByStatus()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testGetAllProjectsSortedByByStatus() {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.STATUS));
 	}
 
-	public void testGetAllProjectsSortedByByType() throws ObjectNotFoundException,
-			DataStoreException {
+	public void testGetAllProjectsSortedByByType() {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.TYPE));
 	}
 
@@ -84,14 +77,12 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		assertFalse(projects.isEmpty());
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByName()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByName() {
 		assertNotEmpty(projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 				ProjectColumnType.NAME));
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByRole()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByRole() {
 		final List<Project> projects = projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 								ProjectColumnType.ROLE);
 		assertNotEmpty(projects);
@@ -112,19 +103,17 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByStatus()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByStatus() {
 		assertNotEmpty(projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 				ProjectColumnType.STATUS));
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByType()
-			throws ObjectNotFoundException, DataStoreException {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByType() {
 		assertNotEmpty(projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 				ProjectColumnType.TYPE));
 	}
 	
-	public void testUpdate() throws DataStoreException {
+	public void testUpdate()  {
 		Project project = ProjectFactory.makeProject3(initialStatus, null);
 		projectRepository.add(project);
 		
