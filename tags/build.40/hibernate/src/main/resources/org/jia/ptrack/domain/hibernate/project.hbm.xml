@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping package="org.jia.ptrack.domain"
+	default-access="field">
+
+<!--  $pia-lab-begin(hibernate-orm)$ -->
+
+	<class name="Project" dynamic-update="true">
+		
+		<id name="id" type="int">
+			<generator class="native" />
+		</id>
+
+		<!--
+		<version name="version"/> 
+		 -->
+		
+		<property name="name" />
+        <property name="description" />
+		<property name="initialComments" column="initial_comments"/>
+
+        <component name="requirementsContact">
+			<property name="name" column="REQUIREMENTS_CONTACT_NAME" />
+			<property name="email" column="REQUIREMENTS_CONTACT_EMAIL" />
+		</component>
+ 		
+
+		<list name="operationHistory" cascade="all-delete-orphan">
+			<key column="PROJECT_ID" not-null="true"/>
+			<index column="OPERATION_INDEX" />
+			<one-to-many class="Operation" />
+		</list>
+
+		<many-to-one name="status" column="status_id"/>
+		<many-to-one name="initiatedBy" column="initiated_by"/>
+
+		<property name="type"
+			type="org.jia.ptrack.domain.hibernate.ProjectTypeUserType" />
+
+		<list name="artifacts" cascade="all"
+			table="PROJECT_ARTIFACTS">
+			<key column="PROJECT_ID" />
+			<index column="ARTIFACT_INDEX" />
+			<element
+				type="org.jia.ptrack.domain.hibernate.ArtifactTypeUserType" />
+		</list>
+	</class>
+
+	<query name="Project.getProjectsByRole">  <!-- cacheable="true" -->
+		from Project p 
+		     left join fetch p.operationHistory 
+             left join fetch p.status status 
+             left join fetch p.artifacts where status.role = :role
+	</query>
+
+<!--  $pia-lab-end(hibernate-orm)$ -->
+
+</hibernate-mapping>
+

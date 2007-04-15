@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<mapping resource="org/jia/ptrack/domain/hibernate/project.hbm.xml"/>
+		<mapping resource="org/jia/ptrack/domain/hibernate/Operation.hbm.xml"/>
+		<mapping resource="org/jia/ptrack/domain/hibernate/ProjectType.hbm.xml"/>
+		<mapping resource="org/jia/ptrack/domain/hibernate/StateMachine.hbm.xml"/>
+		<mapping resource="org/jia/ptrack/domain/hibernate/Status.hbm.xml"/>
+		<mapping resource="org/jia/ptrack/domain/hibernate/User.hbm.xml"/>
+		<mapping resource="org/jia/ptrack/domain/hibernate/Department.hbm.xml"/>
+
+		<class-cache usage="nonstrict-read-write" class="org.jia.ptrack.domain.Project"/>
+		<class-cache usage="nonstrict-read-write" class="org.jia.ptrack.domain.Operation"/>
+		<class-cache usage="nonstrict-read-write" class="org.jia.ptrack.domain.ProjectType"/>
+		<class-cache usage="nonstrict-read-write" class="org.jia.ptrack.domain.StateMachine"/>
+		<class-cache usage="nonstrict-read-write" class="org.jia.ptrack.domain.Status"/>
+		<class-cache usage="nonstrict-read-write" class="org.jia.ptrack.domain.User"/>
+		<class-cache usage="nonstrict-read-write" class="org.jia.ptrack.domain.Department"/>
+		
+		<collection-cache usage="nonstrict-read-write" collection="org.jia.ptrack.domain.Project.operationHistory"/>
+		<collection-cache usage="nonstrict-read-write" collection="org.jia.ptrack.domain.Project.artifacts"/>
+		<collection-cache usage="nonstrict-read-write" collection="org.jia.ptrack.domain.User.roles"/>
+		
+	</session-factory>
+
+</hibernate-configuration>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+           "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+	JavaServer Faces in Action example code, Copyright (C) 2004 Kito D. Mann.
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+	
+-->
+<web-app>
+	<display-name>JSF in Action - ProjectTrack case study</display-name>
+
+	<context-param>
+		<param-name>locatorFactorySelector</param-name>
+		<param-value>
+			classpath:/appCtx/parentAppCtxRef.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>parentContextKey</param-name>
+		<param-value>parentAppCtx</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:/appCtx/services.xml
+			classpath:/appCtx/security/common-acegi-security.xml
+			classpath:/appCtx/security/business-tier-acegi-security.xml
+			classpath:/appCtx/transactions.xml
+			classpath:/appCtx/hibernate/repositories.xml
+			classpath:/appCtx/hibernate/initializer.xml
+			classpath:/appCtx/hibernate/transaction-manager.xml
+			classpath:/appCtx/security/web-acegi-security.xml
+			classpath:/appCtx/jmx/jmx.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>com.sun.faces.validateXml</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<!--  $pia-lab-begin(spring-transactions)$ -->
+	<filter>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+		<filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
+		</filter-class>
+		<init-param>
+			<param-name>sessionFactoryBeanName</param-name>
+			<param-value>sessionFactory</param-value>
+		</init-param>
+		<init-param>
+			<param-name>singleSession</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<!--  $pia-lab-end$ -->
+
+	<!--  pia-lab-begin(acegi-web) -->
+	
+	<filter>
+		<filter-name>Acegi Filter Chain Proxy</filter-name>
+		<filter-class>
+			org.acegisecurity.util.FilterToBeanProxy
+		</filter-class>
+		<init-param>
+			<param-name>targetBean</param-name>
+			<param-value>filterChainProxy</param-value>
+		</init-param>
+	</filter>
+	<!--  pia-lab-end -->
+
+	<!-- $pia-lab-begin(spring-transactions) -->
+    <!--  RunDetachedObjectsWebApplication requires this to be on on line -->
+<filter-mapping><filter-name>OpenSessionInViewFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
+
+	<!-- $pia-lab-end -->
+
+	<!--  pia-lab-begin(acegi-web) -->
+
+	<filter-mapping>
+		<filter-name>Acegi Filter Chain Proxy</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!--  pia-lab-end -->
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<!--  I had to use this listener to get this to run on jetty -->
+	<listener>
+		<listener-class>
+			com.sun.faces.config.ConfigureListener
+		</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<exception-type>javax.servlet.ServletException</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.faces.FacesException</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+</web-app>

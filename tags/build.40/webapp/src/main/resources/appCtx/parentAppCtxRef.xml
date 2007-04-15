@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!--  Load in an environment specific properties file, which defines the properties used to configure the application context
+	 -->
+	 
+	<bean id="environmentReader"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/config/development.properties</value>
+				<value>config/${environment}.properties</value>
+			</list>
+		</property>
+		<property name="systemPropertiesModeName"
+			value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="properties">
+			<props>
+				<prop key="session.factory">/appCtx/hibernate/session-factory.xml</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--  
+		It would be nice just to have a single property but then we duplicate lots of files
+		Defining db.type is similar to "denormalization" etc that it simplifies the configuration
+	-->
+
+	<bean id="parentAppCtx"
+		class="org.springframework.context.support.ClassPathXmlApplicationContext">
+		<constructor-arg>
+			<list>
+				<value>classpath:/appCtx/${environment}/properties-loader.xml</value>
+				<value>/appCtx/${db.type}/${db.type}-datasource.xml</value>
+				<value>${session.factory}</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>

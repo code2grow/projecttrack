@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<breakpoints>
+<breakpoint enabled="false" persistant="true" registered="true">
+<resource path="/ptrack-services/src/main/java/org/jia/ptrack/security/repository/hibernate/HibernatePTrackAclRepository.java" type="1"/>
+<marker charStart="-1" lineNumber="31" type="org.eclipse.jdt.debug.javaLineBreakpointMarker">
+<attrib name="org.eclipse.jdt.debug.core.typeName" value="org.jia.ptrack.security.repository.hibernate.HibernatePTrackAclRepository"/>
+<attrib name="org.eclipse.jdt.debug.core.installCount" value="0"/>
+<attrib name="charStart" value="-1"/>
+<attrib name="charEnd" value="-1"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_start" value="1105"/>
+<attrib name="org.eclipse.debug.core.enabled" value="false"/>
+<attrib name="message" value="Line breakpoint:HibernatePTrackAclRepository [line: 31] - getAcls(AclObjectIdentity)"/>
+<attrib name="org.eclipse.debug.core.id" value="org.eclipse.jdt.debug"/>
+<attrib name="org.eclipse.jdt.debug.core.suspendPolicy" value="2"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_end" value="1136"/>
+<attrib name="org.eclipse.jdt.debug.ui.JAVA_ELEMENT_HANDLE_ID" value="=ptrack-services/src\/main\/java&lt;org.jia.ptrack.security.repository.hibernate{HibernatePTrackAclRepository.java[HibernatePTrackAclRepository"/>
+</marker>
+</breakpoint>
+<breakpoint enabled="false" persistant="true" registered="true">
+<resource path="/ptrack-hibernate/src/test/java/org/ptrack/domain/hibernate/HibernateProjectPersistenceTests.java" type="1"/>
+<marker charStart="-1" lineNumber="91" type="org.eclipse.jdt.debug.javaLineBreakpointMarker">
+<attrib name="org.eclipse.jdt.debug.core.typeName" value="org.ptrack.domain.hibernate.HibernateProjectPersistenceTests"/>
+<attrib name="charEnd" value="-1"/>
+<attrib name="charStart" value="-1"/>
+<attrib name="org.eclipse.debug.core.enabled" value="false"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_start" value="2321"/>
+<attrib name="org.eclipse.debug.core.id" value="org.eclipse.jdt.debug"/>
+<attrib name="message" value="Line breakpoint:HibernateProjectPersistenceTests [line: 91] - doInHibernate(Session)"/>
+<attrib name="org.eclipse.jdt.debug.core.suspendPolicy" value="2"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_end" value="2355"/>
+<attrib name="org.eclipse.jdt.debug.ui.JAVA_ELEMENT_HANDLE_ID" value="=ptrack-hibernate/src\/test\/java&lt;org.ptrack.domain.hibernate{HibernateProjectPersistenceTests.java[HibernateProjectPersistenceTests"/>
+</marker>
+</breakpoint>
+<breakpoint enabled="true" persistant="true" registered="true">
+<resource path="/ptrack-services/src/main/java/org/jia/ptrack/services/ProjectCoordinatorImpl.java" type="1"/>
+<marker charStart="-1" lineNumber="44" type="org.eclipse.jdt.debug.javaLineBreakpointMarker">
+<attrib name="org.eclipse.jdt.debug.core.typeName" value="org.jia.ptrack.services.ProjectCoordinatorImpl"/>
+<attrib name="charEnd" value="-1"/>
+<attrib name="charStart" value="-1"/>
+<attrib name="org.eclipse.jdt.debug.core.installCount" value="0"/>
+<attrib name="org.eclipse.debug.core.enabled" value="true"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_start" value="1555"/>
+<attrib name="org.eclipse.debug.core.id" value="org.eclipse.jdt.debug"/>
+<attrib name="message" value="Line breakpoint:ProjectCoordinatorImpl [line: 44] - get(String)"/>
+<attrib name="org.eclipse.jdt.debug.core.suspendPolicy" value="2"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_end" value="1589"/>
+<attrib name="org.eclipse.jdt.debug.ui.JAVA_ELEMENT_HANDLE_ID" value="=ptrack-services/src\/main\/java&lt;org.jia.ptrack.services{ProjectCoordinatorImpl.java[ProjectCoordinatorImpl"/>
+</marker>
+</breakpoint>
+<breakpoint enabled="true" persistant="true" registered="true">
+<resource path="/ptrack-services/src/main/java/org/jia/ptrack/services/ProjectCoordinatorImpl.java" type="1"/>
+<marker charStart="-1" lineNumber="54" type="org.eclipse.jdt.debug.javaLineBreakpointMarker">
+<attrib name="org.eclipse.jdt.debug.core.typeName" value="org.jia.ptrack.services.ProjectCoordinatorImpl"/>
+<attrib name="org.eclipse.jdt.debug.core.installCount" value="0"/>
+<attrib name="charStart" value="-1"/>
+<attrib name="charEnd" value="-1"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_start" value="1907"/>
+<attrib name="org.eclipse.debug.core.enabled" value="true"/>
+<attrib name="message" value="Line breakpoint:ProjectCoordinatorImpl [line: 54] - getProjectsWaitingForApproval(ProjectColumnType)"/>
+<attrib name="org.eclipse.debug.core.id" value="org.eclipse.jdt.debug"/>
+<attrib name="org.eclipse.jdt.debug.core.suspendPolicy" value="2"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_end" value="1949"/>
+<attrib name="org.eclipse.jdt.debug.ui.JAVA_ELEMENT_HANDLE_ID" value="=ptrack-services/src\/main\/java&lt;org.jia.ptrack.services{ProjectCoordinatorImpl.java[ProjectCoordinatorImpl"/>
+</marker>
+</breakpoint>
+<breakpoint enabled="true" persistant="true" registered="true">
+<resource path="/ptrack-services/src/main/java/org/jia/ptrack/services/ProjectCoordinatorImpl.java" type="1"/>
+<marker charStart="-1" lineNumber="70" type="org.eclipse.jdt.debug.javaLineBreakpointMarker">
+<attrib name="org.eclipse.jdt.debug.core.typeName" value="org.jia.ptrack.services.ProjectCoordinatorImpl"/>
+<attrib name="charEnd" value="-1"/>
+<attrib name="charStart" value="-1"/>
+<attrib name="org.eclipse.jdt.debug.core.installCount" value="0"/>
+<attrib name="org.eclipse.debug.core.enabled" value="true"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_start" value="2424"/>
+<attrib name="org.eclipse.debug.core.id" value="org.eclipse.jdt.debug"/>
+<attrib name="message" value="Line breakpoint:ProjectCoordinatorImpl [line: 70] - changeStatus(Project, boolean, String)"/>
+<attrib name="org.eclipse.jdt.debug.core.suspendPolicy" value="2"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_end" value="2474"/>
+<attrib name="org.eclipse.jdt.debug.ui.JAVA_ELEMENT_HANDLE_ID" value="=ptrack-services/src\/main\/java&lt;org.jia.ptrack.services{ProjectCoordinatorImpl.java[ProjectCoordinatorImpl"/>
+</marker>
+</breakpoint>
+<breakpoint enabled="false" persistant="true" registered="true">
+<resource path="/ptrack-domain/src/main/java/org/jia/ptrack/domain/ProjectFactory.java" type="1"/>
+<marker charStart="-1" lineNumber="101" type="org.eclipse.jdt.debug.javaLineBreakpointMarker">
+<attrib name="org.eclipse.jdt.debug.core.typeName" value="org.jia.ptrack.domain.ProjectFactory"/>
+<attrib name="org.eclipse.jdt.debug.core.installCount" value="0"/>
+<attrib name="charStart" value="-1"/>
+<attrib name="charEnd" value="-1"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_start" value="4211"/>
+<attrib name="org.eclipse.debug.core.enabled" value="false"/>
+<attrib name="message" value="Line breakpoint:ProjectFactory [line: 101] - ProjectFactory"/>
+<attrib name="org.eclipse.debug.core.id" value="org.eclipse.jdt.debug"/>
+<attrib name="org.eclipse.jdt.debug.core.suspendPolicy" value="2"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_end" value="4272"/>
+<attrib name="org.eclipse.jdt.debug.ui.JAVA_ELEMENT_HANDLE_ID" value="=ptrack-domain/src\/main\/java&lt;org.jia.ptrack.domain{ProjectFactory.java[ProjectFactory"/>
+</marker>
+</breakpoint>
+<breakpoint enabled="false" persistant="true" registered="true">
+<resource path="/ormunit-hibernate/src/main/java/net/chrisrichardson/ormunit/hibernate/RollbackTransactionHibernatePersistenceTestsStrategy.java" type="1"/>
+<marker charStart="-1" lineNumber="54" type="org.eclipse.jdt.debug.javaLineBreakpointMarker">
+<attrib name="org.eclipse.jdt.debug.core.typeName" value="net.chrisrichardson.ormunit.hibernate.RollbackTransactionHibernatePersistenceTestsStrategy"/>
+<attrib name="charEnd" value="-1"/>
+<attrib name="charStart" value="-1"/>
+<attrib name="org.eclipse.jdt.debug.core.installCount" value="0"/>
+<attrib name="org.eclipse.debug.core.enabled" value="false"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_start" value="1757"/>
+<attrib name="org.eclipse.debug.core.id" value="org.eclipse.jdt.debug"/>
+<attrib name="message" value="Line breakpoint:RollbackTransactionHibernatePersistenceTestsStrategy [line: 54] - onTearDown()"/>
+<attrib name="org.eclipse.jdt.debug.core.suspendPolicy" value="2"/>
+<attrib name="org.eclipse.jdt.debug.ui.member_end" value="1800"/>
+<attrib name="org.eclipse.jdt.debug.ui.JAVA_ELEMENT_HANDLE_ID" value="=ormunit-hibernate/src\/main\/java&lt;net.chrisrichardson.ormunit.hibernate{RollbackTransactionHibernatePersistenceTestsStrategy.java[RollbackTransactionHibernatePersistenceTestsStrategy"/>
+</marker>
+</breakpoint>
+</breakpoints>
