@@ -19,17 +19,17 @@ package org.jia.ptrack.web;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.jia.ptrack.domain.DataStoreException;
 import org.jia.ptrack.domain.EnumeratedType;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.services.*;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 class CommandType extends EnumeratedType
 {
@@ -62,25 +62,25 @@ public class SelectProjectBean  extends BaseBean
     this.projectTable = projectTable;
   }
 
-  public List getInboxProjects() throws DataStoreException
+  public List getInboxProjects() throws DataAccessException
   {
     try
     {
       return getProjectCoordinator().getProjectsWaitingForApproval(sortColumn);
     }
-    catch (ObjectNotFoundException e)
+    catch (ObjectRetrievalFailureException e)
     {
       return new ArrayList(0);
     }
   }
 
-  public List getAllProjects() throws DataStoreException
+  public List getAllProjects() throws DataAccessException
   {
     try
     {
       return getProjectCoordinator().getAllProjects(sortColumn);
     }
-    catch (ObjectNotFoundException e)
+    catch (ObjectRetrievalFailureException e)
     {
       return new ArrayList(0);
     }
@@ -146,7 +146,7 @@ public class SelectProjectBean  extends BaseBean
     {
       project = getProjectCoordinator().get(project.getId());
     }
-    catch (ObjectNotFoundException e)
+    catch (ObjectRetrievalFailureException e)
     {
       facesContext.addMessage(null,
                               new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -154,7 +154,7 @@ public class SelectProjectBean  extends BaseBean
                                                "The project is no longer in the data store."));
       return Constants.FAILURE_OUTCOME;
     }
-    catch (DataStoreException d)
+    catch (DataAccessException d)
     {
       Utils.reportError(facesContext, "A database error has occrred",
                        "Error loading project", d);

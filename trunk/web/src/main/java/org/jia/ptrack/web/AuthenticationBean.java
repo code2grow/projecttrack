@@ -2,13 +2,11 @@ package org.jia.ptrack.web;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
-import org.jia.ptrack.domain.DataStoreException;
-import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.RoleType;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.services.*;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * <p>Title: </p>
@@ -58,7 +56,7 @@ public class AuthenticationBean extends BaseBean
     {
       newUser = getUserCoordinator().getUser(loginName, password);
     }
-    catch (ObjectNotFoundException e)
+    catch (ObjectRetrievalFailureException e)
     {
       facesContext.addMessage(null,
                               Utils.getMessage("BadLogin", null,
@@ -69,7 +67,7 @@ public class AuthenticationBean extends BaseBean
                               "Incorrect name or password.", "")); */
       return Constants.FAILURE_OUTCOME;
     }
-    catch (DataStoreException d)
+    catch (DataAccessException d)
     {
        Utils.reportError(facesContext, "ErrorLoadingUser", d);
 
