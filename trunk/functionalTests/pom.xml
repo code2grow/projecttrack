@@ -92,7 +92,7 @@
 										8206
 									</cargo.rmi.port>
 									<cargo.jvmargs>
-										-Denvironment=${environment}
+										-Dptrack.application.environment=${ptrack.application.environment}
 										-Dcom.sun.management.jmxremote
 										-Dcom.sun.management.jmxremote.port=8091
 										-Dcom.sun.management.jmxremote.authenticate=false
@@ -152,7 +152,7 @@
 								8080
 							</cargo.servlet.port>
 							<cargo.jvmargs>
-								-Denvironment=${environment}
+								-Dptrack.application.environment=${ptrack.application.environment}
 								-Dcom.sun.management.jmxremote
 								-Dcom.sun.management.jmxremote.port=8090
 								-Dcom.sun.management.jmxremote.authenticate=false
