@@ -28,40 +28,35 @@
 		</dependency>
 
 		<dependency>
-	        <groupId>org.openqa.selenium.client-drivers</groupId>
-	        <artifactId>selenium-java-client-driver</artifactId>
-	        <version>0.9.1-SNAPSHOT</version>
-	        <scope>test</scope>
+			<groupId>org.openqa.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>0.9.1-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openqa.selenium.server</groupId>
 			<artifactId>selenium-server</artifactId>
 			<version>0.9.0</version>
-	        <scope>test</scope>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
-		    <groupId>org.codehaus.cargo</groupId>
-		    <artifactId>cargo-core-uberjar</artifactId>
-		    <version>0.8</version>
-		    <scope>test</scope>
+			<groupId>org.codehaus.cargo</groupId>
+			<artifactId>cargo-core-uberjar</artifactId>
+			<version>0.8</version>
+			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>ant</groupId>
 			<artifactId>ant</artifactId>
 			<version>1.6.5</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.9</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.0.4</version>
+			<groupId>net.chrisrichardson</groupId>
+			<artifactId>ptrack-util</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -97,7 +92,12 @@
 										8206
 									</cargo.rmi.port>
 									<cargo.jvmargs>
-								-Denvironment=${environment} -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8091 -Dcom.sun.management.jmxremote.authenticate=false -Dtangosol.coherence.management=all -Dtangosol.coherence.management.remote=true
+										-Denvironment=${environment}
+										-Dcom.sun.management.jmxremote
+										-Dcom.sun.management.jmxremote.port=8091
+										-Dcom.sun.management.jmxremote.authenticate=false
+										-Dtangosol.coherence.management=all
+										-Dtangosol.coherence.management.remote=true
 									</cargo.jvmargs>
 								</properties>
 							</configuration>
@@ -152,7 +152,10 @@
 								8080
 							</cargo.servlet.port>
 							<cargo.jvmargs>
-								-Denvironment=${environment} -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8090 -Dcom.sun.management.jmxremote.authenticate=false
+								-Denvironment=${environment}
+								-Dcom.sun.management.jmxremote
+								-Dcom.sun.management.jmxremote.port=8090
+								-Dcom.sun.management.jmxremote.authenticate=false
 							</cargo.jvmargs>
 							<!--  -javaagent:g:/3rdParty/tools/apache-tomcat-5.5.16/common/lib/aspectjweaver.jar -->
 							<cargo.logging>high</cargo.logging>
