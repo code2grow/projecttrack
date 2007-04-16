@@ -38,8 +38,8 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
-	<!--  where did all these come from?? -->
-	
+		<!--  where did all these come from?? -->
+
 		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>jsf-api</artifactId>
@@ -82,9 +82,9 @@
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.9</version>
+			<groupId>net.chrisrichardson</groupId>
+			<artifactId>ptrack-util</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-digester</groupId>
