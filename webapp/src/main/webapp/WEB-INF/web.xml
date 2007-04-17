@@ -19,7 +19,7 @@
 -->
 <web-app>
 	<display-name>JSF in Action - ProjectTrack case study</display-name>
-
+	<distributable/>
 <!-- 
 The original more complex way of configuring the application
 
@@ -125,4 +125,5 @@ The original more complex way of configuring the application
 		<exception-type>javax.faces.FacesException</exception-type>
 		<location>/error.jsp</location>
 	</error-page>
+
 </web-app>
