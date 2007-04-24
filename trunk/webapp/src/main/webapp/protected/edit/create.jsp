@@ -117,12 +117,12 @@
             <h:outputText value="Your comments:"/>
           </h:outputLabel>
           <h:inputTextarea id="commentsInput" rows="10" cols="80"
-                           value="#{visit.currentProject.initialComments}"/>  <!>
+                           value="#{visit.currentProject.initialComments}"/> 
         </h:panelGrid>
 
          <%-- Button panel --%>
          <h:panelGrid columns="2" rowClasses="table-odd-row">
-         <h:commandButton value="Save" action="#{createProjectBean.add}"/>  <!>
+         <h:commandButton value="Save" action="#{createProjectBean.add}"/>  
            <h:commandButton value="Cancel" action="#{createProjectBean.cancel}"
                             immediate="true"/>  <!>
          </h:panelGrid>
