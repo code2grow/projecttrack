@@ -19,7 +19,7 @@ public class ProjectCoordinatorImplTests extends
 	private HibernateTemplate template;
 
 	protected String[] getConfigLocations() {
-		return new String[] { "classpath*:appCtx/**/*.xml",
+		return new String[] { "classpath*:appCtx/**/*.xml", 
 				"classpath:appCtx/security/testing-acegi-security.xml" };
 	}
 
