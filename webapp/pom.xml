@@ -17,6 +17,14 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>5.1</version>
+			<scope>test</scope>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+		<dependency>
 			<groupId>net.chrisrichardson</groupId>
 			<artifactId>ptrack-services</artifactId>
 			<version>1.0-SNAPSHOT</version>
@@ -43,10 +51,10 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>org.codehaus.cargo</groupId>
-		    <artifactId>cargo-core-uberjar</artifactId>
-		    <version>0.8</version>
-		    <scope>test</scope>
+			<groupId>org.codehaus.cargo</groupId>
+			<artifactId>cargo-core-uberjar</artifactId>
+			<version>0.8</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -80,17 +88,17 @@
 
 
 		<dependency>
-	        <groupId>org.openqa.selenium.client-drivers</groupId>
-	        <artifactId>selenium-java-client-driver</artifactId>
-	        <version>0.9.1-SNAPSHOT</version>
-	        <scope>test</scope>
+			<groupId>org.openqa.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>0.9.1-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openqa.selenium.server</groupId>
 			<artifactId>selenium-server</artifactId>
 			<version>0.9.0</version>
-	        <scope>test</scope>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -176,15 +184,36 @@
 					</connectors>
 				</configuration>
 			</plugin>
+			<!--  Integration tests of the WAR using Tomcat -->
+			<!--  FIXME Figure out why this gets run twice  -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<forkMode>pertest</forkMode>
-					<includes>
-						<include>**/*Tests.class</include>
-					</includes>
-				</configuration>
+				<executions>
+					<execution>
+						<id>surefire-integration</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<reportsDirectory>
+								${project.build.directory}/surefire-integration-reports
+							</reportsDirectory>
+							<systemProperties>
+								<property>
+									<name>container.type</name>
+									<value>tomcat</value>
+								</property>
+							</systemProperties>
+							<excludes>
+								<exclude>
+									**/RunDetachedObjectsWebApplicationTests.class
+								</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

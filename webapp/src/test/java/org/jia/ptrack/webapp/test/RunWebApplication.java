@@ -2,14 +2,12 @@ package org.jia.ptrack.webapp.test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.Jar;
 import org.apache.tools.ant.types.ZipFileSet;
 import org.codehaus.cargo.container.internal.util.AntUtils;
 import org.mortbay.http.HttpException;
-import org.mortbay.http.HttpHandler;
 import org.mortbay.http.HttpRequest;
 import org.mortbay.http.HttpResponse;
 import org.mortbay.http.SocketListener;
@@ -29,7 +27,7 @@ import org.mortbay.util.InetAddrPort;
  * @author cer
  * 
  */
-public class RunWebApplication {
+public class RunWebApplication implements WebContainerLauncher {
 
 	private static final String TARGET_WEBAPP_DIR = "target/webapp";
 
