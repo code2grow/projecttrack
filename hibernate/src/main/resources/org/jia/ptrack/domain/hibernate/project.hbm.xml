@@ -55,6 +55,7 @@
              left join fetch p.status status 
              left join fetch p.artifacts where status.role = :role
 	</query>
+	
 
 <!--  $pia-lab-end(hibernate-orm)$ -->
 
