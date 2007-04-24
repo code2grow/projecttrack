@@ -15,7 +15,7 @@ public class ProjectFactory {
 	//    project.setDescription("This is a description.");
 	      project.setType(ProjectType.INTERNAL_WEB);
 	      project.setArtifacts(new ArtifactType[]
-	                           {ArtifactType.PROPOSAL});
+	                           {ArtifactType.PROPOSAL, ArtifactType.PROJECT_PLAN});
 	      project.setInitiatedBy(user);
 		return project;
 	}
