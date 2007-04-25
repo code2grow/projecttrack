@@ -12,7 +12,6 @@
         <include>addj2eejars.cmd</include>
         <include>**/pom.xml</include>
         <include>**/src/**</include>
-        <include>lib/**</include>
       </includes>
     </fileSet>
     <fileSet>

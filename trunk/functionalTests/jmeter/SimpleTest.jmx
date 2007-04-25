@@ -14,25 +14,25 @@
         <longProp name="ThreadGroup.start_time">1176770410000</longProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.num_threads">4</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${threadCount}</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">${iterations}</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
         <longProp name="ThreadGroup.end_time">1176770410000</longProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">2</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${rampUpTime}</stringProp>
       </ThreadGroup>
       <hashTree>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.domain">arrakis</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.port">8080</stringProp>
         </ConfigTestElement>
         <hashTree/>
         <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="/ptrack/" enabled="true">
@@ -87,10 +87,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert password field" enabled="true">
-            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.validate">false</boolProp>
-            <stringProp name="XPath.xpath">//input[@name=&apos;j_password&apos;]</stringProp>
+            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.tolerant">true</boolProp>
+            <stringProp name="XPath.xpath">//input[@name=&apos;j_password&apos;]</stringProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -178,10 +178,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.validate">false</boolProp>
             <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
+            <boolProp name="XPath.validate">false</boolProp>
             <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.tolerant">true</boolProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -194,10 +194,10 @@
           </XPathExtractor>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion 2" enabled="true">
-            <boolProp name="XPath.validate">false</boolProp>
             <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
+            <boolProp name="XPath.validate">false</boolProp>
             <stringProp name="XPath.xpath">//form[1]/@action</stringProp>
+            <boolProp name="XPath.tolerant">true</boolProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -292,10 +292,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.validate">false</boolProp>
             <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
+            <boolProp name="XPath.validate">false</boolProp>
             <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.tolerant">true</boolProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -397,10 +397,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.validate">false</boolProp>
             <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
+            <boolProp name="XPath.validate">false</boolProp>
             <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.tolerant">true</boolProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -509,10 +509,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.validate">false</boolProp>
             <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
+            <boolProp name="XPath.validate">false</boolProp>
             <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.tolerant">true</boolProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -588,10 +588,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert password field" enabled="true">
-            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.validate">false</boolProp>
-            <stringProp name="XPath.xpath">//input[@name=&apos;j_password&apos;]</stringProp>
+            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.tolerant">true</boolProp>
+            <stringProp name="XPath.xpath">//input[@name=&apos;j_password&apos;]</stringProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -665,7 +665,23 @@
         </CookieManager>
         <hashTree/>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments"/>
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="threadCount" elementType="Argument">
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.value">${__P(threadCount,3)}</stringProp>
+              <stringProp name="Argument.name">threadCount</stringProp>
+            </elementProp>
+            <elementProp name="rampUpTime" elementType="Argument">
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.value">${__P(rampUpTime,3)}</stringProp>
+              <stringProp name="Argument.name">rampUpTime</stringProp>
+            </elementProp>
+            <elementProp name="iterations" elementType="Argument">
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.value">${__P(iterations,10000)}</stringProp>
+              <stringProp name="Argument.name">iterations</stringProp>
+            </elementProp>
+          </collectionProp>
         </Arguments>
         <hashTree/>
         <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
