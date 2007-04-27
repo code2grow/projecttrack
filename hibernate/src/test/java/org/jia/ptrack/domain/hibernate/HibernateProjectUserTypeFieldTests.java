@@ -1,12 +1,10 @@
 package org.jia.ptrack.domain.hibernate;
 
 import net.chrisrichardson.ormunit.hibernate.HibernateMappingTests;
-import net.chrisrichardson.ormunit.hibernate.ListFieldMapping;
+import net.chrisrichardson.ormunit.hibernate.ListPropertyMapping;
 
 import org.hibernate.engine.CascadeStyle;
 import org.jia.ptrack.domain.Project;
-import org.jia.ptrack.domain.hibernate.ArtifactTypeUserType;
-import org.jia.ptrack.domain.hibernate.ProjectTypeUserType;
 
 public class HibernateProjectUserTypeFieldTests extends HibernateMappingTests {
 
@@ -21,7 +19,7 @@ public class HibernateProjectUserTypeFieldTests extends HibernateMappingTests {
 		assertField("type", "TYPE", ProjectTypeUserType.class);
 
 		assertListField("artifacts");
-		ListFieldMapping artifactsMapping = getListFieldMapping("artifacts");
+		ListPropertyMapping artifactsMapping = getListFieldMapping("artifacts");
 		artifactsMapping.assertForeignKey("PROJECT_ID");
 		artifactsMapping.assertIndexColumn("ARTIFACT_INDEX");
 		artifactsMapping.assertTable("PROJECT_ARTIFACTS");
