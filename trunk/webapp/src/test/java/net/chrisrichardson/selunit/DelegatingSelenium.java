@@ -1,4 +1,4 @@
-package org.jia.ptrack.webapp.test;
+package net.chrisrichardson.selunit;
 
 import com.thoughtworks.selenium.Selenium;
 

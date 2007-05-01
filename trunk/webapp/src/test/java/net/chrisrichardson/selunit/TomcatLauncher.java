@@ -1,4 +1,4 @@
-package org.jia.ptrack.webapp.test;
+package net.chrisrichardson.selunit;
 
 import java.io.File;
 import java.net.URL;
@@ -19,7 +19,22 @@ public class TomcatLauncher implements WebContainerLauncher {
 
 	private Tomcat5xInstalledLocalContainer container;
 
-	public void run() throws Exception {
+	private String contextPath;
+
+	private String warFile;
+
+	
+	public void setContextPath(String contextPath) {
+		this.contextPath = contextPath;
+	}
+
+	
+	public void setWarFile(String warFile) {
+		this.warFile = warFile;
+	}
+
+
+	public void start() throws Exception {
 		logger.debug("installing tomcat");
 
 		File tempDir = getTempDir();
@@ -29,6 +44,7 @@ public class TomcatLauncher implements WebContainerLauncher {
 						"http://apache.tradebit.com/pub/tomcat/tomcat-5/v5.0.28/bin/jakarta-tomcat-5.0.28.zip"),
 				new File(tempDir, "tomcat-install"));
 		installer.install();
+		File home = installer.getHome();
 
 		logger.debug("starting tomcat");
 
@@ -38,18 +54,21 @@ public class TomcatLauncher implements WebContainerLauncher {
 		config.setLogger(new SimpleLogger());
 		config.setProperty(GeneralPropertySet.LOGGING, "high");
 
-		WAR war = new WAR(locateWAR("webapp/target/ptrack.war"));
-		war.setContext("ptrack");
+		WAR war = new WAR(locateWAR(warFile));
+		war.setContext(contextPath);
 
 		config.addDeployable(war);
 
 		container = new Tomcat5xInstalledLocalContainer(config);
-		File home = installer.getHome();
 		container.setHome(home);
 		container.setOutput(new File("target/tomcat.log"));
 		container.setTimeout(15 * 1000);
 
 		container.start();
+	}
+
+	public void stop() throws Exception {
+		container.stop();
 	}
 
 	private File getTempDir() {
@@ -72,8 +91,5 @@ public class TomcatLauncher implements WebContainerLauncher {
 		throw new Exception("Cannot find path: " + path);
 	}
 
-	public void stop() throws Exception {
-		container.stop();
-	}
 
 }

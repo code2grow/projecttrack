@@ -5,17 +5,24 @@ import java.io.File;
 import org.apache.tools.ant.taskdefs.Replace;
 import org.codehaus.cargo.container.internal.util.AntUtils;
 
+/**
+ * This class implements a hack to run the web application with detached objects instead of the Exposed Domain Model pattern
+ * @author cer
+ *
+ */
 public class RunDetachedObjectsWebApplication extends RunWebApplication {
 
 	public static void main(String[] args) throws Exception {
 
-		new RunDetachedObjectsWebApplication().run();
+		new RunDetachedObjectsWebApplication().start();
 
 	}
 
-	protected void extraMunging() {
+	@Override
+	protected void prepareWarDirectory() {
+		super.prepareWarDirectory();
+		
 		// TODO It would be nice to verify that this succeeded
-
 		replace(
 				TARGET_WEB_XML,
 				"<filter-mapping><filter-name>OpenSessionInViewFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>",

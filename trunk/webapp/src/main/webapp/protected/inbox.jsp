@@ -35,7 +35,7 @@
 
 <jsp:include page="/includes/header.jsp"/>
 
-<h:form>
+<h:form id="inboxPage">
 
   <h:panelGrid headerClass="page-header" styleClass="table-background"
                columns="1" cellpadding="5">
@@ -53,7 +53,8 @@
                  rowClasses="table-odd-row,table-even-row" cellpadding="3"
                  value="#{inboxBean.inboxProjects}"
                  var="project"
-                 binding="#{inboxBean.projectTable}">
+                 binding="#{inboxBean.projectTable}"
+                 id="inboxTable">
 
       <h:column>
         <f:facet name="header">
@@ -63,7 +64,7 @@
     <%--        <f:param name="column" value="name"/>  --%>
           </h:commandLink>
         </f:facet>
-        <h:outputText value="#{project.name}"/>
+        <h:outputText  id="projectName" value="#{project.name}"/>
       </h:column>
 
       <h:column>
@@ -89,7 +90,7 @@
       </h:column>
 
       <h:column>
-        <h:commandLink action="#{inboxBean.approve}">
+        <h:commandLink id="approve" action="#{inboxBean.approve}">
           <h:outputText value="Approve"/>
         </h:commandLink>
       </h:column>

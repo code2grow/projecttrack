@@ -10,24 +10,5 @@ public class RunDetachedObjectsWebApplicationTests extends
 	protected String getContainerType() {
 		return "detachedJetty";
 	}
-	/*
-	@Test
-	@Override
-	public void testApproveProject() throws InterruptedException {
-		super.testApproveProject();
-	}
-	
-	@Test
-	@Override
-	public void testCreateProject() throws InterruptedException {
-		super.testCreateProject();
-	}
-	
-	@Test
-	@Override
-	public void testUpperManagementLogin() throws InterruptedException {
-		super.testUpperManagementLogin();
-	}
-	*/
 
 }

@@ -34,7 +34,7 @@
 
 <jsp:include page="/includes/header.jsp"/>
 
-<h:form>
+<h:form id="showAll">
 
   <h:panelGrid headerClass="page-header" styleClass="table-background"
                columns="1" cellpadding="5">
@@ -48,7 +48,8 @@
 
     <h:messages globalOnly="true" styleClass="errors"/>  <!>
 
-    <h:dataTable styleClass="table-background"
+    <h:dataTable id="showAllTable"
+                 styleClass="table-background"
                  rowClasses="table-odd-row,table-even-row" cellpadding="3"
                  value="#{showAllBean.allProjects}"
                  var="project"

@@ -1,8 +1,8 @@
-package org.jia.ptrack.webapp.test;
+package net.chrisrichardson.selunit;
 
 public interface WebContainerLauncher {
 
-	void run() throws Exception;
+	void start() throws Exception;
 
 	void stop() throws Exception;
 
