@@ -1,4 +1,4 @@
-package org.jia.ptrack.webapp.test;
+package net.chrisrichardson.selunit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

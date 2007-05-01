@@ -6,6 +6,6 @@
 <beans>
 
 	<bean id="seleniumLauncher"
-		class="org.jia.ptrack.webapp.test.SeleniumLauncher" />
+		class="net.chrisrichardson.selunit.SeleniumLauncher" />
 
 </beans>

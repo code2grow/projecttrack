@@ -36,7 +36,7 @@
 
 <jsp:include page="/includes/header.jsp"/>
 
-<h:form>
+<h:form id="projectDetails">
   <h:panelGrid columns="3" cellpadding="5"
       footerClass="project-background"
       styleClass="project-background"
@@ -122,8 +122,8 @@
 
          <%-- Button panel --%>
          <h:panelGrid columns="2" rowClasses="table-odd-row">
-         <h:commandButton value="Save" action="#{createProjectBean.add}"/>  
-           <h:commandButton value="Cancel" action="#{createProjectBean.cancel}"
+         <h:commandButton value="Save" id="save" action="#{createProjectBean.add}"/>  
+           <h:commandButton value="Cancel" id="cancel" action="#{createProjectBean.cancel}"
                             immediate="true"/>  <!>
          </h:panelGrid>
          <h:panelGroup/>

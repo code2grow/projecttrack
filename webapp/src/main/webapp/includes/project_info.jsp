@@ -10,7 +10,8 @@
               styleClass="project-data"/>   <!>
 
 <h:outputText value="Initiated by:"/>
-<h:outputText value="#{visit.currentProject.initiatedBy}"
+<h:outputText id="initiatedBy" 
+              value="#{visit.currentProject.initiatedBy}"
               styleClass="project-data"/>    <!>
 
 <h:outputText value="Requirements contact:"/>
