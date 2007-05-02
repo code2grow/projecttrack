@@ -62,7 +62,7 @@ public class ProjectCoordinatorImpl implements ProjectCoordinator {
 	}
 
 	public boolean changeStatus(Project project, boolean approve, String comments) {
-		project = projectRepository.update(project);
+		project = projectRepository.merge(project);
 		User user = getUser();
 		return project.changeStatus(approve, user, comments);
 	}

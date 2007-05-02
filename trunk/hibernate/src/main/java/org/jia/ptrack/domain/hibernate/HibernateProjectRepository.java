@@ -28,7 +28,7 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 		return project;
 	}
 
-	public Project update(Project project) {
+	public Project merge(Project project) {
 		// pia-lab-method-stub(hibernate-repository)
 		return (Project) getHibernateTemplate().merge(project);
 	}

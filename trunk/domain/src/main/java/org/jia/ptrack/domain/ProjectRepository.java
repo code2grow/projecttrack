@@ -7,7 +7,7 @@ public interface ProjectRepository {
 
 	public Project get(int id);
 
-	public Project update(Project project);
+	public Project merge(Project project);
 
 	public List getAllProjects(ProjectColumnType sortColumn);
 

@@ -112,7 +112,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 				ProjectColumnType.TYPE));
 	}
 	
-	public void testUpdate()  {
+	public void testMerge()  {
 		Project project = ProjectFactory.makeProject3(initialStatus, null);
 		projectRepository.add(project);
 		
@@ -121,9 +121,9 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		String newDescription = "new description: " + Long.toString(System.currentTimeMillis());
 		project.setDescription(newDescription);
 		
-		logger.debug("updating");
-		projectRepository.update(project);
-		logger.debug("updated");
+		logger.debug("merging");
+		projectRepository.merge(project);
+		logger.debug("merging");
 
 		project = projectRepository.get(project.getId());
 		assertEquals(newDescription, project.getDescription());
