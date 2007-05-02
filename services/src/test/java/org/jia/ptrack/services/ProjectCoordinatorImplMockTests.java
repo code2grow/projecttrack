@@ -68,7 +68,7 @@ public class ProjectCoordinatorImplMockTests extends TestCase {
 		Project project = world.getProject();
 		Project project2 = world.getProject2();
 		
-		expect(projectRepository.update(project)).andReturn(project2);
+		expect(projectRepository.merge(project)).andReturn(project2);
 		expect(securityInfoProvider.getUsername()).andReturn(projectManager.getLogin());
 		expect(userRepository.findUser(projectManager.getLogin())).andReturn(projectManager);
 
