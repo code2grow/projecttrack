@@ -1,7 +1,7 @@
 package org.jia.ptrack.webapp.test;
 
 import net.chrisrichardson.selunit.AbstractSeleniumTest;
-
+import static org.testng.AssertJUnit.*;
 import org.testng.annotations.Test;
 
 
@@ -31,7 +31,6 @@ public class RunWebApplicationTests extends AbstractSeleniumTest {
 
 	public void createProject() {
 		login("proj_mgr", "faces");
-		assertTextPresent("(proj_mgr)");
 		clickAndWait("link=Create New");
 		String projectName = "XXX Project" + System.currentTimeMillis();
 		enterNewProjectInfo(projectName);
@@ -69,6 +68,8 @@ public class RunWebApplicationTests extends AbstractSeleniumTest {
 		type("j_username", userId);
 		type("j_password", password);
 		clickAndWait("Login");
+		assertTextPresent("(" + userId + ")");
+
 	}
 
 	public void browseAroundAndApproveProject() {
@@ -102,5 +103,5 @@ public class RunWebApplicationTests extends AbstractSeleniumTest {
 		assertTextPresent("Show all projects");
 		clickAndWait("link=Logout");
 	}
-
+	
 }
