@@ -9,12 +9,12 @@
 		class="org.jia.ptrack.services.ProjectCoordinatorImpl">
 		<constructor-arg ref="projectRepository" />
 		<constructor-arg ref="stateMachineRepository" />
-		<constructor-arg ref="userRepository" />
 		<constructor-arg ref="securityInfoProvider" />
 	</bean>
 
 	<bean id="securityInfoProvider"
 		class="org.jia.ptrack.services.SecurityInfoProviderImpl">
+		<constructor-arg ref="userRepository" />
 	</bean>
 	
 	<bean id="userCoordinator"
