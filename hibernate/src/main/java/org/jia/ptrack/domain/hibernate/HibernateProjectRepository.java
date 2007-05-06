@@ -33,12 +33,10 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 		return (Project) getHibernateTemplate().merge(project);
 	}
 
-	public List getAllProjects(ProjectColumnType sortColumn) {
+	public List<Project> getAllProjects(ProjectColumnType sortColumn) {
 		// pia-lab-method-stub(hibernate-repository)
 		String queryString = "from Project as p order by p." + computeSortOrder(sortColumn);
-		/// caching
-		//	getHibernateTemplate().setCacheQueries(true);
-		List projects = getHibernateTemplate().find(queryString);
+		List<Project> projects = getHibernateTemplate().find(queryString);
 		return projects;
 	}
 
@@ -55,7 +53,7 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 				+ sortColumn);
 	}
 
-	public List getProjectsWaitingApprovalByRole(final RoleType role,
+	public List<Project> getProjectsWaitingApprovalByRole(final RoleType role,
 			final ProjectColumnType sortColumn) {
 		// pia-lab-method-stub(hibernate-repository)
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
