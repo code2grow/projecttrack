@@ -9,8 +9,8 @@ public interface ProjectRepository {
 
 	public Project merge(Project project);
 
-	public List getAllProjects(ProjectColumnType sortColumn);
+	public List<Project> getAllProjects(ProjectColumnType sortColumn);
 
-	public List getProjectsWaitingApprovalByRole(RoleType role, ProjectColumnType sortColumn);
+	public List<Project> getProjectsWaitingApprovalByRole(RoleType role, ProjectColumnType sortColumn);
 
 }
