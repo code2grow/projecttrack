@@ -16,7 +16,6 @@ public class ProjectCoordinatorImplMockTests extends TestCase {
 	private ProjectCoordinatorImpl service;
 	private ProjectRepository projectRepository;
 	private StateMachineRepository stateMachineRepository;
-	private UserRepository userRepository;
 	private SecurityInfoProvider securityInfoProvider;
 	private PTrackWorld world;
 	private User projectManager;
@@ -30,26 +29,24 @@ public class ProjectCoordinatorImplMockTests extends TestCase {
 
 		projectRepository = createMock(ProjectRepository.class);
 		stateMachineRepository = createMock(StateMachineRepository.class);
-		userRepository = createMock(UserRepository.class);
 		securityInfoProvider = createMock(SecurityInfoProvider.class);
 		
-		service = new ProjectCoordinatorImpl(projectRepository, stateMachineRepository, userRepository, securityInfoProvider);
+		service = new ProjectCoordinatorImpl(projectRepository, stateMachineRepository, securityInfoProvider);
 	}
 	
 	private void verifyMocks() {
-		verify(projectRepository, stateMachineRepository, userRepository, securityInfoProvider);
+		verify(projectRepository, stateMachineRepository, securityInfoProvider);
 	}
 	
 	private void replayMocks() {
-		replay(projectRepository, stateMachineRepository, userRepository, securityInfoProvider);
+		replay(projectRepository, stateMachineRepository, securityInfoProvider);
 	}
 
 	public void testAdd() {
 		Project project = new Project(); 
 		
 		expect(stateMachineRepository.findTheStateMachine()).andReturn(world.getStateMachine());
-		expect(securityInfoProvider.getUsername()).andReturn(projectManager.getLogin());
-		expect(userRepository.findUser(projectManager.getLogin())).andReturn(projectManager);
+		expect(securityInfoProvider.getCurrentUser()).andReturn(projectManager);
 		projectRepository.add(project);
 		
 		replayMocks();
@@ -69,8 +66,7 @@ public class ProjectCoordinatorImplMockTests extends TestCase {
 		Project project2 = world.getProject2();
 		
 		expect(projectRepository.merge(project)).andReturn(project2);
-		expect(securityInfoProvider.getUsername()).andReturn(projectManager.getLogin());
-		expect(userRepository.findUser(projectManager.getLogin())).andReturn(projectManager);
+		expect(securityInfoProvider.getCurrentUser()).andReturn(projectManager);
 
 		replayMocks();
 		

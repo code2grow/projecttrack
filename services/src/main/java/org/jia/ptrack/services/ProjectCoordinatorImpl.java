@@ -9,30 +9,25 @@ import org.jia.ptrack.domain.RoleType;
 import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.StateMachineRepository;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserRepository;
 
 public class ProjectCoordinatorImpl implements ProjectCoordinator {
 
-	ProjectRepository projectRepository;
-	StateMachineRepository stateMachineRepository;
-	private final UserRepository userRepository;
+	private ProjectRepository projectRepository;
+	private StateMachineRepository stateMachineRepository;
 	private SecurityInfoProvider securityInfo;
 	
 	public ProjectCoordinatorImpl(ProjectRepository projectRepository,
 			StateMachineRepository stateMachineRepository,
-			UserRepository userRepository,
 			SecurityInfoProvider securityInfo) {
-		super();
 		this.projectRepository = projectRepository;
 		this.stateMachineRepository = stateMachineRepository;
-		this.userRepository = userRepository;
 		this.securityInfo = securityInfo;
 	}
 
 	public Project add(Project project){
 		StateMachine sm = stateMachineRepository.findTheStateMachine();
 	    project.setInitialStatus(sm.getInitialStatus());
-	    project.setInitiatedBy(getUser());
+	    project.setInitiatedBy(securityInfo.getCurrentUser());
 		projectRepository.add(project);
 		return project;
 	}
@@ -51,19 +46,13 @@ public class ProjectCoordinatorImpl implements ProjectCoordinator {
 	}
 
 	private RoleType getRoleForLoggedInUser() {
-		User user = getUser();
+		User user = securityInfo.getCurrentUser();
 		return user.getRole();
-	}
-
-	private User getUser() {
-		String username = securityInfo.getUsername();
-		User user = userRepository.findUser(username);
-		return user;
 	}
 
 	public boolean changeStatus(Project project, boolean approve, String comments) {
 		project = projectRepository.merge(project);
-		User user = getUser();
+		User user = securityInfo.getCurrentUser();
 		return project.changeStatus(approve, user, comments);
 	}
 

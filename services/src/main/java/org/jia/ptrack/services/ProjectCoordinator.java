@@ -6,15 +6,6 @@ import java.util.List;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
- * @author unascribed
- * @version 1.0
- */
-
 public interface ProjectCoordinator extends Serializable
 {
   public Project add(Project project);

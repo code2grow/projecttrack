@@ -5,8 +5,17 @@ import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.userdetails.UserDetails;
+import org.jia.ptrack.domain.User;
+import org.jia.ptrack.domain.UserRepository;
 
 public class SecurityInfoProviderImpl implements SecurityInfoProvider {
+
+	private UserRepository userRepository;
+	
+	
+	public SecurityInfoProviderImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	public String getUsername() {
 		// pia-lab-method-stub(acegi-biz)
@@ -46,5 +55,9 @@ public class SecurityInfoProviderImpl implements SecurityInfoProvider {
 				return true;
 		}
 		return false;
+	}
+
+	public User getCurrentUser() {
+		return userRepository.findUser(getUsername());
 	}
 }
