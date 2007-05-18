@@ -1,34 +1,38 @@
 package org.jia.ptrack.jmx;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class MethodCallRecorder {
 
-	private ConcurrentMap<String, AtomicLong> map = new ConcurrentHashMap<String, AtomicLong>();
+	private ConcurrentMap<Class, ConcurrentMap<String, AtomicLong>> map = new ConcurrentHashMap<Class, ConcurrentMap<String, AtomicLong>>();
 
 	public void recordCall(Class declaringType, String name) {
-		AtomicLong atomicLong = new AtomicLong(0);
-		AtomicLong oldEntry = map.putIfAbsent(name, atomicLong);
-		if (oldEntry != null)
-			oldEntry.incrementAndGet();
-		else
-			atomicLong.incrementAndGet();
-	}
-
-	public Map<String, Long> getCallCounts() {
-		Map<String, Long> result = new HashMap<String, Long>();
-		for (Map.Entry<String, AtomicLong> entry : map.entrySet()) {
-			result.put(entry.getKey(), entry.getValue().longValue());
+		ConcurrentMap<String, AtomicLong> mapForType = map.get(declaringType);
+		if (mapForType == null) {
+			mapForType = new ConcurrentHashMap<String, AtomicLong>();
+			ConcurrentMap<String, AtomicLong> existingEntry = map.putIfAbsent(
+					declaringType, mapForType);
+			if (existingEntry != null)
+				mapForType = existingEntry;
 		}
-		return result;
+		AtomicLong count = mapForType.get(name);
+		if (count == null) {
+			count = new AtomicLong(0);
+			AtomicLong oldEntry = mapForType.putIfAbsent(name, count);
+			if (oldEntry != null)
+				count = oldEntry;
+
+		}
+		count.incrementAndGet();
 	}
 
-	public long getCallCount(String name) {
-		AtomicLong al = map.get(name);
+	public long getCallCount(Class type, String name) {
+		ConcurrentMap<String, AtomicLong> mapForType = map.get(type);
+		if (mapForType == null)
+			return 0;
+		AtomicLong al = mapForType.get(name);
 		return al == null ? 0 : al.longValue();
 	}
 
