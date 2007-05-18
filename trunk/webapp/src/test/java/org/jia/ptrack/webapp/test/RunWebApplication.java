@@ -2,7 +2,7 @@ package org.jia.ptrack.webapp.test;
 
 import java.io.File;
 
-import net.chrisrichardson.selunit.JettyLauncher;
+import net.chrisrichardson.umangite.JettyLauncher;
 
 import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.Jar;
@@ -81,6 +81,10 @@ public class RunWebApplication extends JettyLauncher {
 	protected String getContextPath() {
 		return "ptrack";
 	}
-
+	
+	@Override
+	public String getSrcWebApp() {
+		return "src/main/webapp";
+	}
 
 }

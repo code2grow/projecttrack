@@ -1,7 +1,7 @@
 package org.jia.ptrack.webapp.test;
 
-import net.chrisrichardson.selunit.AbstractSeleniumTest;
-import static org.testng.AssertJUnit.*;
+import net.chrisrichardson.umangite.AbstractSeleniumTest;
+
 import org.testng.annotations.Test;
 
 
@@ -10,7 +10,7 @@ public class RunWebApplicationTests extends AbstractSeleniumTest {
 
 	@Override
 	protected String[] getConfigLocations() {
-		return new String[] { "appCtxForSelenium/common/*.xml", "appCtxForSelenium/" + getContainerType()
+		return new String[] { "appCtxForUmangite/common/*.xml", "appCtxForUmangite/" + getContainerType()
 				+ "/**/*.xml", };
 	}
 

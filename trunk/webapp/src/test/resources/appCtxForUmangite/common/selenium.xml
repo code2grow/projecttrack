@@ -6,6 +6,6 @@
 <beans>
 
 	<bean id="seleniumLauncher"
-		class="net.chrisrichardson.selunit.SeleniumLauncher" />
+		class="net.chrisrichardson.umangite.SeleniumLauncher" />
 
 </beans>
