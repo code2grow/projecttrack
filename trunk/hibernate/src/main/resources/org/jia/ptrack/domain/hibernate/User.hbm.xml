@@ -20,5 +20,8 @@
 		</set>
 	</class>
 
+	<query name="User.findByLogin">
+		from User u inner join fetch u.roles where u.login = :login
+	</query>
 </hibernate-mapping>
 
