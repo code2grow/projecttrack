@@ -1,5 +1,8 @@
 package org.jia.ptrack.domain;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
@@ -81,6 +84,16 @@ public class ProjectTests extends TestCase {
 		assertEquals(name1, p.getRequirementsContactName());
 		p.setRequirementsContactName(name2);
 		assertEquals(name2, p.getRequirementsContactName());
+	}
+	
+	public void testSerializability() throws IOException {
+		assertEquals(0, p.getHistory().size());
+		assertTrue(p.changeStatus(true, projectManager, "Excellent"));
+
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutputStream os = new ObjectOutputStream(bos);
+		os.writeObject(p);
+		os.close();
 	}
 
 }
