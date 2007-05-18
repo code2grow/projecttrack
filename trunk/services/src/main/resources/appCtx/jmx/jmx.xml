@@ -12,31 +12,60 @@
 		<property name="locateExistingServerIfPossible" value="true" />
 	</bean>
 
-	<bean id="exporter"
+	<bean id="parentExporter"
+		abstract="true" 
 		class="org.springframework.jmx.export.MBeanExporter">
 		<property name="server" ref="mbeanServer" />
-		<property name="beans">
-			<map>
-				<entry key="bean:name=ptrack1" value-ref="testBean" />
-     			<entry key="bean:name=hibernateStats" value-ref="statisticsService" />
-			</map>
-		</property>
-		<!--  TODO: tests fail without this -->
 		<property name="registrationBehaviorName"
 			value="REGISTRATION_REPLACE_EXISTING" />
 	</bean>
 
-	<bean id="testBean" class="org.jia.ptrack.jmx.ExampleMBeanImpl">
-		<property name="interfaceType"
+	<bean id="hibernateExporter"
+		parent="parentExporter">
+		<property name="beans">
+			<map>
+     			<entry key="bean:name=hibernateStats" value-ref="statisticsService" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="exporter1"
+		parent="parentExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=projectCoordinator" value-ref="projectCoordinatorStatsMBean" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="exporter2"
+		parent="parentExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=projectRepository" value-ref="projectRepositoryStatsMbean" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="parentStatsMBean" abstract="true" class="org.jia.ptrack.jmx.ExampleMBeanImpl">
+		<constructor-arg ref="methodCountingAspect" />
+	</bean>
+
+	<bean id="projectCoordinatorStatsMBean" parent="parentStatsMBean">
+		<constructor-arg 
 			value="org.jia.ptrack.services.ProjectCoordinator" />
-		<property name="methodCounter" ref="methodCountingAspect" />
+	</bean>
+
+	<bean id="projectRepositoryStatsMbean" parent="parentStatsMBean">
+		<constructor-arg 
+			value="org.jia.ptrack.domain.ProjectRepository" />
 	</bean>
 
 	<aop:config>
 
 		<aop:aspect id="txnRetryAspect" ref="methodCountingAspect">
 			<aop:around method="recordMethodInvocation"
-				pointcut="execution(public * org.jia.ptrack.services.ProjectCoordinator.*(..))" />
+				pointcut="execution(public * org.jia.ptrack.services.*Coordinator.*(..)) or execution(public * org.jia.ptrack.domain.*Repository.*(..))" />
 		</aop:aspect>
 
 	</aop:config>

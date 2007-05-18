@@ -16,14 +16,9 @@ public class ExampleMBeanImpl implements ExampleMBean {
 
 	private MethodCountingAspect methodCounter;
 
-	public ExampleMBeanImpl() {
-	}
-
-	public void setInterfaceType(Class interfaceType) {
+	public ExampleMBeanImpl(MethodCountingAspect methodCounter,
+			Class interfaceType) {
 		this.interfaceType = interfaceType;
-	}
-
-	public void setMethodCounter(MethodCountingAspect methodCounter) {
 		this.methodCounter = methodCounter;
 	}
 
@@ -57,23 +52,23 @@ public class ExampleMBeanImpl implements ExampleMBean {
 	}
 
 	private MBeanConstructorInfo[] getConstructorInfo() {
-		try {
-			return new MBeanConstructorInfo[] { new MBeanConstructorInfo(
-					"A constructor", getClass().getConstructor(new Class[0])) };
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return new MBeanConstructorInfo[0];
 	}
 
 	public MBeanInfo getMBeanInfo() {
-		MBeanInfo result = new MBeanInfo(getClass().getName(),
-				"MyExampleMBean", getAttributeInfo(), getConstructorInfo(),
-				getOperationInfo(), getNotificationInfo());
-		return result;
+		try {
+			MBeanInfo result = new MBeanInfo(getClass().getName(),
+					"MyExampleMBean", getAttributeInfo(), getConstructorInfo(),
+					getOperationInfo(), getNotificationInfo());
+			return result;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	// The interesting stuff
-	
+
 	private MBeanAttributeInfo[] getAttributeInfo() {
 		Method[] methods = interfaceType.getDeclaredMethods();
 		MBeanAttributeInfo[] result = new MBeanAttributeInfo[methods.length];
@@ -86,8 +81,7 @@ public class ExampleMBeanImpl implements ExampleMBean {
 	}
 
 	public Object getAttribute(String attribute) {
-		return methodCounter.getCallCount(attribute);
+		return methodCounter.getCallCount(interfaceType, attribute);
 	}
-
 
 }
