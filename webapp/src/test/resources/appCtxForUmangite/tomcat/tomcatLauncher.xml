@@ -6,7 +6,7 @@
 <beans>
 
 	<bean id="webContainerLauncher"
-		class="net.chrisrichardson.selunit.TomcatLauncher">
+		class="net.chrisrichardson.umangite.TomcatLauncher">
 			<property name="contextPath" value="ptrack"/>
 			<property name="warFile" value="webapp/target/ptrack.war"/>
 	</bean>
