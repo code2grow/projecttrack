@@ -1,7 +1,6 @@
 package org.jia.ptrack.webapp.test;
 
 import net.chrisrichardson.umangite.AbstractSeleniumTest;
-
 import org.testng.annotations.Test;
 
 

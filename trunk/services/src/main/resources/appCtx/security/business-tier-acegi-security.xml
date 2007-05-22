@@ -24,10 +24,9 @@
 
 	<aop:config>
 
-		<aop:pointcut id="coordinatorMethod"
-			expression="execution(public * org.jia.ptrack.services.ProjectCoordinator.*(..))" />
-
-		<aop:advisor pointcut-ref="coordinatorMethod" order="-1" advice-ref="projectCoordinatorSecurityManager" />
+		<aop:advisor pointcut="org.jia.ptrack.architecture.SystemArchitecture.serviceMethod()" 
+			order="-1" 
+			advice-ref="projectCoordinatorSecurityManager" />
 
 	</aop:config>
 
