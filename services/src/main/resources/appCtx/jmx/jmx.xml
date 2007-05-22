@@ -63,9 +63,9 @@
 
 	<aop:config>
 
-		<aop:aspect id="txnRetryAspect" ref="methodCountingAspect">
+		<aop:aspect ref="methodCountingAspect">
 			<aop:around method="recordMethodInvocation"
-				pointcut="execution(public * org.jia.ptrack.services.*Coordinator.*(..)) or execution(public * org.jia.ptrack.domain.*Repository.*(..))" />
+				pointcut="org.jia.ptrack.architecture.SystemArchitecture.serviceMethod() or org.jia.ptrack.architecture.SystemArchitecture.daoMethod()" />
 		</aop:aspect>
 
 	</aop:config>
