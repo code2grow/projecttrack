@@ -24,6 +24,7 @@
 		    <!--  pia-lab-begin(hibernate-orm) -->
 			<value>classpath:org/jia/ptrack/domain/hibernate/project.hbm.xml</value>
 		    <!--  pia-lab-end -->
+			<value>classpath:org/jia/ptrack/domain/hibernate/AuditEntry.hbm.xml</value>
 			<value>classpath:org/jia/ptrack/domain/hibernate/Operation.hbm.xml</value>
 			<value>classpath:org/jia/ptrack/domain/hibernate/ProjectType.hbm.xml</value>
 			<value>classpath:org/jia/ptrack/domain/hibernate/StateMachine.hbm.xml</value>

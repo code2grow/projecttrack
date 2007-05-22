@@ -26,10 +26,11 @@ public class JMXTests extends AbstractDependencyInjectionSpringContextTests {
 		assertEquals(1, servers.size());
 		MBeanServer server = servers.get(0);
 		ObjectName mbeanName = new ObjectName("bean:name=projectCoordinator");
-		assertEquals(0L, server.getAttribute(mbeanName, "add"));
+		Long count = (Long)server.getAttribute(mbeanName, "add");
+		assertEquals(count, server.getAttribute(mbeanName, "add"));
 		ProjectCoordinator projectCoordinator = (ProjectCoordinator) applicationContext.getBean("projectCoordinator", ProjectCoordinator.class);
 		projectCoordinator.add(new Project());
-		assertEquals(1L, server.getAttribute(mbeanName, "add"));
+		assertEquals(count + 1, server.getAttribute(mbeanName, "add"));
 	}
 
 }

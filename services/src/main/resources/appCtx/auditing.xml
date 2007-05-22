@@ -7,33 +7,27 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
-	<!-- $pia-lab-begin(spring-transactions)$ -->
-
-	<bean id="transactionRetryPOJOAspect"
-		class="org.jia.ptrack.services.TransactionRetryPOJOAspect">
-		<property name="maxRetries" value="4" />
-		<property name="order" value="10" />
+	<bean id="auditingAspect"
+		class="org.jia.ptrack.auditing.AuditingAspect">
+		<constructor-arg ref="auditingCoordinator" />
+		<constructor-arg>
+			<list>
+				<value>org.jia.ptrack.domain.Project</value>
+			</list>
+		</constructor-arg>
+		<property name="order" value="100" />
 	</bean>
 
 	<aop:config>
 
 		<aop:advisor
-			pointcut="org.jia.ptrack.architecture.SystemArchitecture.serviceMethod()"
-			advice-ref="txAdvice" 
-			order="50"/>
-
-		<aop:aspect id="txnRetryAspect"
-			ref="transactionRetryPOJOAspect">
-			<aop:around method="retryTransaction"
-				pointcut="org.jia.ptrack.architecture.SystemArchitecture.serviceMethod()" />
-		</aop:aspect>
-
+			pointcut="execution(* org.jia.ptrack.auditing.AuditingCoordinator.*(..))"
+			advice-ref="auditingTxAdvice"/>
 	</aop:config>
 
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	<tx:advice id="auditingTxAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="get*" read-only="true" />
-			<tx:method name="*" />
+			<tx:method name="*" propagation="REQUIRES_NEW"/>
 		</tx:attributes>
 	</tx:advice>
 
