@@ -26,6 +26,7 @@
 		<list>
 			<!--  eager relationships -->
 			<value>classpath:org/jia/ptrack/domain/hibernate/eager/Project.eager.hbm.xml</value>
+			<value>classpath:org/jia/ptrack/domain/hibernate/AuditEntry.hbm.xml</value>
 			<value>classpath:org/jia/ptrack/domain/hibernate/eager/Operation.eager.hbm.xml</value>
 			<value>classpath:org/jia/ptrack/domain/hibernate/eager/User.eager.hbm.xml</value>
 

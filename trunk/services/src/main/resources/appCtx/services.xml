@@ -16,10 +16,15 @@
 		class="org.jia.ptrack.services.SecurityInfoProviderImpl">
 		<constructor-arg ref="userRepository" />
 	</bean>
-	
+
 	<bean id="userCoordinator"
 		class="org.jia.ptrack.services.UserCoordinatorImpl">
 		<constructor-arg ref="userRepository" />
 	</bean>
 
+	<bean id="auditingCoordinator"
+		class="org.jia.ptrack.auditing.AuditingCoordinatorImpl">
+		<constructor-arg ref="auditEntryRepository" />
+		<constructor-arg ref="securityInfoProvider" />
+	</bean>
 </beans>

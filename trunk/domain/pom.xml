@@ -32,5 +32,10 @@
 			<groupId>org.acegisecurity</groupId>
 			<artifactId>acegi-security</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>net.chrisrichardson</groupId>
+			<artifactId>arid-domain</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

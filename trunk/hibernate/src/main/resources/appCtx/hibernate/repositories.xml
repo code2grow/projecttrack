@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:arid="http://chrisrichardson.net/schema/arid"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://chrisrichardson.net/schema/arid http://chrisrichardson.net/schema/arid.xsd">
 
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-"http://www.springframework.org/dtd/spring-beans.dtd">
 
-<beans>
-
-   <!--  pia-lab-begin(hibernate-repository) -->
-
-    <bean id="projectRepository"
-		class="org.jia.ptrack.domain.hibernate.HibernateProjectRepository">
-		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	<bean name='parentGenericDaoFactoryBean' abstract='true'
+		class='net.chrisrichardson.arid.dao.hibernate.GenericDAOFactoryBean'>
+		<property name='sessionFactory' ref='sessionFactory' />
 	</bean>
 
-    <!--  pia-lab-end-->
- 
+
+	<arid:define-beans
+		package='org.jia.ptrack.domain'
+		package-scanner='net.chrisrichardson.arid.InterfaceAndAbstractClassPackageScanner'
+		pattern='net.chrisrichardson.arid.domain.GenericDao+'
+		bean-generator='net.chrisrichardson.arid.ChildWithConstructorArgBeanGenerator'
+		parent-bean-name='parentGenericDaoFactoryBean'>
+	</arid:define-beans>
+
+	<!--  pia-lab-begin(hibernate-repository) -->
+
+	<bean id="projectRepository"
+		class="org.jia.ptrack.domain.hibernate.HibernateProjectRepository">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<!--  pia-lab-end-->
+
 	<bean id="userRepository"
 		class="org.jia.ptrack.domain.hibernate.HibernateUserRepository">
-		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 
 	<bean id="stateMachineRepository"
 		class="org.jia.ptrack.domain.hibernate.HibernateStateMachineRepository">
-		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 
 	<bean id="hibernateTemplate"
