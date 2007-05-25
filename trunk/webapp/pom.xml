@@ -13,7 +13,6 @@
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>PTrack web application</name>
-	<url>http://maven.apache.org</url>
 
 	<dependencies>
 
@@ -163,7 +162,7 @@
 				</configuration>
 			</plugin>
 			<!--  Integration tests of the WAR using Tomcat -->
-			<!--  FIXME Figure out why this gets run twice  -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
