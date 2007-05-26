@@ -7,7 +7,7 @@ import org.jia.ptrack.domain.Operation;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 import org.jia.ptrack.domain.UserFactory;
-import org.jia.ptrack.domain.hibernate.HibernateInitializer;
+import org.jia.ptrack.domain.hibernate.PtrackDatabaseInitializer;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class ProjectCoordinatorDetachedObjectTests extends
@@ -15,7 +15,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 
 	private ProjectCoordinator coordinator;
 
-	private HibernateInitializer initializer;
+	private PtrackDatabaseInitializer initializer;
 
 	protected String[] getConfigLocations() {
 		// Specify acegiForTesting.xml to override production definition
@@ -31,7 +31,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 		this.coordinator = coordinator;
 	}
 
-	public void setInitializer(HibernateInitializer initializer) {
+	public void setInitializer(PtrackDatabaseInitializer initializer) {
 		this.initializer = initializer;
 	}
 

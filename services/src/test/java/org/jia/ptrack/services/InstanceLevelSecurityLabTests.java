@@ -8,11 +8,11 @@ import org.jia.ptrack.domain.StateMachineRepository;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
 import org.jia.ptrack.domain.UserFactory;
-import org.jia.ptrack.domain.hibernate.HibernateInitializer;
+import org.jia.ptrack.domain.hibernate.PtrackDatabaseInitializer;
 
 public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
-	private HibernateInitializer initializer;
+	private PtrackDatabaseInitializer initializer;
 
 	private ProjectCoordinator coordinator;
 
@@ -37,7 +37,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		this.stateMachineRepository = stateMachineRepository;
 	}
 
-	public void setInitializer(HibernateInitializer initializer) {
+	public void setInitializer(PtrackDatabaseInitializer initializer) {
 		this.initializer = initializer;
 	}
 

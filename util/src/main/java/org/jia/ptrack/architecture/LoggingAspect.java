@@ -8,16 +8,22 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
-@Aspect
+@Aspect("pertarget(org.jia.ptrack.architecture.SystemArchitecture.componentMethod())")
 public class LoggingAspect {
 
-	@Pointcut("org.jia.ptrack.architecture.SystemArchitecture.serviceMethod() || org.jia.ptrack.architecture.SystemArchitecture.daoMethod()")
+	private Log logger;
+
+	@Pointcut("org.jia.ptrack.architecture.SystemArchitecture.componentMethod()")
 	void loggableOperation() {
 	}
 
 	@Around("loggableOperation()")
 	public Object logIt(ProceedingJoinPoint jp) throws Throwable {
-		Log logger = LogFactory.getLog(jp.getTarget().getClass());
+		// FIXME - synchronization issue???
+		if (logger == null) {
+			Class<? extends Object> targetClass = jp.getTarget().getClass();
+			logger = LogFactory.getLog(targetClass);
+		}
 		if (logger.isDebugEnabled()) {
 			Signature signature = jp.getStaticPart().getSignature();
 			logger.debug("entering: " + signature.getName());
