@@ -11,12 +11,12 @@ public class Project
   private String name;
   private User initiatedBy;
   private String description;
-  private java.util.List<Operation> operationHistory;
+  private List<Operation> operationHistory;
   private List artifacts;
   private ProjectType type;
   private int id;
   
-  // private int version;
+  private int version;
   
 	public int getId() {
 		return id;
@@ -139,16 +139,7 @@ public class Project
     }
 
     Status fromStatus = status;
-    Status toStatus = null;
-
-    if (approve)
-    {
-      toStatus = status.getApprovalStatus();
-    }
-    else
-    {
-      toStatus = status.getRejectionStatus();
-    }
+    Status toStatus = status.getToStatus(approve);
 
     Operation newAction = new Operation(date, user, fromStatus, toStatus,
                                         comments);
@@ -193,7 +184,6 @@ public class Project
     this.requirementsContact.setEmail(requirementsContactEmail);
   }
 
-  
 	
 	public boolean isValidStateChange(boolean approve) {
 		return getStatus().isValidStateChange(approve);
