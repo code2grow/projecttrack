@@ -39,8 +39,8 @@ The original more complex way of configuring the application
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:/appCtx/**/*.xml
-			classpath*:/${foo.bar}/**/*.xml
+			classpath*:/appCtx/common/**/*.xml
+			classpath*:/appCtx/${ptrack.application.environment}/**/*.xml
 		</param-value>
 	</context-param>
 

@@ -14,11 +14,11 @@ public class ProjectFetchJoinHQLTests extends AbstractDependencyInjectionSpringC
 	private ProjectCoordinator coordinator;
 
 	protected String[] getConfigLocations() {
-		return new String[] { "classpath*:appCtx/**/*.xml",
+		return new String[] { "classpath*:appCtx/common/**/*.xml",
 				// $pia-lab-begin(spring-transactions)$
-				"classpath*:appCtxForDetachedObjects/**/*.xml", 
+				"classpath*:appCtx/detachedObjects/**/*.xml", 
 				// $pia-lab-end$
-				"classpath:appCtx/security/testing-acegi-security.xml"  };
+				"classpath*:appCtx/testing/**/*.xml"  };
 	}
 
 	public void setProjectCoordinator(ProjectCoordinator coordinator) {

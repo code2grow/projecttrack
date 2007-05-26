@@ -17,8 +17,8 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
 	protected String[] getConfigLocations() {
 		// Specify acegiForTesting.xml to override production definition
-		return new String[] { "classpath*:appCtx/**/*.xml",
-				"classpath:appCtx/security/testing-acegi-security.xml" };
+		return new String[] { "classpath*:appCtx/common/**/*.xml",
+				"classpath*:appCtx/testing/**/*.xml" };
 	}
 
 	public void setProjectCoordinator(ProjectCoordinator coordinator) {

@@ -14,8 +14,8 @@ public class PtrackUserDetailsServiceTests extends
 	private UserDetailsService userDetailsService;
 	
 	protected String[] getConfigLocations() {
-		return new String[] { "classpath*:appCtx/**/*.xml",
-				"classpath:appCtx/security/testing-acegi-security.xml" };
+		return new String[] { "classpath*:appCtx/common/**/*.xml",
+				"classpath*:appCtx/common/**/*.xml" };
 	}
 
 	

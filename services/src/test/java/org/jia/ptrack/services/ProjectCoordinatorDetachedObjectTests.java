@@ -19,10 +19,10 @@ public class ProjectCoordinatorDetachedObjectTests extends
 
 	protected String[] getConfigLocations() {
 		// Specify acegiForTesting.xml to override production definition
-		return new String[] { "classpath*:appCtx/**/*.xml",
-				"classpath:appCtx/security/testing-acegi-security.xml"
+		return new String[] { "classpath*:appCtx/common/**/*.xml"
 				// $pia-lab-begin(spring-transactions)$
-				,"classpath*:appCtxForDetachedObjects/**/*.xml" 
+				,"classpath*:appCtx/detachedObjects/**/*.xml" 
+				,"classpath*:appCtx/testing/**/*.xml" 
 				// $pia-lab-end$
 				};
 	}

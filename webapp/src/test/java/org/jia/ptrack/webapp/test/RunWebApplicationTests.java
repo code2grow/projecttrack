@@ -9,7 +9,7 @@ public class RunWebApplicationTests extends AbstractSeleniumTest {
 
 	@Override
 	protected String[] getConfigLocations() {
-		return new String[] { "appCtxForUmangite/common/*.xml", "appCtxForUmangite/" + getContainerType()
+		return new String[] { "appCtx/testing/common/*.xml", "appCtx/testing/" + getContainerType()
 				+ "/**/*.xml", };
 	}
 
