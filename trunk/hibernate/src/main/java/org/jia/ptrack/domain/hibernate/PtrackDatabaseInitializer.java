@@ -17,7 +17,7 @@ import org.jia.ptrack.domain.UserFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class HibernateInitializer implements InitializingBean, DatabaseInitializer {
+public class PtrackDatabaseInitializer implements InitializingBean, DatabaseInitializer {
 
 	private HibernateTemplate template;
 	private Project project1;
@@ -25,8 +25,9 @@ public class HibernateInitializer implements InitializingBean, DatabaseInitializ
 	private Project project3;
 	private Collection itDepartmentEmployees;
 	private Collection marketingDepartmentEmployees;
+	private Status initialState;
 
-	public HibernateInitializer(HibernateTemplate template) {
+	public PtrackDatabaseInitializer(HibernateTemplate template) {
 		this.template = template;
 	}
 
@@ -45,7 +46,7 @@ public class HibernateInitializer implements InitializingBean, DatabaseInitializ
 		itDepartmentEmployees = UserFactory.makeAllUsers(itDepartment);
 		saveUsers(itDepartmentEmployees);
 		User projectManager = (User) itDepartmentEmployees.iterator().next();
-		Status initialState = stateMachine.getInitialStatus();
+		initialState = stateMachine.getInitialStatus();
 		template.save(project1 = ProjectFactory.makeProject1(initialState, projectManager, itDepartmentEmployees));
 		template.save(project2 = ProjectFactory.makeProject2(initialState, projectManager));
 		template.save(project3 = ProjectFactory.makeProject3(initialState, projectManager));
@@ -89,6 +90,10 @@ public class HibernateInitializer implements InitializingBean, DatabaseInitializ
 
 	public User getItDepartmentProjectManager() {
 		return (User) itDepartmentEmployees.iterator().next();
+	}
+
+	public Status getInitialState() {
+		return initialState;
 	}
 	
 	
