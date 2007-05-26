@@ -22,12 +22,6 @@
 			advice-ref="txAdvice" 
 			order="50"/>
 
-		<aop:aspect id="txnRetryAspect"
-			ref="transactionRetryPOJOAspect">
-			<aop:around method="retryTransaction"
-				pointcut="org.jia.ptrack.architecture.SystemArchitecture.serviceMethod()" />
-		</aop:aspect>
-
 	</aop:config>
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">

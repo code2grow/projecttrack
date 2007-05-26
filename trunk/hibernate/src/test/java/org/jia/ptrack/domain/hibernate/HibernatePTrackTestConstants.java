@@ -7,7 +7,7 @@ public class HibernatePTrackTestConstants {
     "appCtx/hibernate/initializer.xml",
 	"appCtx/hibernate/repositories.xml",
 	"appCtx/hibernate/test-transaction-manager.xml",
-	"appCtx/hsqldb/hsqldb-datasource.xml",
+	"appCtx/localdatasource/local-datasource.xml",
 //	"appCtxForClustering/hibernate/clustered-session-factory.xml",
 	"appCtx/hibernate/session-factory.xml",
 	"appCtx/testing/hsqldb-ormunit.xml",
@@ -17,7 +17,7 @@ public class HibernatePTrackTestConstants {
 		"appCtx/load-properties.xml",
 		"appCtx/hibernate/repositories.xml",
 		"appCtx/hibernate/test-transaction-manager.xml",
-		"appCtx/hsqldb/hsqldb-datasource.xml",
+		"appCtx/localdatasource/local-datasource.xml",
 		"appCtx/hibernate/session-factory.xml",
 		"appCtx/testing/hsqldb-ormunit.xml",
 	};

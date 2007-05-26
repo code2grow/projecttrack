@@ -23,7 +23,7 @@ public class Status implements Serializable {
 	public Status() {
 		// For Hibernate
 	}
-	
+
 	Status(String name, RoleType role) {
 		this.name = name;
 		this.initialState = false;
@@ -31,11 +31,10 @@ public class Status implements Serializable {
 		this.role = role;
 	}
 
-
 	public int getId() {
 		return id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -88,10 +87,16 @@ public class Status implements Serializable {
 		}
 	}
 
-
 	boolean isValidStateChange(boolean approve, RoleType userRole) {
 		return !isValidStateChange(approve) || !role.equals(userRole);
 	}
 
-	
+	Status getToStatus(boolean approve) {
+		if (approve) {
+			return getApprovalStatus();
+		} else {
+			return getRejectionStatus();
+		}
+	}
+
 }
