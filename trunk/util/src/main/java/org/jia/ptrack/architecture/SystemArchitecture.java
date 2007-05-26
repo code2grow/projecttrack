@@ -11,4 +11,7 @@ public class SystemArchitecture {
 
 	@Pointcut("execution(public * org.jia.ptrack.domain.*Repository.*(..))")
 	public void daoMethod() {}
+
+	@Pointcut("serviceMethod() || daoMethod()")
+	public void componentMethod() {}
 }

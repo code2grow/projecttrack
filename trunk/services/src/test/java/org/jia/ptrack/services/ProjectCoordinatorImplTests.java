@@ -1,9 +1,12 @@
 package org.jia.ptrack.services;
 
 import org.jia.ptrack.domain.Project;
+import org.jia.ptrack.domain.ProjectFactory;
 import org.jia.ptrack.domain.ProjectRepository;
+import org.jia.ptrack.domain.User;
 import org.jia.ptrack.domain.UserFactory;
-import org.jia.ptrack.domain.hibernate.HibernateInitializer;
+import org.jia.ptrack.domain.hibernate.PtrackDatabaseInitializer;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
@@ -12,14 +15,14 @@ public class ProjectCoordinatorImplTests extends
 
 	private ProjectCoordinator coordinator;
 
-	private HibernateInitializer initializer;
+	private PtrackDatabaseInitializer initializer;
 
 	private ProjectRepository projectRepository;
 
 	private HibernateTemplate template;
 
 	protected String[] getConfigLocations() {
-		return new String[] { "classpath*:appCtx/**/*.xml", 
+		return new String[] { "classpath*:appCtx/**/*.xml",
 				"classpath:appCtx/security/testing-acegi-security.xml" };
 	}
 
@@ -27,7 +30,7 @@ public class ProjectCoordinatorImplTests extends
 		this.coordinator = coordinator;
 	}
 
-	public void setInitializer(HibernateInitializer initializer) {
+	public void setInitializer(PtrackDatabaseInitializer initializer) {
 		this.initializer = initializer;
 	}
 
@@ -65,5 +68,22 @@ public class ProjectCoordinatorImplTests extends
 
 	public void setProjectRepository(ProjectRepository projectRepository) {
 		this.projectRepository = projectRepository;
+	}
+
+	public void testSimultaneousEdit() {
+		User projectManager = initializer.getItDepartmentProjectManager();
+		SecurityTestUtil.setUser(projectManager);
+		Project project1 = ProjectFactory.makeProject3(initializer.getInitialState(), projectManager);
+		projectRepository.add(project1);
+		Project project2 = projectRepository.get(project1.getId());
+		assertFalse(project1 == project2);
+		assertTrue(coordinator.changeStatus(project1, true, "great project"));
+		try {
+			assertTrue(coordinator
+					.changeStatus(project2, true, "great project"));
+			fail("Expected exception");
+		} catch (OptimisticLockingFailureException e) {
+
+		}
 	}
 }
