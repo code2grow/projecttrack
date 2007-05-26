@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<bean id="projectCoordinatorSecurityManager"
+		class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="businessAccessDecisionManager" />
+        <property name="afterInvocationManager"  ref="afterInvocationManager" />
+		<property name="objectDefinitionSource">
+			<value>
+				org.jia.ptrack.services.ProjectCoordinator.getProjectsWaitingForApproval=ROLE_PROJECT_APPROVER, AFTER_ACL_COLLECTION_READ
+				org.jia.ptrack.services.ProjectCoordinator.getAllProjects=IS_AUTHENTICATED_REMEMBERED, AFTER_ACL_COLLECTION_READ
+				org.jia.ptrack.services.ProjectCoordinator.get=IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_READ
+				org.jia.ptrack.services.ProjectCoordinator.changeStatus=ACL_CHANGE_STATUS
+				org.jia.ptrack.services.ProjectCoordinator.add=ROLE_PROJECT_CREATOR
+				org.jia.ptrack.services.ProjectCoordinator.*=IS_AUTHENTICATED_REMEMBERED
+			</value>	
+		</property>
+	</bean>
+
+    <bean id="businessAccessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+      <property name="allowIfAllAbstainDecisions"><value>false</value></property>
+      <property name="decisionVoters">
+         <list>
+            <bean class="org.acegisecurity.vote.RoleVoter" />
+			<bean class="org.acegisecurity.vote.AuthenticatedVoter" />
+            <ref local="aclChangeStatusVoter"/>
+         </list>
+      </property>
+   </bean>
+ 
+    <bean id="aclChangeStatusVoter" class="org.acegisecurity.vote.BasicAclEntryVoter">
+      <property name="processConfigAttribute" value="ACL_CHANGE_STATUS"/>
+      <property name="processDomainObjectClass" value="org.jia.ptrack.domain.Project"/>
+      <property name="aclManager"><ref local="aclManager"/></property>
+      <property name="requirePermission">
+        <list>
+          <ref local="org.acegisecurity.acl.basic.SimpleAclEntry.WRITE"/>
+        </list>
+      </property>
+   </bean>
+ 
+    <bean id="org.acegisecurity.acl.basic.SimpleAclEntry.READ" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+      <property name="staticField"><value>org.acegisecurity.acl.basic.SimpleAclEntry.READ</value></property>
+   </bean>
+
+    <bean id="org.acegisecurity.acl.basic.SimpleAclEntry.WRITE" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+      <property name="staticField"><value>org.acegisecurity.acl.basic.SimpleAclEntry.WRITE</value></property>
+   </bean>
+   
+   <bean id="aclManager" class="org.acegisecurity.acl.AclProviderManager">
+      <property name="providers">
+         <list>
+            <ref local="basicAclProvider"/>
+         </list>
+      </property>
+   </bean>
+   
+    <bean id="basicAclProvider" class="org.acegisecurity.acl.basic.BasicAclProvider">
+      <property name="basicAclDao"><ref local="basicAclExtendedDao"/></property>
+   </bean>
+ 
+    <bean id="basicAclExtendedDao" class="org.jia.ptrack.security.repository.hibernate.HibernatePTrackAclRepository">
+      <property name="hibernateTemplate" ref="hibernateTemplate"/>
+   </bean>
+ 
+    <bean id="afterInvocationManager" class="org.acegisecurity.afterinvocation.AfterInvocationProviderManager">
+      <property name="providers">
+         <list>
+            <ref local="afterAclRead"/>
+            <ref local="afterAclCollectionRead"/>
+         </list>
+      </property>
+   </bean>
+   
+   <!-- For AFTER_ACL_COLLECTION_READ -->
+   <bean id="afterAclCollectionRead" class="org.acegisecurity.afterinvocation.BasicAclEntryAfterInvocationCollectionFilteringProvider">
+      <property name="processConfigAttribute" value="AFTER_ACL_COLLECTION_READ"/>
+      <property name="aclManager" ref="aclManager"/>
+      <property name="requirePermission">
+        <list>
+          <ref local="org.acegisecurity.acl.basic.SimpleAclEntry.READ"/>
+        </list>
+      </property>
+   </bean>
+   
+   <!-- For AFTER_ACL_READ -->
+   <bean id="afterAclRead" class="org.acegisecurity.afterinvocation.BasicAclEntryAfterInvocationProvider">
+      <property name="processConfigAttribute" value="AFTER_ACL_READ"/>
+      <property name="aclManager" ref="aclManager"/>
+      <property name="requirePermission">
+        <list>
+          <ref local="org.acegisecurity.acl.basic.SimpleAclEntry.READ"/>
+        </list>
+      </property>
+   </bean>
+
+ 
+</beans>
