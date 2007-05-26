@@ -27,8 +27,8 @@ public class RunDetachedObjectsWebApplication extends RunWebApplication {
 				TARGET_WEB_XML,
 				"<filter-mapping><filter-name>OpenSessionInViewFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>",
 				"");
-		replace(TARGET_WEB_XML, "classpath*:/appCtx/**/*.xml",
-				"classpath*:/appCtx/**/*.xml classpath*:/appCtxForDetachedObjects/**/*.xml");
+		replace(TARGET_WEB_XML, "classpath*:/appCtx/common/**/*.xml",
+				"classpath*:/appCtx/common/**/*.xml classpath*:/appCtx/detachedObjects/**/*.xml");
 	}
 
 	protected void replace(String file, String fromString, String toString) {
