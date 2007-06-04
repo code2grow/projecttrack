@@ -27,12 +27,12 @@
       <hashTree>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <stringProp name="HTTPSampler.path"></stringProp>
-          <stringProp name="HTTPSampler.domain">arrakis</stringProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.port">8080</stringProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
+          <stringProp name="HTTPSampler.port">${port}</stringProp>
         </ConfigTestElement>
         <hashTree/>
         <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="/ptrack/" enabled="true">
@@ -64,10 +64,6 @@
                 <stringProp name="Header.name">Accept-Language</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">arrakis:8080</stringProp>
-                <stringProp name="Header.name">Host</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
                 <stringProp name="Header.name">Accept-Charset</stringProp>
               </elementProp>
@@ -87,10 +83,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert password field" enabled="true">
-            <boolProp name="XPath.validate">false</boolProp>
             <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
+            <boolProp name="XPath.validate">false</boolProp>
             <stringProp name="XPath.xpath">//input[@name=&apos;j_password&apos;]</stringProp>
+            <boolProp name="XPath.tolerant">true</boolProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -143,16 +139,8 @@
                 <stringProp name="Header.name">Accept-Encoding</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">http://arrakis:8080/ptrack/acegilogin.jsp</stringProp>
-                <stringProp name="Header.name">Referer</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">en-us,en;q=0.5</stringProp>
                 <stringProp name="Header.name">Accept-Language</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">arrakis:8080</stringProp>
-                <stringProp name="Header.name">Host</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
@@ -178,10 +166,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.validate">false</boolProp>
-            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.tolerant">true</boolProp>
+            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -194,10 +182,10 @@
           </XPathExtractor>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion 2" enabled="true">
-            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.validate">false</boolProp>
-            <stringProp name="XPath.xpath">//form[1]/@action</stringProp>
+            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.tolerant">true</boolProp>
+            <stringProp name="XPath.xpath">//form[1]/@action</stringProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -228,16 +216,16 @@
               </elementProp>
               <elementProp name="" elementType="HTTPArgument">
                 <stringProp name="Argument.metadata">=</stringProp>
-                <stringProp name="Argument.value">_id10</stringProp>
+                <stringProp name="Argument.value">inboxPage</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">_id10</stringProp>
+                <stringProp name="Argument.name">inboxPage</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
               </elementProp>
               <elementProp name="" elementType="HTTPArgument">
                 <stringProp name="Argument.metadata">=</stringProp>
-                <stringProp name="Argument.value">_id10%3A_id14%3A0%3Adetails</stringProp>
+                <stringProp name="Argument.value">inboxPage%3AinboxTable%3A0%3Adetails</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">_id10%3A_idcl</stringProp>
+                <stringProp name="Argument.name">inboxPage%3A_idcl</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
               </elementProp>
             </collectionProp>
@@ -257,16 +245,8 @@
                 <stringProp name="Header.name">Accept-Encoding</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">http://arrakis:8080/ptrack/acegilogin.jsp</stringProp>
-                <stringProp name="Header.name">Referer</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">en-us,en;q=0.5</stringProp>
                 <stringProp name="Header.name">Accept-Language</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">arrakis:8080</stringProp>
-                <stringProp name="Header.name">Host</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
@@ -292,10 +272,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.validate">false</boolProp>
-            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.tolerant">true</boolProp>
+            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -333,16 +313,16 @@
               </elementProp>
               <elementProp name="" elementType="HTTPArgument">
                 <stringProp name="Argument.metadata">=</stringProp>
-                <stringProp name="Argument.value">_id10</stringProp>
+                <stringProp name="Argument.value">detailsPage</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">_id10</stringProp>
+                <stringProp name="Argument.name">detailsPage</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
               </elementProp>
               <elementProp name="" elementType="HTTPArgument">
                 <stringProp name="Argument.metadata">=</stringProp>
-                <stringProp name="Argument.value">_id10%3A_id30%3A_id44</stringProp>
+                <stringProp name="Argument.value">detailsPage%3A_id28%3A_id42</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">_id10%3A_idcl</stringProp>
+                <stringProp name="Argument.name">detailsPage%3A_idcl</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
               </elementProp>
             </collectionProp>
@@ -362,16 +342,8 @@
                 <stringProp name="Header.name">Accept-Encoding</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">http://arrakis:8080/ptrack/faces/protected/inbox.jsp</stringProp>
-                <stringProp name="Header.name">Referer</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">en-us,en;q=0.5</stringProp>
                 <stringProp name="Header.name">Accept-Language</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">arrakis:8080</stringProp>
-                <stringProp name="Header.name">Host</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
@@ -397,10 +369,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.validate">false</boolProp>
-            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.tolerant">true</boolProp>
+            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -433,7 +405,7 @@
                 <stringProp name="Argument.metadata">=</stringProp>
                 <stringProp name="Argument.value">Ok</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">_id10%3A_id46</stringProp>
+                <stringProp name="Argument.name">detailsPage%3Aok</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
               </elementProp>
               <elementProp name="" elementType="HTTPArgument">
@@ -445,16 +417,16 @@
               </elementProp>
               <elementProp name="" elementType="HTTPArgument">
                 <stringProp name="Argument.metadata">=</stringProp>
-                <stringProp name="Argument.value">_id10</stringProp>
+                <stringProp name="Argument.value">detailsPage</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">_id10</stringProp>
+                <stringProp name="Argument.name">detailsPage</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
               </elementProp>
               <elementProp name="" elementType="HTTPArgument">
                 <stringProp name="Argument.metadata">=</stringProp>
                 <stringProp name="Argument.value"></stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">_id10%3A_idcl</stringProp>
+                <stringProp name="Argument.name">detailsPage%3A_idcl</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
               </elementProp>
             </collectionProp>
@@ -474,16 +446,8 @@
                 <stringProp name="Header.name">Accept-Encoding</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">http://arrakis:8080/ptrack/faces/general/details.jsp</stringProp>
-                <stringProp name="Header.name">Referer</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">en-us,en;q=0.5</stringProp>
                 <stringProp name="Header.name">Accept-Language</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">arrakis:8080</stringProp>
-                <stringProp name="Header.name">Host</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
@@ -509,10 +473,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert JView" enabled="true">
-            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.validate">false</boolProp>
-            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
+            <boolProp name="XPath.whitespace">false</boolProp>
             <boolProp name="XPath.tolerant">true</boolProp>
+            <stringProp name="XPath.xpath">//input[@name=&apos;com.sun.faces.VIEW&apos;]</stringProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -557,16 +521,8 @@
                 <stringProp name="Header.name">Accept-Encoding</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">http://arrakis:8080/ptrack/faces/general/details.jsp</stringProp>
-                <stringProp name="Header.name">Referer</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">en-us,en;q=0.5</stringProp>
                 <stringProp name="Header.name">Accept-Language</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.value">arrakis:8080</stringProp>
-                <stringProp name="Header.name">Host</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
@@ -588,10 +544,10 @@
           </HeaderManager>
           <hashTree/>
           <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert password field" enabled="true">
-            <boolProp name="XPath.validate">false</boolProp>
             <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
+            <boolProp name="XPath.validate">false</boolProp>
             <stringProp name="XPath.xpath">//input[@name=&apos;j_password&apos;]</stringProp>
+            <boolProp name="XPath.tolerant">true</boolProp>
             <boolProp name="XPath.negate">false</boolProp>
             <boolProp name="XPath.namespace">false</boolProp>
           </XPathAssertion>
@@ -680,6 +636,16 @@
               <stringProp name="Argument.metadata">=</stringProp>
               <stringProp name="Argument.value">${__P(iterations,10000)}</stringProp>
               <stringProp name="Argument.name">iterations</stringProp>
+            </elementProp>
+            <elementProp name="host" elementType="Argument">
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.value">${__P(host,"localhost")}</stringProp>
+              <stringProp name="Argument.name">host</stringProp>
+            </elementProp>
+            <elementProp name="port" elementType="Argument">
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.value">${__P(port,8080)}</stringProp>
+              <stringProp name="Argument.name">port</stringProp>
             </elementProp>
           </collectionProp>
         </Arguments>
