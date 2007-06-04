@@ -3,7 +3,6 @@ package org.jia.ptrack.domain.hibernate;
 import java.sql.SQLException;
 
 import net.chrisrichardson.ormunit.hibernate.HibernatePersistenceTests;
-import net.chrisrichardson.util.TxnCallback;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -15,7 +14,8 @@ import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-public class HibernateProjectPersistenceTests extends HibernatePersistenceTests {
+public class HibernateProjectPersistenceTests extends
+		HibernatePersistenceTests<HibernateProjectPersistenceTests> {
 	private Project project;
 
 	private Integer pid;
@@ -37,60 +37,47 @@ public class HibernateProjectPersistenceTests extends HibernatePersistenceTests 
 	public void testUpdateProject() {
 		createAndSaveProject();
 
+		txnThis.changeStatusFirstTime();
 
-		logger.debug("loading project 1");
-		
-		Project p1 = (Project) load(Project.class, pid);
-		
-		logger.debug("loading project 2");
+		txnThis.verifyProjectState();
 
-		p1 = (Project) load(Project.class, pid);
-
-		logger.debug("changing status 1");
-		
-		doWithTransaction(new TxnCallback() {
-
-			public void execute() throws Throwable {
-				final User projectManager = (User) load(User.class, "proj_mgr");
-				Project project = (Project) load(Project.class, pid);
-				project.changeStatus(true, projectManager, "I like it");
-				logger.debug("updated project 1");
-			}
-		});
-
-		logger.debug("checking project 2");
-
-		doWithTransaction(new TxnCallback() {
-
-			public void execute() throws Throwable {
-				project = (Project) load(Project.class, pid);
-				project.getHistory().size();
-				project.isValidStateChange(true);
-				logger.debug("checked project");
-
-			}
-		});
-
-
-		logger.debug("changing status 2");
-
-		doWithTransaction(new TxnCallback() {
-
-			public void execute() throws Throwable {
-				final User projectManager = (User) load(User.class, "proj_mgr");
-				project = (Project) load(Project.class, pid);
-				project.changeStatus(true, projectManager, "I like it again");
-				logger.debug("updated project 2");
-			}
-		});
+		txnThis.changeStatusAgain();
 
 	}
-	
+
+	public void changeStatusFirstTime() {
+		logger.debug("changing status 1");
+
+		final User projectManager = load(User.class, "proj_mgr");
+		Project project = load(Project.class, pid);
+		project.changeStatus(true, projectManager, "I like it");
+		logger.debug("updated project 1");
+	}
+
+	public void verifyProjectState() {
+		logger.debug("checking project 2");
+
+		project = load(Project.class, pid);
+		project.getHistory().size();
+		project.isValidStateChange(true);
+		logger.debug("checked project");
+	}
+
+	public void changeStatusAgain() {
+		logger.debug("changing status 2");
+
+		User projectManager = load(User.class, "proj_mgr");
+		project = load(Project.class, pid);
+		project.changeStatus(true, projectManager, "I like it again");
+		logger.debug("updated project 2");
+	}
+
 	public void testDeleteProject() {
 		testUpdateProject();
-		getHibernateTemplate().execute(new HibernateCallback(){
+		getHibernateTemplate().execute(new HibernateCallback() {
 
-			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
 				Project p = (Project) session.get(Project.class, pid);
 				logger.debug("deleting project");
 				session.delete(p);
@@ -98,20 +85,23 @@ public class HibernateProjectPersistenceTests extends HibernatePersistenceTests 
 				session.flush();
 				logger.debug("done flushing");
 				return null;
-			}});
+			}
+		});
 	}
 
 	private void saveProject() {
-		getHibernateTemplate().execute(new HibernateCallback(){
+		getHibernateTemplate().execute(new HibernateCallback() {
 
-			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
 				logger.debug("Saving project");
 				session.save(project);
 				logger.debug("flushing");
 				session.flush();
 				logger.debug("flushed");
 				return null;
-			}});
+			}
+		});
 		pid = new Integer(project.getId());
 	}
 
