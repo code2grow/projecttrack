@@ -227,10 +227,7 @@
 										8080
 									</cargo.servlet.port>
 									<cargo.jvmargs>
-										-Dptrack.application.environment=${ptrack.application.environment}
-										-Dcom.sun.management.jmxremote
-										-Dcom.sun.management.jmxremote.port=8090
-										-Dcom.sun.management.jmxremote.authenticate=false
+										-Dptrack.application.environment=${ptrack.application.environment}  -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8090  -Dcom.sun.management.jmxremote.authenticate=false
 									</cargo.jvmargs>
 									<!--  -javaagent:g:/3rdParty/tools/apache-tomcat-5.5.16/common/lib/aspectjweaver.jar -->
 									<cargo.logging>high</cargo.logging>
