@@ -12,6 +12,10 @@ import javax.management.MBeanOperationInfo;
 
 public class ExampleMBeanImpl implements ExampleMBean {
 
+	private static final String AVERAGE_TIME_SUFFIX = "AverageTime";
+
+	private static final String FAILURES_SUFFIX = "Failures";
+
 	private Class interfaceType;
 
 	private MethodCountingAspect methodCounter;
@@ -71,17 +75,33 @@ public class ExampleMBeanImpl implements ExampleMBean {
 
 	private MBeanAttributeInfo[] getAttributeInfo() {
 		Method[] methods = interfaceType.getDeclaredMethods();
-		MBeanAttributeInfo[] result = new MBeanAttributeInfo[methods.length];
+		MBeanAttributeInfo[] result = new MBeanAttributeInfo[methods.length * 3];
+		int j = 0;
 		for (int i = 0; i < methods.length; i++) {
 			Method method = methods[i];
-			result[i] = new MBeanAttributeInfo(method.getName(), String.class
+			result[j++] = new MBeanAttributeInfo(method.getName(), Long.class
 					.getName(), method.getName(), true, false, false);
+			result[j++] = new MBeanAttributeInfo(method.getName()
+					+ FAILURES_SUFFIX, Long.class.getName(),
+					method.getName(), true, false, false);
+			result[j++] = new MBeanAttributeInfo(method.getName()
+					+ AVERAGE_TIME_SUFFIX, Double.class.getName(), method
+					.getName(), true, false, false);
 		}
 		return result;
 	}
 
 	public Object getAttribute(String attribute) {
-		return methodCounter.getCallCount(interfaceType, attribute);
+		if (attribute.endsWith(FAILURES_SUFFIX))
+			return methodCounter.getFailedCallCount(interfaceType, withoutPrefix(attribute, FAILURES_SUFFIX));
+		else if (attribute.endsWith(AVERAGE_TIME_SUFFIX))
+			return methodCounter.getAverageTime(interfaceType, withoutPrefix(attribute, AVERAGE_TIME_SUFFIX));
+		else
+			return methodCounter.getCallCount(interfaceType, attribute);
+	}
+
+	private String withoutPrefix(String attribute, String suffix) {
+		return attribute.substring(0, attribute.length() - suffix.length());
 	}
 
 }
