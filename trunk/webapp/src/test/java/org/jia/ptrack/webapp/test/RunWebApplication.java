@@ -78,7 +78,7 @@ public class RunWebApplication extends JettyLauncher {
 
 
 	@Override
-	protected String getContextPath() {
+	public String getContextPath() {
 		return "ptrack";
 	}
 	
