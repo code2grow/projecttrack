@@ -6,6 +6,8 @@
 <beans>
 
 	<bean id="seleniumLauncher"
-		class="net.chrisrichardson.umangite.SeleniumLauncher" />
+		class="net.chrisrichardson.umangite.SeleniumLauncher" >
+		<property name="browserType" value="*firefox"/>
+	</bean>
 
 </beans>
