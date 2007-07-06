@@ -28,8 +28,8 @@
 					<groupId>jdbc</groupId>
 				</exclusion>
 			</exclusions>
-
 		</dependency>
+
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
@@ -37,11 +37,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.0.4</version>
-		</dependency>
 		<dependency>
 			<groupId>net.chrisrichardson</groupId>
 			<artifactId>ptrack-domain</artifactId>
@@ -97,6 +92,22 @@
 	</dependencies>
 
 	<profiles>
+
+		<profile>
+			<id>postgres</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<version>8.2-505.jdbc3</version>
+				</dependency>
+			</dependencies>
+		</profile>
+
+
 		<profile>
 			<id>tangosol</id>
 			<activation>
@@ -122,5 +133,5 @@
 		</profile>
 	</profiles>
 
-	
+
 </project>
