@@ -18,10 +18,10 @@
 
 		<dependency>
 			<groupId>net.chrisrichardson</groupId>
-			<artifactId>umangite-framework</artifactId>		
+			<artifactId>umangite-framework</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.chrisrichardson</groupId>
 			<artifactId>ptrack-services</artifactId>
@@ -161,39 +161,61 @@
 					</connectors>
 				</configuration>
 			</plugin>
-			<!--  Integration tests of the WAR using Tomcat -->
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>surefire-integration</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<reportsDirectory>
-								${project.build.directory}/surefire-integration-reports
-							</reportsDirectory>
-							<systemProperties>
-								<property>
-									<name>container.type</name>
-									<value>tomcat</value>
-								</property>
-							</systemProperties>
-							<excludes>
-								<exclude>
-									**/RunDetachedObjectsWebApplicationTests.class
-								</exclude>
-							</excludes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>webapp-cc</id>
+			<activation>
+				<property>
+					<name>cctimestamp</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!--  Integration tests of the WAR using Tomcat -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>surefire-integration</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<reportsDirectory>
+										${project.build.directory}/surefire-integration-reports
+									</reportsDirectory>
+									<systemProperties>
+										<property>
+											<name>
+												ptrack.application.environment
+											</name>
+											<value>
+												${ptrack.application.environment}
+											</value>
+										</property>
+										<property>
+											<name>container.type</name>
+											<value>tomcat</value>
+										</property>
+									</systemProperties>
+									<excludes>
+										<exclude>
+											**/RunDetachedObjectsWebApplicationTests.class
+										</exclude>
+									</excludes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
 
 
