@@ -32,6 +32,7 @@
 		</developerConnection>
 	</scm>
 
+	
 	<repositories>
 		<repository>
 			<id>pia-repository</id>
@@ -66,6 +67,7 @@
 
 	<properties>
 		<jsf.version>1.1_02</jsf.version>
+		<ptrack.application.environment>development</ptrack.application.environment>
 	</properties>
 
 	<dependencyManagement>
@@ -217,7 +219,7 @@
 									ptrack.application.environment
 								</name>
 								<value>
-									ptrack.application.environment
+									${ptrack.application.environment}
 								</value>
 							</property>
 						</systemProperties>
