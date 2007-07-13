@@ -9,6 +9,6 @@
 
 	<aop:aspectj-autoproxy />
 
-	<bean id="loggingAspect" scope="prototype"
-		class="org.jia.ptrack.architecture.LoggingAspect" />
+	<bean id="loggingAspect" scope="prototype" 
+		class="org.jia.ptrack.logging.LoggingAspect" />
 </beans>
