@@ -32,7 +32,7 @@
 		</developerConnection>
 	</scm>
 
-	
+
 	<repositories>
 		<repository>
 			<id>pia-repository</id>
@@ -67,7 +67,9 @@
 
 	<properties>
 		<jsf.version>1.1_02</jsf.version>
-		<ptrack.application.environment>development</ptrack.application.environment>
+		<ptrack.application.environment>
+			development
+		</ptrack.application.environment>
 	</properties>
 
 	<dependencyManagement>
@@ -291,4 +293,20 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
+	<profiles>
+		<profile>
+			<id>cc</id>
+			<activation>
+				<property>
+					<name>cctimestamp</name>
+				</property>
+			</activation>
+			<properties>
+				<ptrack.application.environment>
+					cc
+				</ptrack.application.environment>
+			</properties>
+		</profile>
+	</profiles>
 </project>
