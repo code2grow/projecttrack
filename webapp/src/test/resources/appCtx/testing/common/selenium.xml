@@ -10,4 +10,17 @@
 		<property name="browserType" value="*firefox"/>
 	</bean>
 
+	<bean id="properties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:/config/development/**/*.properties</value>
+				<value>classpath*:/config/${ptrack.application.environment}/**/*.properties</value>
+			</list>
+		</property>
+		<property name="ignoreResourceNotFound" value="false" />
+		<property name="systemPropertiesModeName"
+			value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+	</bean>
+
 </beans>

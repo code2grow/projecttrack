@@ -6,6 +6,8 @@
 <beans>
 
 	<bean id="webContainerLauncher"
-		class="org.jia.ptrack.webapp.test.RunWebApplication" />
+		class="org.jia.ptrack.webapp.test.RunWebApplication" >
+		<property name="port" value="${umangite.port}"/>
+	</bean>
 
 </beans>
