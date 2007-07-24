@@ -99,4 +99,8 @@ public class Status implements Serializable {
 		}
 	}
 
+	public boolean isValidStateChange(boolean approve, User user) {
+		return isValidStateChange(approve) && user.hasRole(role);
+	}
+
 }
