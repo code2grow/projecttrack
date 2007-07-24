@@ -110,9 +110,10 @@ public abstract class EnumeratedType implements Serializable
 		    return false;
     if (this == other)
       return true;
-    else if (other.getClass().equals(this.getClass()))
-      return (((EnumeratedType)other).getValue().equals(value));
-    else
+    else if (other.getClass().equals(this.getClass())) {
+		String otherValue = ((EnumeratedType)other).getValue();
+		return value == null || otherValue == null ? otherValue == value : (otherValue.equals(value));
+	} else
       return false;
   }
 

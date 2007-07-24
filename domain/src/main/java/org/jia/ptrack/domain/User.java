@@ -106,6 +106,10 @@ public class User implements Serializable
     return firstName + " " + lastName;
   }
 
+  public String getFullName() {
+	  return toString();
+  }
+  
 public boolean isPasswordValid(String password) {
 	return getPassword().equals(password);
 }
@@ -116,6 +120,10 @@ public Set<RoleType> getRoles() {
 
 public Department getDepartment() {
 	return department;
+}
+
+boolean hasRole(RoleType role) {
+	return roles.contains(role);
 }
 
 }

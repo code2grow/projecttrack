@@ -52,7 +52,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 		assertHistory(project.getHistory());
 		assertFalse(project.getArtifacts().length == 0);
 		assertNotNull(project.getStatus().getName());
-		assertNotNull(project.getStatus().getRole());
+		project.getStatus().getRole();
 		assertNotNull(project.getInitiatedBy().toString());
 
 		project = coordinator.get(initializer.getProject2().getId());
@@ -91,7 +91,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 			assertNotNull(project.getStatus().toString());
 			assertNotNull(project.getStatus().getRole());
 		}
-		assertEquals(2, projects.size());
+		assertEquals(1, projects.size());
 	}
 
 

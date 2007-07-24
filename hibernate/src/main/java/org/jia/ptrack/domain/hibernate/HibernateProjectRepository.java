@@ -66,7 +66,7 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 				criteria.add(Restrictions.eq("status.role", role));
 				criteria.addOrder(Order.asc(computeSortOrder(sortColumn)));
 				// If we were caching
-				criteria.setCacheable(true);
+				//criteria.setCacheable(true);
 				return criteria.list();
 			}
 		});

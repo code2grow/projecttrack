@@ -188,4 +188,16 @@ public class Project
 	public boolean isValidStateChange(boolean approve) {
 		return getStatus().isValidStateChange(approve);
 	}
+
+	public boolean isApprovable(User user) {
+		return status.isValidStateChange(true, user);
+	}
+
+	public boolean isRejectable(User user) {
+		return status.isValidStateChange(false, user);
+	}
+
+	public int getVersion() {
+		return version;
+	}
 }
