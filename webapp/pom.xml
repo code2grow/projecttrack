@@ -199,7 +199,7 @@
 											</value>
 										</property>
 										<property>
-											<name>container.type</name>
+											<name>umangite.container.type</name>
 											<value>tomcat</value>
 										</property>
 									</systemProperties>

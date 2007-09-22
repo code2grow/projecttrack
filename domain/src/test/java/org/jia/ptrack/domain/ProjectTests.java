@@ -16,9 +16,9 @@ public class ProjectTests extends TestCase {
 
 	protected void setUp() throws Exception {
 		PTrackWorld world = new PTrackWorld();
-		projectManager = world.getProjectManager();
-		businessAnalyst = world.getBusinessAnalyst();
-		p = world.getProject();
+		projectManager = world.getItProjectManager();
+		businessAnalyst = world.getItBusinessAnalyst();
+		p = world.getProjectInProposalState();
 	}
 
 	public void testProjectApproval() {
@@ -61,10 +61,10 @@ public class ProjectTests extends TestCase {
 	}
 	
 	public void testArtifacts() {
-		assertEquals(0, p.getArtifacts().length);
-		ArtifactType[] artifacts = new ArtifactType[]{ArtifactType.ARCHITECTURE, ArtifactType.DEPLOYMENT};
-		p.setArtifacts(artifacts);
 		assertEquals(2, p.getArtifacts().length);
+		ArtifactType[] artifacts = new ArtifactType[]{ArtifactType.ARCHITECTURE};
+		p.setArtifacts(artifacts);
+		assertEquals(1, p.getArtifacts().length);
 		assertTrue(Arrays.equals(artifacts, p.getArtifacts()));
 	}
 	

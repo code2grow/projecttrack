@@ -1,25 +1,23 @@
 package org.jia.ptrack.services;
 
+import net.chrisrichardson.ormunit.hibernate.HibernatePersistenceTests;
+
 import org.jia.ptrack.domain.Project;
-import org.jia.ptrack.domain.ProjectFactory;
+import org.jia.ptrack.domain.ProjectMother;
 import org.jia.ptrack.domain.ProjectRepository;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.jia.ptrack.domain.hibernate.PtrackDatabaseInitializer;
 import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class ProjectCoordinatorImplTests extends
-		AbstractDependencyInjectionSpringContextTests {
+		HibernatePersistenceTests<ProjectCoordinatorImplTests> {
 
 	private ProjectCoordinator coordinator;
 
 	private PtrackDatabaseInitializer initializer;
 
 	private ProjectRepository projectRepository;
-
-	private HibernateTemplate template;
 
 	protected String[] getConfigLocations() {
 		return new String[] { "classpath*:appCtx/common/**/*.xml",
@@ -34,10 +32,6 @@ public class ProjectCoordinatorImplTests extends
 		this.initializer = initializer;
 	}
 
-	public void setHibernateTemplate(HibernateTemplate template) {
-		this.template = template;
-	}
-
 	protected void onSetUp() throws Exception {
 		super.onSetUp();
 		SecurityTestUtil.clearUser();
@@ -49,9 +43,9 @@ public class ProjectCoordinatorImplTests extends
 	}
 
 	public void testChangeStatus() throws Exception {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		System.out.println("updating first time");
-		Project project = initializer.getProject3();
+		Project project = projectRepository.get(initializer.getProjectInProposalState().getId());
 		assertTrue(coordinator.changeStatus(project, true, "great project"));
 
 		System.out.println("updating again");
@@ -73,7 +67,7 @@ public class ProjectCoordinatorImplTests extends
 	public void testSimultaneousEdit() {
 		User projectManager = initializer.getItDepartmentProjectManager();
 		SecurityTestUtil.setUser(projectManager);
-		Project project1 = ProjectFactory.makeProject3(initializer.getInitialState(), projectManager);
+		Project project1 = ProjectMother.makeProjectInProposalState(initializer.getInitialState(), projectManager);
 		projectRepository.add(project1);
 		Project project2 = projectRepository.get(project1.getId());
 		assertFalse(project1 == project2);

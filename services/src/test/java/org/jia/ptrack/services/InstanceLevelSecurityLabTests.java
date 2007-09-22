@@ -3,11 +3,11 @@ package org.jia.ptrack.services;
 import org.acegisecurity.AccessDeniedException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.domain.ProjectFactory;
+import org.jia.ptrack.domain.ProjectMother;
 import org.jia.ptrack.domain.StateMachineRepository;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.jia.ptrack.domain.hibernate.PtrackDatabaseInitializer;
 
 public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
@@ -48,7 +48,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		SecurityTestUtil.setUser(user);
 		Status initialStatus = stateMachineRepository.findTheStateMachine()
 				.getInitialStatus();
-		project = ProjectFactory.makeProject3(initialStatus, user);
+		project = ProjectMother.makeProjectInProposalState(initialStatus, user);
 		coordinator.add(project);
 		assertNotNull(project.getInitiatedBy());
 		assertNotNull(project.getInitiatedBy().getDepartment());
@@ -62,7 +62,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
 	public void testGetAccessUpperManager(){
 
-		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
+		SecurityTestUtil.setUser(UserMother.makeUpperManager());
 
 		System.out.println("Getting project 2");
 		assertNotNull(coordinator.get(project.getId()));
@@ -73,7 +73,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		System.out.println("Getting project 1");
 		assertNotNull(coordinator.get(project.getId()));
 
-		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
+		SecurityTestUtil.setUser(UserMother.makeUpperManager());
 
 		System.out.println("Getting project 2");
 		assertNotNull(coordinator.get(project.getId()));
@@ -123,7 +123,7 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 	}
 
 	public void testGetAllProjectsForUpper() {
-		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
+		SecurityTestUtil.setUser(UserMother.makeUpperManager());
 		assertEquals(4, coordinator.getAllProjects(ProjectColumnType.NAME).size());
 	}
 	

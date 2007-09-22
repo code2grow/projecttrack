@@ -3,7 +3,7 @@ package org.jia.ptrack.services;
 import java.util.List;
 
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class ProjectCoordinatorWithRealTransactionsTests extends
@@ -31,7 +31,7 @@ public class ProjectCoordinatorWithRealTransactionsTests extends
 	}
 
 	public void test() throws Exception {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		List projects = coordinator.getAllProjects(ProjectColumnType.NAME);
 		assertNotNull(projects);
 	}

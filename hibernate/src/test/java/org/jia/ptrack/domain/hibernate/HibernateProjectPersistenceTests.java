@@ -8,7 +8,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.jia.ptrack.domain.DefaultStateMachineFactory;
 import org.jia.ptrack.domain.Project;
-import org.jia.ptrack.domain.ProjectFactory;
+import org.jia.ptrack.domain.ProjectMother;
 import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
@@ -111,7 +111,7 @@ public class HibernateProjectPersistenceTests extends
 		Status initialStatus = stateManager.getInitialStatus();
 		save(initialStatus);
 		getHibernateTemplate().flush();
-		project = ProjectFactory.makeProject3(initialStatus, null);
+		project = ProjectMother.makeProjectInProposalState(initialStatus, null);
 	}
 
 }

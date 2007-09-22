@@ -5,7 +5,7 @@ import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.jia.ptrack.domain.Department;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class PtrackUserDetailsServiceTests extends
@@ -25,7 +25,7 @@ public class PtrackUserDetailsServiceTests extends
 
 
 	public void testKnownUser() {
-		User projectManager = UserFactory.makeProjectManager(new Department("IT"));
+		User projectManager = UserMother.makeProjectManager(new Department("IT"));
 		UserDetails user = userDetailsService.loadUserByUsername(projectManager.getLogin());
 		assertNotNull(user);
 		assertEquals(projectManager.getRoles().size(), user.getAuthorities().length);
