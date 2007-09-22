@@ -6,7 +6,7 @@ import java.util.List;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 import org.jia.ptrack.domain.RoleType;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class ProjectFetchJoinHQLTests extends AbstractDependencyInjectionSpringContextTests {
@@ -37,12 +37,12 @@ public class ProjectFetchJoinHQLTests extends AbstractDependencyInjectionSpringC
 	}
 
 	public void testGetAllProjects()  {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		List projects = coordinator.getAllProjects(ProjectColumnType.NAME);
 		for (Iterator it = projects.iterator(); it.hasNext();) {
 			Project project = (Project) it.next();
 			assertNotNull(project.getStatus().toString());
-			assertNotNull(project.getStatus().getRole());
+			project.getStatus().getRole();
 		}
 		assertEquals(3, projects.size());
 	}

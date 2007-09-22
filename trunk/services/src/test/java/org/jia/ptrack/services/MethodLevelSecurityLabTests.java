@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.acegisecurity.AccessDeniedException;
 import org.jia.ptrack.domain.Project;
-import org.jia.ptrack.domain.ProjectFactory;
+import org.jia.ptrack.domain.ProjectMother;
 import org.jia.ptrack.domain.StateMachineRepository;
 import org.jia.ptrack.domain.Status;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 
 public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
@@ -32,14 +32,14 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
 	public void testGetProjectsWaitingForProjectManager()
 			{
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		List projects = coordinator.getProjectsWaitingForApproval(null);
 		assertNotNull(projects);
 	}
 
 	public void testGetProjectsWaitingForUpperManagement()
 			{
-		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
+		SecurityTestUtil.setUser(UserMother.makeUpperManager());
 		try {
 			coordinator.getProjectsWaitingForApproval(null);
 			fail("expected access denied");
@@ -48,18 +48,18 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 	}
 
 	public void testAddByProjectManager()  {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		Status initialStatus = stateMachineRepository.findTheStateMachine()
 				.getInitialStatus();
-		coordinator.add(ProjectFactory.makeProject3(initialStatus, null));
+		coordinator.add(ProjectMother.makeProjectInProposalState(initialStatus, null));
 	}
 
 	public void testAddByBusinessAnalyst() {
-		SecurityTestUtil.setUser(UserFactory.makeBusinessAnalyst(null));
+		SecurityTestUtil.setUser(UserMother.makeBusinessAnalyst(null));
 		try {
 			Status initialStatus = stateMachineRepository.findTheStateMachine()
 					.getInitialStatus();
-			coordinator.add(ProjectFactory.makeProject3(initialStatus, null));
+			coordinator.add(ProjectMother.makeProjectInProposalState(initialStatus, null));
 			fail("expected access denied");
 		} catch (AccessDeniedException e) {
 		}
@@ -67,15 +67,14 @@ public class MethodLevelSecurityLabTests extends AbstractPtrackServicesTest {
 
 	public void testChangeStatusProjectManager()
 			{
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
-		List projects = coordinator.getAllProjects(null);
-		Project project = (Project) projects.get(0);
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
+		Project project = coordinator.get(databaseInitializer.getProjectInProposalState().getId());
 		assertTrue(coordinator.changeStatus(project, true, "great"));
 	}
 
 	public void testChangeStatusUpperManager()
 	{
-		SecurityTestUtil.setUser(UserFactory.makeUpperManager());
+		SecurityTestUtil.setUser(UserMother.makeUpperManager());
 		List projects = coordinator.getAllProjects(null);
 		Project project = (Project) projects.get(0);
 		try {

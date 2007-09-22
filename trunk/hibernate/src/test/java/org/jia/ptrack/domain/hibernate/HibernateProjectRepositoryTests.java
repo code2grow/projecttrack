@@ -7,13 +7,13 @@ import net.chrisrichardson.util.TxnCallback;
 
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.domain.ProjectFactory;
+import org.jia.ptrack.domain.ProjectMother;
 import org.jia.ptrack.domain.ProjectRepository;
 import org.jia.ptrack.domain.RoleType;
 import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.springframework.dao.support.DataAccessUtils;
 
 public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
@@ -38,7 +38,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 	}
 
 	public void testAddProject()  {
-		Project project = ProjectFactory.makeProject3(initialStatus, null);
+		Project project = ProjectMother.makeProjectInProposalState(initialStatus, null);
 		projectRepository.add(project);
 
 		assertNotNull(getHibernateTemplate().get(Project.class,
@@ -47,7 +47,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 	}
 
 	public void testGetProject()  {
-		final Project project = ProjectFactory.makeProject3(initialStatus, null);
+		final Project project = ProjectMother.makeProjectInProposalState(initialStatus, null);
 		getHibernateTemplate().save(project);
 
 		Project p2 = projectRepository.get(project.getId());
@@ -90,7 +90,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 
 			public void execute() throws Throwable {
 				Project project = projectRepository.get(projects.get(0).getId());
-				User projectManager = UserFactory.makeProjectManager(null);
+				User projectManager = UserMother.makeProjectManager(null);
 				while (project.changeStatus(true, projectManager, "Cool!"));
 				System.out.println("committing");
 			}});
@@ -113,7 +113,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 	}
 	
 	public void testMerge()  {
-		Project project = ProjectFactory.makeProject3(initialStatus, null);
+		Project project = ProjectMother.makeProjectInProposalState(initialStatus, null);
 		projectRepository.add(project);
 		
 		project = projectRepository.get(project.getId());

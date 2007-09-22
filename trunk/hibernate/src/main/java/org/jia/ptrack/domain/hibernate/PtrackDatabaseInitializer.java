@@ -6,26 +6,19 @@ import java.util.Iterator;
 
 import net.chrisrichardson.ormunit.hibernate.DatabaseInitializer;
 
-import org.jia.ptrack.domain.DefaultStateMachineFactory;
 import org.jia.ptrack.domain.Department;
+import org.jia.ptrack.domain.PTrackWorld;
 import org.jia.ptrack.domain.Project;
-import org.jia.ptrack.domain.ProjectFactory;
 import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 public class PtrackDatabaseInitializer implements InitializingBean, DatabaseInitializer {
 
 	private HibernateTemplate template;
-	private Project project1;
-	private Project project2;
-	private Project project3;
-	private Collection itDepartmentEmployees;
-	private Collection marketingDepartmentEmployees;
-	private Status initialState;
+  private PTrackWorld world;
 
 	public PtrackDatabaseInitializer(HibernateTemplate template) {
 		this.template = template;
@@ -36,24 +29,24 @@ public class PtrackDatabaseInitializer implements InitializingBean, DatabaseInit
 	}
 
 	public void initializeDatabase() {
-		StateMachine stateMachine = new DefaultStateMachineFactory()
-				.makeStateMachine("default");
+	  world = new PTrackWorld();
+    StateMachine stateMachine = world.getStateMachine();
 		template.save(stateMachine);
 		
-		Department itDepartment = new Department("IT");
+		Department itDepartment = world.getITDepartment();
+		
 		template.save(itDepartment);
 		
-		itDepartmentEmployees = UserFactory.makeAllUsers(itDepartment);
+		Collection<User> itDepartmentEmployees = world.getAllITDepartmentEmployees();
 		saveUsers(itDepartmentEmployees);
-		User projectManager = (User) itDepartmentEmployees.iterator().next();
-		initialState = stateMachine.getInitialStatus();
-		template.save(project1 = ProjectFactory.makeProject1(initialState, projectManager, itDepartmentEmployees));
-		template.save(project2 = ProjectFactory.makeProject2(initialState, projectManager));
-		template.save(project3 = ProjectFactory.makeProject3(initialState, projectManager));
+		
+		template.save(world.getProjectInCompleteState());
+		template.save(world.getProjectInRequirementsState());
+		template.save(world.getProjectInProposalState());
 
-		Department marketingDepartment = new Department("marketing");
+		Department marketingDepartment = world.getMarketingDepartment();
 		template.save(marketingDepartment);
-		marketingDepartmentEmployees = UserFactory.makeAllUsers2(marketingDepartment);
+		Collection<User> marketingDepartmentEmployees = world.getMarketingDepartmentEmployees();
 		saveUsers(marketingDepartmentEmployees);
 	}
 
@@ -64,36 +57,36 @@ public class PtrackDatabaseInitializer implements InitializingBean, DatabaseInit
 		}
 	}
 
-	public Project getProject1() {
-		return project1;
+	public Project getProjectInCompleteState() {
+		return world.getProjectInCompleteState();
 	}
 
-	public Project getProject2() {
-		return project2;
+	public Project getProjectInRequirementsState() {
+		return world.getProjectInRequirementsState();
 	}
 
-	public Project getProject3() {
-		return project3;
+	public Project getProjectInProposalState() {
+		return world.getProjectInProposalState();
 	}
 
 	public Collection getItDepartmentEmployees() {
-		return itDepartmentEmployees;
+		return world.getAllITDepartmentEmployees();
 	}
 
 	public Collection getMarketingDepartmentEmployees() {
-		return marketingDepartmentEmployees;
+		return world.getMarketingDepartmentEmployees();
 	}
 
 	public User getMarketingDepartmentProjectManager() {
-		return (User) marketingDepartmentEmployees.iterator().next();
+		return world.getMarketingDepartmentProjectManager();
 	}
 
 	public User getItDepartmentProjectManager() {
-		return (User) itDepartmentEmployees.iterator().next();
+		return world.getItProjectManager();
 	}
 
 	public Status getInitialState() {
-		return initialState;
+		return world.getInitialState();
 	}
 	
 	

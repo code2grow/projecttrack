@@ -1,50 +1,105 @@
 package org.jia.ptrack.domain;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 public class PTrackWorld {
 
-	private Department department;
-	private User projectManager;
-	private User businessAnalyst;
-	private Project project;
-	private Project project2;
-	private StateMachine stateMachine;
+  private final Department itDepartment;
+  private final User itProjectManager;
+  private final User itBusinessAnalyst;
+  private final StateMachine stateMachine;
 
-	public PTrackWorld() {
-		department = new Department("IT");
-		projectManager = UserFactory.makeProjectManager(department);
-		businessAnalyst = UserFactory.makeBusinessAnalyst(department);
-		stateMachine = new DefaultStateMachineFactory().makeStateMachine("test");
-		Status initialStatus = stateMachine.getInitialStatus();
-		project = new Project(initialStatus);
-		project.setInitiatedBy(projectManager);
+  private final Department marketingDepartment;
+  private final Collection<User> marketingDepartmentEmployees;
 
-		project2 = new Project(initialStatus);
-		project2.setInitiatedBy(projectManager);
-	}
+  private final Project projectInCompleteState;
+  private final Project projectInRequirementsState;
+  private final Project projectInProposalState;
+  private final List<User> itDepartmentEmployees;
+  private final Status initialStatus;
+  private final User marketingDepartmentProjectManager;
 
-	public User getBusinessAnalyst() {
-		return businessAnalyst;
-	}
+  public PTrackWorld() {
+    itDepartment = new Department("IT");
 
-	public Department getDepartment() {
-		return department;
-	}
+    itProjectManager = UserMother.makeProjectManager(itDepartment);
+    itBusinessAnalyst = UserMother.makeBusinessAnalyst(itDepartment);
 
-	public Project getProject() {
-		return project;
-	}
+    User systemsManager = UserMother.makeSystemsManager(itDepartment);
+    User qaManager = UserMother.makeQAManager(itDepartment);
+    User developmentManager = UserMother.makeDevelopmentManager(itDepartment);
+    User upperManager = UserMother.makeUpperManager();
 
-	public User getProjectManager() {
-		return projectManager;
-	}
+    itDepartmentEmployees = new LinkedList<User>();
+    itDepartmentEmployees.add(itProjectManager);
+    itDepartmentEmployees.add(systemsManager);
+    itDepartmentEmployees.add(qaManager);
+    itDepartmentEmployees.add(developmentManager);
+    itDepartmentEmployees.add(itBusinessAnalyst);
+    itDepartmentEmployees.add(upperManager);
 
-	public StateMachine getStateMachine() {
-		return stateMachine;
-	}
+    stateMachine = new DefaultStateMachineFactory().makeStateMachine("default");
+    initialStatus = stateMachine.getInitialStatus();
+    projectInCompleteState = ProjectMother.makeProjectInCompleteState(initialStatus, itProjectManager, getAllITDepartmentEmployees());
+    projectInRequirementsState = ProjectMother.makeProjectInRequirementsState(initialStatus, itProjectManager);
+    projectInProposalState = ProjectMother.makeProjectInProposalState(initialStatus, itProjectManager);
+    
+    marketingDepartment = new Department("Marketing");
+    marketingDepartmentProjectManager = UserMother.makeMarketingDepartmentProjectManager(marketingDepartment);
+    marketingDepartmentEmployees = new LinkedList<User>();
+    marketingDepartmentEmployees.add(marketingDepartmentProjectManager);
+  }
 
-	public Project getProject2() {
-		return project2;
-	}
-	
-	
+  public User getItBusinessAnalyst() {
+    return itBusinessAnalyst;
+  }
+
+  public Department getITDepartment() {
+    return itDepartment;
+  }
+
+  public User getItProjectManager() {
+    return itProjectManager;
+  }
+
+  public StateMachine getStateMachine() {
+    return stateMachine;
+  }
+
+  public Collection<User> getAllITDepartmentEmployees() {
+    return itDepartmentEmployees;
+  }
+
+  public Department getMarketingDepartment() {
+    return marketingDepartment;
+  }
+
+  public Collection<User> getMarketingDepartmentEmployees() {
+    return marketingDepartmentEmployees;
+  }
+
+  public Project getProjectInCompleteState() {
+    return projectInCompleteState;
+  }
+
+  public Project getProjectInRequirementsState() {
+    return projectInRequirementsState;
+  }
+
+  public Project getProjectInProposalState() {
+    return projectInProposalState;
+  }
+
+  public Status getInitialState() {
+    return initialStatus;
+  }
+
+  public User getMarketingDepartmentProjectManager() {
+    return marketingDepartmentProjectManager;
+  }
+
+  
+
 }

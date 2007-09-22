@@ -1,15 +1,17 @@
 package org.jia.ptrack.services;
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import junit.framework.TestCase;
+
 import org.jia.ptrack.domain.Operation;
 import org.jia.ptrack.domain.PTrackWorld;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectRepository;
 import org.jia.ptrack.domain.StateMachineRepository;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserRepository;
-import static org.easymock.EasyMock.*;
-
-import junit.framework.TestCase;
 
 public class ProjectCoordinatorImplMockTests extends TestCase {
 
@@ -25,7 +27,7 @@ public class ProjectCoordinatorImplMockTests extends TestCase {
 		super.setUp();
 		
 		world = new PTrackWorld();
-		projectManager = world.getProjectManager();
+		projectManager = world.getItProjectManager();
 
 		projectRepository = createMock(ProjectRepository.class);
 		stateMachineRepository = createMock(StateMachineRepository.class);
@@ -62,20 +64,17 @@ public class ProjectCoordinatorImplMockTests extends TestCase {
 	
 	public void testChangeStatus() {
 		
-		Project project = world.getProject();
-		Project project2 = world.getProject2();
-		
-		expect(projectRepository.merge(project)).andReturn(project2);
+		Project project = world.getProjectInProposalState();
+		expect(projectRepository.merge(project)).andReturn(project);
 		expect(securityInfoProvider.getCurrentUser()).andReturn(projectManager);
 
 		replayMocks();
 		
 		assertTrue(service.changeStatus(project, true, "Cool"));
 
-		assertTrue(project.getHistory().isEmpty());
-		assertFalse(project2.getHistory().isEmpty());
+		assertFalse(project.getHistory().isEmpty());
 		
-		Operation operation = project2.getHistory().get(0);
+		Operation operation = project.getHistory().get(0);
 		assertEquals(projectManager, operation.getUser());
 		assertEquals("Cool", operation.getComments());
 		assertEquals(world.getStateMachine().getInitialStatus(), operation.getFromStatus());

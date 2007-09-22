@@ -26,7 +26,7 @@ public class ProjectDTOAssemblerTests extends
 
 	public void testMakeProjectSummary() {
 
-		Project project2 = ProjectMother.makeProject2();
+		Project project2 = ProjectMother.makeProjectInRequirementsState();
 
 		ProjectSummary result = assembler.makeProjectSummary(project2);
 		assertNotNull(result);
@@ -38,7 +38,7 @@ public class ProjectDTOAssemblerTests extends
 	
 	public void testMakeProjectDetails() {
 		
-		Project project2 = ProjectMother.makeProject2();
+		Project project2 = ProjectMother.makeProjectInRequirementsState();
 
 		ProjectDetails result = assembler.makeProjectDetails(project2, UserMother.makeProjectManager());
 		assertNotNull(result);

@@ -2,7 +2,7 @@ package org.jia.ptrack.facade;
 
 import java.util.List;
 
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.jia.ptrack.services.SecurityTestUtil;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
@@ -26,7 +26,7 @@ public class ProjectCoordinatorFacadeTests extends
 
 
 	public void test() {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		List<ProjectSummary> summaries = facade.getProjectsWaitingForApproval(null);
 		assertFalse(summaries.isEmpty());
 		ProjectDetails details = facade.getProjectDetails(summaries.get(0).getId());

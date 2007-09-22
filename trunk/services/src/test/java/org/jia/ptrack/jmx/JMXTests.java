@@ -7,7 +7,7 @@ import javax.management.MBeanServerFactory;
 import javax.management.ObjectName;
 
 import org.jia.ptrack.domain.Project;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 import org.jia.ptrack.services.ProjectCoordinator;
 import org.jia.ptrack.services.SecurityTestUtil;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
@@ -21,7 +21,7 @@ public class JMXTests extends AbstractDependencyInjectionSpringContextTests {
 	}
 	
 	public void testJMX() throws Exception {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		List<MBeanServer> servers = MBeanServerFactory.findMBeanServer(null);
 		assertEquals(1, servers.size());
 		MBeanServer server = servers.get(0);

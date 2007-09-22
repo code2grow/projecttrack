@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.domain.UserFactory;
+import org.jia.ptrack.domain.UserMother;
 
 public class ProgrammaticSecurityLabTests extends AbstractPtrackServicesTest {
 
@@ -21,20 +21,20 @@ public class ProgrammaticSecurityLabTests extends AbstractPtrackServicesTest {
 	}
 	
 	public void testGetProjectsWaitingForProjectManager() {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		List projects = coordinator.getProjectsWaitingForApproval(null);
 		assertEquals(2, projects.size());
 	}
 
 	public void testGetProjectsWaitingForBusinessAnalyst() {
-		SecurityTestUtil.setUser(UserFactory.makeBusinessAnalyst(null));
+		SecurityTestUtil.setUser(UserMother.makeBusinessAnalyst(null));
 		List projects = coordinator.getProjectsWaitingForApproval(ProjectColumnType.NAME);
 		assertEquals(1, projects.size());
 		assertEquals("Test Project #1", ((Project)projects.get(0)).getName());
 	}
 
 	public void testGetProjectsWaitingForDevelopmentManager() {
-		SecurityTestUtil.setUser(UserFactory.makeDevelopmentManager(null));
+		SecurityTestUtil.setUser(UserMother.makeDevelopmentManager(null));
 		List projects = coordinator.getProjectsWaitingForApproval(null);
 		assertEquals(0, projects.size());
 	}
@@ -42,7 +42,7 @@ public class ProgrammaticSecurityLabTests extends AbstractPtrackServicesTest {
 	// FIXME - we need a better testing strategy
 	
 	public void testApproveProject() {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
+		SecurityTestUtil.setUser(UserMother.makeProjectManager(null));
 		List projects = coordinator.getProjectsWaitingForApproval(null);
 		Project project = (Project) projects.get(0);
 		assertTrue(coordinator.changeStatus(project, true, "excellent project"));

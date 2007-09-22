@@ -3,15 +3,15 @@ package org.jia.ptrack.services;
 import java.util.Iterator;
 import java.util.List;
 
+import net.chrisrichardson.ormunit.hibernate.HibernatePersistenceTests;
+
 import org.jia.ptrack.domain.Operation;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.domain.UserFactory;
 import org.jia.ptrack.domain.hibernate.PtrackDatabaseInitializer;
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class ProjectCoordinatorDetachedObjectTests extends
-		AbstractDependencyInjectionSpringContextTests {
+		HibernatePersistenceTests<ProjectCoordinatorDetachedObjectTests> {
 
 	private ProjectCoordinator coordinator;
 
@@ -47,7 +47,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 	}
 
 	public void testGetProject() {
-		Project project = coordinator.get(initializer.getProject1().getId());
+		Project project = coordinator.get(initializer.getProjectInCompleteState().getId());
 		assertFalse(project.getHistory().isEmpty());
 		assertHistory(project.getHistory());
 		assertFalse(project.getArtifacts().length == 0);
@@ -55,7 +55,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 		project.getStatus().getRole();
 		assertNotNull(project.getInitiatedBy().toString());
 
-		project = coordinator.get(initializer.getProject2().getId());
+		project = coordinator.get(initializer.getProjectInRequirementsState().getId());
 		assertFalse(project.getHistory().isEmpty());
 		assertHistory(project.getHistory());
 		assertFalse(project.getArtifacts().length == 0);
@@ -63,7 +63,7 @@ public class ProjectCoordinatorDetachedObjectTests extends
 		assertNotNull(project.getStatus().getRole());
 		assertNotNull(project.getInitiatedBy().toString());
 
-		project = coordinator.get(initializer.getProject3().getId());
+		project = coordinator.get(initializer.getProjectInProposalState().getId());
 		assertTrue(project.getHistory().isEmpty());
 		assertHistory(project.getHistory());
 		assertFalse(project.getArtifacts().length == 0);
@@ -83,15 +83,15 @@ public class ProjectCoordinatorDetachedObjectTests extends
 	}
 
 	public void testGetProjectsWaitingForApproval() {
-		SecurityTestUtil.setUser(UserFactory.makeProjectManager(null));
 		List projects = coordinator
 				.getProjectsWaitingForApproval(ProjectColumnType.NAME);
 		for (Iterator it = projects.iterator(); it.hasNext();) {
 			Project project = (Project) it.next();
+			System.out.println("project name=" + project.getName());
 			assertNotNull(project.getStatus().toString());
 			assertNotNull(project.getStatus().getRole());
 		}
-		assertEquals(1, projects.size());
+		assertEquals(2, projects.size());
 	}
 
 
