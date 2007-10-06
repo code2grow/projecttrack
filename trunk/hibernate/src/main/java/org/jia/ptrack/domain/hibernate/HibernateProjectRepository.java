@@ -34,11 +34,10 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 	}
 
 	public List<Project> getAllProjects(ProjectColumnType sortColumn) {
-		// pia-lab-method-stub(hibernate-repository)
-		String queryString = "from Project as p order by p." + computeSortOrder(sortColumn);
-		List<Project> projects = getHibernateTemplate().find(queryString);
-		return projects;
-	}
+    return getHibernateTemplate().findByNamedQuery(
+        Project.class.getName() + ".findAllProjects_"
+            + computeSortOrder(sortColumn));
+  }
 
 	protected String computeSortOrder(ProjectColumnType sortColumn) {
 		if (sortColumn == null || ProjectColumnType.NAME.equals(sortColumn))
