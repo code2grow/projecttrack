@@ -45,14 +45,34 @@
 			<element
 				type="org.jia.ptrack.domain.hibernate.ArtifactTypeUserType" />
 		</list>
+
+         <!-- cacheable="true" -->
+    	<query name="findAllProjects_name"> 
+    		<![CDATA[
+            from Project order by name
+            ]]>
+    	</query>
+
+    	<query name="findAllProjects_status.role"> 
+    		<![CDATA[
+            from Project order by status.role
+            ]]>
+    	</query>
+
+    	<query name="findAllProjects_status.name"> 
+    		<![CDATA[
+            from Project order by status.name
+            ]]>
+    	</query>
+
+    	<query name="findAllProjects_type"> 
+    		<![CDATA[
+            from Project p order by p.type
+            ]]>
+    	</query>
+
 	</class>
 
-	<query name="Project.getProjectsByRole">  <!-- cacheable="true" -->
-		from Project p 
-		     left join fetch p.operationHistory 
-             left join fetch p.status status 
-             left join fetch p.artifacts where status.role = :role
-	</query>
 	
 
 <!--  $pia-lab-end(hibernate-orm)$ -->
