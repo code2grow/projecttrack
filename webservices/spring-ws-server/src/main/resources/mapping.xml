@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE mapping PUBLIC
+  "-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN"
+  "http://castor.org/mapping.dtd" >
+
+<mapping>
+
+    <class
+        name="org.jia.ptrack.ws.springws.server.ProjectsWaitingForApprovalRequest">
+        <map-to xml="ProjectsWaitingForApprovalRequest" />
+    </class>
+
+    <class name="org.jia.ptrack.ws.springws.server.ProjectsWaitingForApprovalResponse"
+        verify-constructable="false">
+
+        <map-to xml="ProjectsWaitingForApprovalResponse"
+            ns-uri="http://www.chrisrichardson.net/schemas/ptrack-spring-ws"
+            ns-prefix="tns" />
+
+        <field name="summaries"
+            type="org.jia.ptrack.facade.ProjectSummary"
+            collection="collection">
+            <bind-xml name="tns:Project" xmlns:tns="http://www.chrisrichardson.net/schemas/ptrack-spring-ws"/>
+        </field>
+    </class>
+
+    <class name="org.jia.ptrack.facade.ProjectSummary"
+        verify-constructable="false">
+        <field name="id">
+            <bind-xml name="tns:Id" xmlns:tns="http://www.chrisrichardson.net/schemas/ptrack-spring-ws"/>
+        </field>
+        <field name="name">
+            <bind-xml name="tns:Name" xmlns:tns="http://www.chrisrichardson.net/schemas/ptrack-spring-ws"/>
+        </field>
+    </class>
+
+
+</mapping>

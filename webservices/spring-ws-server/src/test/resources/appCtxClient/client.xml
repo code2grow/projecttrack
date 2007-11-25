@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="webServiceTemplate"
+        class="org.springframework.ws.client.core.WebServiceTemplate">
+        <property name="messageFactory">
+            <bean
+                class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
+        </property>
+
+        <property name="messageSender" ref="messageSender" />
+        <property name="defaultUri" value="http://localhost:8080/webapp/" />   
+    </bean>
+
+    <bean id="messageSender"
+        class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+        <property name="credentials">
+            <bean class="org.apache.commons.httpclient.UsernamePasswordCredentials">
+                <constructor-arg index="0" value="proj_mgr"/>
+                <constructor-arg index="1" value="faces"/>
+            </bean>
+        </property>
+    </bean>
+
+
+</beans>
