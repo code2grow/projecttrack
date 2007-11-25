@@ -37,6 +37,9 @@ public class ArtifactType extends EnumeratedType
   {
     return enumManager;
   }
+  
+  public ArtifactType() {
+  }
 
   private ArtifactType(int value, String description)
   {
