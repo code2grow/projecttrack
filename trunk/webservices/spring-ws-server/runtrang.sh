@@ -1,0 +1,1 @@
+java -jar g:\\3rdParty\\tools\\trang-20030619\\trang.jar src/test/resources/sample-messages/ProjectsWaitingForApprovalRequest1.xml src/test/resources/sample-messages/ProjectsWaitingForApprovalResponse1.xml src/main/resources/schemas/ptrack-ws.xsd
