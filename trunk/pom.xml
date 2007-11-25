@@ -321,5 +321,25 @@
 				</ptrack.application.environment>
 			</properties>
 		</profile>
+		
+		<profile>
+			<id>cxf-ws</id>
+			<activation>
+			<activeByDefault>false</activeByDefault>
+			</activation>
+			<modules>
+				<module>webservices/cxf-server</module>
+				<module>webservices/cxf-restful-server</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>spring-ws</id>
+			<activation>
+			<activeByDefault>false</activeByDefault>
+			</activation>
+			<modules>
+				<module>webservices/spring-ws-server</module>
+			</modules>
+		</profile>
 	</profiles>
 </project>
