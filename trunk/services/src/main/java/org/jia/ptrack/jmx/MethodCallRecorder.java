@@ -51,7 +51,7 @@ public class MethodCallRecorder {
 	}
 
 	public long getCallCount(Class type, String name) {
-		CallRecord callRecord = getCallRecord(type, name);
+	  CallRecord callRecord = getCallRecord(type, name);
 		return callRecord == null ? 0 : callRecord.getCount();
 	}
 

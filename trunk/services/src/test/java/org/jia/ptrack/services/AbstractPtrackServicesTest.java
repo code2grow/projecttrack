@@ -1,10 +1,11 @@
 package org.jia.ptrack.services;
 
+import net.chrisrichardson.ormunit.hibernate.HibernatePersistenceTests;
+
 import org.jia.ptrack.domain.hibernate.PtrackDatabaseInitializer;
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 public abstract class AbstractPtrackServicesTest extends
-		AbstractTransactionalDataSourceSpringContextTests {
+		HibernatePersistenceTests<AbstractPtrackServicesTest> {
 
   protected PtrackDatabaseInitializer databaseInitializer;
   
@@ -13,13 +14,15 @@ public abstract class AbstractPtrackServicesTest extends
     this.databaseInitializer = databaseInitializer;
   }
 
-  protected void onSetUpInTransaction() throws Exception {
+	@Override
+  protected void onSetUp() throws Exception {
 		SecurityTestUtil.clearUser();
-		super.onSetUpInTransaction();
+		super.onSetUp();
 	}
 
-	protected void onTearDownInTransaction() throws Exception {
+  @Override
+	protected void onTearDown() throws Exception {
 		SecurityTestUtil.clearUser();
-		super.onTearDownInTransaction();
+		super.onTearDown();
 	}
 }
