@@ -24,7 +24,7 @@ public class MethodCountingAspect {
 	}
 
 	public long getCallCount(Class type, String name) {
-		return recorder.getCallCount(type, name);
+	  return recorder.getCallCount(type, name);
 	}
 
 	public Object getFailedCallCount(Class type, String name) {

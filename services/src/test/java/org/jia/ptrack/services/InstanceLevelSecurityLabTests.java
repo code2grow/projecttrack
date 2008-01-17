@@ -41,8 +41,9 @@ public class InstanceLevelSecurityLabTests extends AbstractPtrackServicesTest {
 		this.initializer = initializer;
 	}
 
-	protected void onSetUpInTransaction() throws Exception {
-		super.onSetUpInTransaction();
+	@Override
+	protected void onSetUp() throws Exception {
+		super.onSetUp();
 		User user = initializer
 						.getMarketingDepartmentProjectManager();
 		SecurityTestUtil.setUser(user);

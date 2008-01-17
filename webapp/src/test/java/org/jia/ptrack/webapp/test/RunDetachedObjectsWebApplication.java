@@ -37,6 +37,7 @@ public class RunDetachedObjectsWebApplication extends RunWebApplication {
 		replaceTask.setToken(fromString);
 		replaceTask.setValue(toString);
 		replaceTask.setSummary(true);
+		replaceTask.setEncoding("UTF-8");
 		replaceTask.execute();
 	}
 

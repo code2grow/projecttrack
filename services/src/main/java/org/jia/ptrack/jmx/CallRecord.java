@@ -8,7 +8,7 @@ public class CallRecord {
 	private long durationInMilliseconds;
 
 	public synchronized void recordSuccess(long durationInMilliseconds) {
-		count++;
+	  count++;
 		this.durationInMilliseconds += durationInMilliseconds;
 	}
 
