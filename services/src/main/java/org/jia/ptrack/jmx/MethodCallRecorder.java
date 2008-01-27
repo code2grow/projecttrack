@@ -1,67 +1,35 @@
 package org.jia.ptrack.jmx;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
-import org.aspectj.lang.Signature;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class MethodCallRecorder {
 
-	private ConcurrentMap<Class, ConcurrentMap<String, CallRecord>> map = new ConcurrentHashMap<Class, ConcurrentMap<String, CallRecord>>();
+	private ConcurrentMap<String, AtomicLong> map = new ConcurrentHashMap<String, AtomicLong>();
 
-	public void recordSuccessfulCall(Signature signature, long duration) {
-		CallRecord count = getOrCreateCallRecord(signature);
-		count.recordSuccess(duration);
+	public void recordCall(Class declaringType, String name) {
+		AtomicLong atomicLong = new AtomicLong(0);
+		AtomicLong oldEntry = map.putIfAbsent(name, atomicLong);
+		if (oldEntry != null)
+			oldEntry.incrementAndGet();
+		else
+			atomicLong.incrementAndGet();
 	}
 
-	private CallRecord getOrCreateCallRecord(Signature signature) {
-		Class declaringType = signature.getDeclaringType();
-		String name = signature.getName();
-
-		ConcurrentMap<String, CallRecord> mapForType = map.get(declaringType);
-		if (mapForType == null) {
-			mapForType = new ConcurrentHashMap<String, CallRecord>();
-			ConcurrentMap<String, CallRecord> existingEntry = map.putIfAbsent(
-					declaringType, mapForType);
-			if (existingEntry != null)
-				mapForType = existingEntry;
+	public Map<String, Long> getCallCounts() {
+		Map<String, Long> result = new HashMap<String, Long>();
+		for (Map.Entry<String, AtomicLong> entry : map.entrySet()) {
+			result.put(entry.getKey(), entry.getValue().longValue());
 		}
-		CallRecord count = mapForType.get(name);
-		if (count == null) {
-			count = new CallRecord();
-			CallRecord oldEntry = mapForType.putIfAbsent(name, count);
-			if (oldEntry != null)
-				count = oldEntry;
-
-		}
-		return count;
+		return result;
 	}
 
-	private CallRecord getCallRecord(Class type, String name) {
-		ConcurrentMap<String, CallRecord> mapForType = map.get(type);
-		if (mapForType == null)
-			return null;
-		return mapForType.get(name);
-
+	public long getCallCount(String name) {
+		AtomicLong al = map.get(name);
+		return al == null ? 0 : al.longValue();
 	}
 
-	public void recordFailedCall(Signature signature, long duration, Throwable t) {
-		CallRecord count = getOrCreateCallRecord(signature);
-		count.recordFailure(duration);
-	}
-
-	public long getCallCount(Class type, String name) {
-	  CallRecord callRecord = getCallRecord(type, name);
-		return callRecord == null ? 0 : callRecord.getCount();
-	}
-
-	public long getFailedCallCount(Class type, String name) {
-		CallRecord callRecord = getCallRecord(type, name);
-		return callRecord == null ? 0 : callRecord.getFailedCount();
-	}
-
-	public double getAverageTime(Class type, String name) {
-		CallRecord callRecord = getCallRecord(type, name);
-		return callRecord == null ? 0 : callRecord.getAverageDurationInMilliSeconds();
-	}
 }

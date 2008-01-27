@@ -44,13 +44,11 @@
 			<version>1.7.2.2</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- 
 		<dependency>
 			<groupId>postgres</groupId>
 			<artifactId>postgres</artifactId>
 			<version>8.1-407.jdbc3</version>
 		</dependency>
-		 -->
 		<dependency>
 			<groupId>net.chrisrichardson</groupId>
 			<artifactId>ptrack-domain</artifactId>
@@ -69,10 +67,43 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
+			<version>2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-mock</artifactId>
+			<version>2.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-core</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-dao</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-jdbc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-jpa</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-webmvc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>aspectj</groupId>

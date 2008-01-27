@@ -2,8 +2,18 @@ package org.jia.ptrack.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2002</p>
+ * <p>Company: </p>
+ * @author unascribed
+ * @version 1.0
+ */
 
 public class Project
     implements Serializable
@@ -11,16 +21,12 @@ public class Project
   private String name;
   private User initiatedBy;
   private String description;
-  private List<Operation> operationHistory;
+  private java.util.List operationHistory;
   private List artifacts;
   private ProjectType type;
   private int id;
   
-  private int version;
-  
-	public int getId() {
-		return id;
-	}
+  // private int version;
   
   private Status status;
 
@@ -82,7 +88,7 @@ public class Project
     return description;
   }
 
-  public List<Operation> getHistory()
+  public List getHistory()
   {
     return operationHistory;
   }
@@ -117,13 +123,13 @@ public class Project
     return status;
   }
 
-  public boolean changeStatus(boolean approve, User user,
+  public synchronized boolean changeStatus(boolean approve, User user,
                                            String comments)
   {
     return changeStatus(new Date(), approve, user, comments);
   }
 
-  public boolean changeStatus(Date date, boolean approve,
+  public synchronized boolean changeStatus(Date date, boolean approve,
                                            User user,
                                            String comments)
   {
@@ -133,13 +139,25 @@ public class Project
                                      "set before the status can be changed.");
     }
 
-	if (status.isValidStateChange(approve, user.getRole()))
+    if (!status.isValidStateChange(approve))
     {
       return false;
     }
 
+    if (!user.getRole().equals(status.getRole()))
+    	return false;
+    	
     Status fromStatus = status;
-    Status toStatus = status.getToStatus(approve);
+    Status toStatus = null;
+
+    if (approve)
+    {
+      toStatus = status.getApprovalStatus();
+    }
+    else
+    {
+      toStatus = status.getRejectionStatus();
+    }
 
     Operation newAction = new Operation(date, user, fromStatus, toStatus,
                                         comments);
@@ -155,6 +173,18 @@ public class Project
       this.status = initialStatus;
     }
   }
+
+//  public void setIdMap(java.util.Map idMap)
+//  {
+//    this.idMap = idMap;
+//  }
+//
+//  public java.util.Map getIdMap()
+//  {
+//    Map idMap = new HashMap();
+//    idMap.put(name, id);
+//    return idMap;
+//  }
 
   public void setInitialComments(String initialComments)
   {
@@ -184,20 +214,11 @@ public class Project
     this.requirementsContact.setEmail(requirementsContactEmail);
   }
 
-	
-	public boolean isValidStateChange(boolean approve) {
-		return getStatus().isValidStateChange(approve);
-	}
+public String getId() {
+	return Integer.toString(id);
+}
 
-	public boolean isApprovable(User user) {
-		return status.isValidStateChange(true, user);
-	}
-
-	public boolean isRejectable(User user) {
-		return status.isValidStateChange(false, user);
-	}
-
-	public int getVersion() {
-		return version;
-	}
+public boolean isValidStateChange(boolean approve) {
+	return getStatus().isValidStateChange(approve);
+}
 }

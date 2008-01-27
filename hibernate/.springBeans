@@ -10,16 +10,5 @@
 		<config>src/main/resources/appCtx/hibernate/session-factory.xml</config>
 	</configs>
 	<configSets>
-		<configSet>
-			<name>all</name>
-			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
-			<incomplete>false</incomplete>
-			<configs>
-				<config>src/main/resources/appCtx/hibernate/initializer.xml</config>
-				<config>src/main/resources/appCtx/hibernate/repositories.xml</config>
-				<config>src/main/resources/appCtx/hibernate/session-factory.xml</config>
-				<config>src/main/resources/appCtx/hsqldb/hsqldb-datasource.xml</config>
-			</configs>
-		</configSet>
 	</configSets>
 </beansProjectDescription>

@@ -36,8 +36,7 @@ import org.jia.ptrack.domain.User;
 
 public class Visit implements Serializable
 {
-	// TODO - TC
-  private transient Log logger = LogFactory.getLog(getClass());
+  private Log logger = LogFactory.getLog(getClass());
   
   private User user;
   private Project currentProject;

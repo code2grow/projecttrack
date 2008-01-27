@@ -17,18 +17,18 @@
 
 package org.jia.ptrack.web;
 
+import org.jia.ptrack.domain.ArtifactType;
+import org.jia.ptrack.domain.EnumeratedType;
+import org.jia.ptrack.domain.ProjectType;
+import org.jia.ptrack.domain.RoleType;
+
+import javax.faces.model.SelectItem;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.faces.model.SelectItem;
-
-import org.jia.ptrack.domain.ArtifactType;
-import org.jia.ptrack.domain.EnumeratedType;
-import org.jia.ptrack.domain.ProjectType;
-import org.jia.ptrack.domain.RoleType;
 
 /**
  * <p>Title: </p>

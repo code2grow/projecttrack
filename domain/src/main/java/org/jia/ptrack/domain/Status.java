@@ -3,27 +3,25 @@
  */
 package org.jia.ptrack.domain;
 
-import java.io.Serializable;
+public class Status  {
+	int id;
 
-public class Status implements Serializable {
-	private int id;
+	String name;
 
-	private String name;
+	Status rejectionStatus;
 
-	private Status rejectionStatus;
+	Status approvalStatus;
 
-	private Status approvalStatus;
+	boolean initialState;
 
-	private boolean initialState;
-
-	private boolean finalState;
+	boolean finalState;
 
 	RoleType role;
 
 	public Status() {
 		// For Hibernate
 	}
-
+	
 	Status(String name, RoleType role) {
 		this.name = name;
 		this.initialState = false;
@@ -31,9 +29,6 @@ public class Status implements Serializable {
 		this.role = role;
 	}
 
-	public int getId() {
-		return id;
-	}
 
 	public String getName() {
 		return name;
@@ -43,41 +38,30 @@ public class Status implements Serializable {
 		return role;
 	}
 
-	void setApprovalStatus(Status approvalStatus) {
-		this.approvalStatus = approvalStatus;
-	}
-
 	public Status getApprovalStatus() {
 		return approvalStatus;
-	}
-
-	void setInitialState(boolean initialState) {
-		this.initialState = initialState;
-	}
-
-	public boolean isInitialState() {
-		return initialState;
-	}
-
-	public void setFinalState(boolean finalState) {
-		this.finalState = finalState;
-	}
-
-	public boolean isFinalState() {
-		return finalState;
-	}
-
-	public void setRejectionStatus(Status rejectionStatus) {
-		this.rejectionStatus = rejectionStatus;
 	}
 
 	public Status getRejectionStatus() {
 		return rejectionStatus;
 	}
 
+	public boolean isFinalState() {
+		return finalState;
+	}
+
+	public boolean isInitialState() {
+		return initialState;
+	}
+
 	public String toString() {
 		return name;
 	}
+
+// Don't think we need this
+//	public boolean equals(Object other) {
+//		return ((Status) other).getId().equals(id);
+//	}
 
 	public boolean isValidStateChange(boolean approve) {
 		if (approve) {
@@ -87,20 +71,9 @@ public class Status implements Serializable {
 		}
 	}
 
-	boolean isValidStateChange(boolean approve, RoleType userRole) {
-		return !isValidStateChange(approve) || !role.equals(userRole);
-	}
 
-	Status getToStatus(boolean approve) {
-		if (approve) {
-			return getApprovalStatus();
-		} else {
-			return getRejectionStatus();
-		}
-	}
-
-	public boolean isValidStateChange(boolean approve, User user) {
-		return isValidStateChange(approve) && user.hasRole(role);
+	public String getId() {
+		return Integer.toString(id); // FIXME
 	}
 
 }

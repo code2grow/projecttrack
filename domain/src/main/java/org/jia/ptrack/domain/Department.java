@@ -1,8 +1,6 @@
 package org.jia.ptrack.domain;
 
-import java.io.Serializable;
-
-public class Department implements Serializable {
+public class Department {
 
 	private int id;
 	private String name;
@@ -19,4 +17,3 @@ public class Department implements Serializable {
 	}
 
 }
-	

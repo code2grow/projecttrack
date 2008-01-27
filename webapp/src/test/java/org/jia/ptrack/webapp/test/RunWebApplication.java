@@ -1,24 +1,37 @@
 package org.jia.ptrack.webapp.test;
 
 import java.io.File;
-
-import net.chrisrichardson.umangite.JettyLauncher;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.Jar;
 import org.apache.tools.ant.types.ZipFileSet;
 import org.codehaus.cargo.container.internal.util.AntUtils;
+import org.mortbay.http.HttpException;
+import org.mortbay.http.HttpHandler;
+import org.mortbay.http.HttpRequest;
+import org.mortbay.http.HttpResponse;
+import org.mortbay.http.SocketListener;
+import org.mortbay.http.handler.AbstractHttpHandler;
+import org.mortbay.jetty.Server;
+import org.mortbay.jetty.servlet.WebApplicationContext;
+import org.mortbay.util.InetAddrPort;
 
 /**
- * Start up Jetty using a Web app in the target directory. To enable JSF custom commponents there is a hack to create the custom-components.jar in the  
- * right place
+ * This uses Jetty to run the web application thereby avoiding dependencies on
+ * plugins etc. as well as the need to package the app The web app contains only
+ * the web.xml and custom-components.jar, which is required because the
+ * application uses custom JSF components All other files are retrieved by
+ * MyWebApplicationContext Classes are found on the classpath used to run this
+ * class.
  * 
  * @author cer
  * 
  */
-public class RunWebApplication extends JettyLauncher {
+public class RunWebApplication {
 
-	static final String TARGET_WEBAPP_DIR = "target/webapp";
+	private static final String TARGET_WEBAPP_DIR = "target/webapp";
 
 	private static final String TARGET_WEB_APP_LIB_DIR = TARGET_WEBAPP_DIR
 			+ "/WEB-INF/lib";
@@ -27,23 +40,66 @@ public class RunWebApplication extends JettyLauncher {
 			+ "/WEB-INF/web.xml";
 
 	public static void main(String[] args) throws Exception {
-		RunWebApplication webApp = new RunWebApplication();
 
-		if (args.length > 0) {
-			webApp.setPort(Integer.parseInt(args[0]));
-		}
-
-		webApp.start();
+		new RunWebApplication().run(args);
 
 	}
 
-	@Override
-	protected void prepareWarDirectory() {
+	public String suite;
+
+	public boolean passed;
+
+	private Server server;
+
+	protected void run(String[] args) throws Exception {
+
+		int port = 8080;
+		if (args.length > 0) {
+			port = Integer.parseInt(args[0]);
+		}
+		WebApplicationContext context = null;
+
 		new File(TARGET_WEB_APP_LIB_DIR).mkdirs();
 		createJarFile(TARGET_WEB_APP_LIB_DIR + "/custom-components.jar",
 				"custom-components/target/classes");
 		copyFileToDirectory("../webapp/src/main/webapp/WEB-INF/web.xml",
 				TARGET_WEBAPP_DIR + "/WEB-INF/");
+
+		extraMunging();
+
+		server = new Server();
+		SocketListener listener = new SocketListener(new InetAddrPort(port));
+		server.addListener(listener);
+		context = new MyWebApplicationContext(TARGET_WEBAPP_DIR + "/");
+		context.setContextPath("/ptrack");
+		server.addContext(context);
+		context.addHandler(new MyHttpHandler());
+		server.start();
+		System.out.println("started");
+	}
+
+	public void stop() throws InterruptedException {
+		if (server.isStarted())
+			server.stop();
+	}
+
+	class MyHttpHandler extends AbstractHttpHandler {
+
+		public void handle(String pathInContext, String pathParams,
+				HttpRequest request, HttpResponse response)
+				throws HttpException, IOException {
+			System.out.println("handling <" + pathInContext + ">");
+			if ("/selenium/postResults".equals(pathInContext)) {
+				request.setHandled(true);
+				passed = "passed".equals(request.getParameter("result"));
+				suite = request.getParameter("suite");
+			}
+		}
+
+	}
+
+	protected void extraMunging() {
+		// Do nothing
 	}
 
 	private void copyFileToDirectory(String file, String toDir) {
@@ -71,20 +127,16 @@ public class RunWebApplication extends JettyLauncher {
 		jarTask.execute();
 	}
 
-	@Override
-	protected String getWebAppDirectory() {
-		return TARGET_WEBAPP_DIR;
+	public boolean isPassed() {
+		return passed;
 	}
 
-
-	@Override
-	public String getContextPath() {
-		return "ptrack";
+	public String getSuite() {
+		return suite;
 	}
-	
-	@Override
-	public String getSrcWebApp() {
-		return "src/main/webapp";
+
+	public void run() throws Exception {
+		run(new String[0]);
 	}
 
 }

@@ -1,5 +1,7 @@
 package org.jia.ptrack.jmx;
 
+import java.util.Map;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 
@@ -10,28 +12,18 @@ public class MethodCountingAspect {
 	public Object recordMethodInvocation(ProceedingJoinPoint jp)
 			throws Throwable {
 		Signature signature = jp.getStaticPart().getSignature();
-		long startTime = System.currentTimeMillis();
-		try {
-			Object result = jp.proceed();
-			long endTime = System.currentTimeMillis();
-			recorder.recordSuccessfulCall(signature, endTime - startTime);
-			return result;
-		} catch (Throwable t) {
-			long endTime = System.currentTimeMillis();
-			recorder.recordFailedCall(signature, endTime - startTime, t);
-			throw t;
-		}
+		recorder
+				.recordCall(signature
+				.getDeclaringType(), signature
+				.getName());
+		return jp.proceed();
 	}
 
-	public long getCallCount(Class type, String name) {
-	  return recorder.getCallCount(type, name);
+	public Map<String, Long> getCallCounts() {
+		return recorder.getCallCounts();
 	}
 
-	public Object getFailedCallCount(Class type, String name) {
-		return recorder.getFailedCallCount(type, name);
-	}
-
-	public Object getAverageTime(Class type, String name) {
-		return recorder.getAverageTime(type, name);
+	public long getCallCount(String name) {
+		return recorder.getCallCount(name);
 	}
 }

@@ -5,22 +5,18 @@
 
 <beans>
 
+	<bean id="resetDatabaseStrategy"
+		class="net.chrisrichardson.ormunit.hibernate.ResetDatabaseByRecreatingSchemaStrategy" />
 
-	<bean id="hibernatePersistenceTestsStrategy"
+	<bean id="HibernatePersistenceTestsStrategy"
+		autowire="constructor"
 		class="net.chrisrichardson.ormunit.hibernate.SimpleHibernatePersistenceTestsStrategy">
-		<constructor-arg>
-			<bean
-				class="net.chrisrichardson.ormunit.hibernate.ResetDatabaseByRecreatingSchemaStrategy" />
-		</constructor-arg>
-		<constructor-arg>
-			<bean
-				class="org.springframework.transaction.support.TransactionTemplate">
-				<property name="transactionManager"
-					ref="transactionManager" />
-			</bean>
-		</constructor-arg>
 	</bean>
 
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
 
 
 </beans>

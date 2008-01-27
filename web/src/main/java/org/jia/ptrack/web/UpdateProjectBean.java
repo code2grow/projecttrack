@@ -3,9 +3,10 @@ package org.jia.ptrack.web;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.jia.ptrack.domain.DataStoreException;
+import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ObjectRetrievalFailureException;
+import org.jia.ptrack.services.*;
 
 /**
  * <p>Title: </p>
@@ -58,9 +59,9 @@ public class UpdateProjectBean extends BaseBean
 				Utils.addInvalidStateChangeMessage(facesContext, approve);
 				return Constants.FAILURE_OUTCOME;
 			}
-		} catch (ObjectRetrievalFailureException e) {
+		} catch (ObjectNotFoundException e) {
 			projectFound = false;
-		} catch (DataAccessException d) {
+		} catch (DataStoreException d) {
 			Utils.reportError(facesContext, "A database error has occurred.",
 					"Error updating project.", d);
 			return Constants.ERROR_OUTCOME;

@@ -19,9 +19,6 @@
 -->
 <web-app>
 	<display-name>JSF in Action - ProjectTrack case study</display-name>
-	<distributable/>
-<!-- 
-The original more complex way of configuring the application
 
 	<context-param>
 		<param-name>locatorFactorySelector</param-name>
@@ -35,12 +32,18 @@ The original more complex way of configuring the application
 		<param-value>parentAppCtx</param-value>
 	</context-param>
 
- -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:/appCtx/common/**/*.xml
-			classpath*:/appCtx/${ptrack.application.environment}/**/*.xml
+			classpath:/appCtx/services.xml
+			classpath:/appCtx/security/common-acegi-security.xml
+			classpath:/appCtx/security/business-tier-acegi-security.xml
+			classpath:/appCtx/transactions.xml
+			classpath:/appCtx/hibernate/repositories.xml
+			classpath:/appCtx/hibernate/initializer.xml
+			classpath:/appCtx/hibernate/transaction-manager.xml
+			classpath:/appCtx/security/web-acegi-security.xml
+			classpath:/appCtx/jmx/jmx.xml
 		</param-value>
 	</context-param>
 
@@ -125,5 +128,4 @@ The original more complex way of configuring the application
 		<exception-type>javax.faces.FacesException</exception-type>
 		<location>/error.jsp</location>
 	</error-page>
-
 </web-app>

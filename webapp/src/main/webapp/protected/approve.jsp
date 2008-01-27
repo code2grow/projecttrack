@@ -33,7 +33,7 @@
 
 <jsp:include page="/includes/header.jsp"/>
 
-<h:form id="approveForm">
+<h:form>
 
   <h:panelGrid columns="2" cellpadding="5"
       footerClass="project-background"
@@ -63,8 +63,8 @@
 
         <%-- Button panel --%>
         <h:panelGrid columns="2" rowClasses="table-odd-row">
-          <h:commandButton id="approve" value="Approve" action="#{updateProjectBean.approve}"/>   <!>
-          <h:commandButton id="cancel" value="Cancel" action="#{updateProjectBean.cancel}"
+          <h:commandButton value="Approve" action="#{updateProjectBean.approve}"/>   <!>
+          <h:commandButton value="Cancel" action="#{updateProjectBean.cancel}"
                            immediate="true"/>  <!>
         </h:panelGrid>
       </h:panelGroup>

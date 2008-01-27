@@ -18,9 +18,9 @@
 package org.jia.ptrack.web;
 
 import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.MissingResourceException;
+import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

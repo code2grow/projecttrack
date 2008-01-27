@@ -34,7 +34,7 @@
 
 <jsp:include page="/includes/header.jsp"/>
 
-<h:form id="detailsPage">
+<h:form>
 
   <h:panelGrid id="projectPanel" columns="2" cellpadding="5"
       footerClass="project-background"
@@ -120,7 +120,7 @@
         </h:dataTable>
 
        <h:commandButton value="Ok" action="#{showHistoryBean.cancel}"
-                        immediate="true" style="margin-top: 5px" id="ok"/>
+                        immediate="true" style="margin-top: 5px"/>
 
     </h:panelGroup>
     </f:facet>

@@ -3,14 +3,18 @@ package org.jia.ptrack.domain;
 import java.util.List;
 
 public interface ProjectRepository {
-	public void add(Project project);
+	public void add(Project project) throws DataStoreException;
 
-	public Project get(int id);
+	public Project get(String id) throws ObjectNotFoundException,
+			DataStoreException;
 
-	public Project merge(Project project);
+	public Project update(Project project) throws ObjectNotFoundException,
+			DataStoreException;
 
-	public List<Project> getAllProjects(ProjectColumnType sortColumn);
+	public List getAllProjects(ProjectColumnType sortColumn)
+			throws ObjectNotFoundException, DataStoreException;
 
-	public List<Project> getProjectsWaitingApprovalByRole(RoleType role, ProjectColumnType sortColumn);
+	public List getProjectsWaitingApprovalByRole(RoleType role, ProjectColumnType sortColumn)
+			throws ObjectNotFoundException, DataStoreException;
 
 }

@@ -13,6 +13,7 @@
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>Ptrack Hibernate persistence</name>
+	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -27,24 +28,21 @@
 					<artifactId>jdbc</artifactId>
 					<groupId>jdbc</groupId>
 				</exclusion>
-				<exclusion>
-					<groupId>xerces</groupId>
-					<artifactId>xercesImpl</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
 			</exclusions>
-		</dependency>
 
+		</dependency>
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>1.7.2.2</version>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.0.4</version>
+		</dependency>
 		<dependency>
 			<groupId>net.chrisrichardson</groupId>
 			<artifactId>ptrack-domain</artifactId>
@@ -53,6 +51,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
+			<version>3.2.2.ga</version>
 		</dependency>
 		<dependency>
 			<groupId>net.chrisrichardson</groupId>
@@ -60,12 +59,49 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
+			<version>2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-mock</artifactId>
+			<version>2.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-core</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-dao</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-jdbc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-jpa</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-webmvc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>opensymphony</groupId>
@@ -77,40 +113,9 @@
 			<artifactId>jgroups-all</artifactId>
 			<version>2.2.7</version>
 		</dependency>
-		<dependency>
-			<groupId>net.chrisrichardson</groupId>
-			<artifactId>ptrack-util</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>net.chrisrichardson</groupId>
-			<artifactId>arid-dao</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>net.chrisrichardson</groupId>
-			<artifactId>arid-framework</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<profiles>
-
-		<profile>
-			<id>postgres</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>postgresql</groupId>
-					<artifactId>postgresql</artifactId>
-					<version>8.2-505.jdbc3</version>
-				</dependency>
-			</dependencies>
-		</profile>
-
-
 		<profile>
 			<id>tangosol</id>
 			<activation>
@@ -135,6 +140,4 @@
 			</dependencies>
 		</profile>
 	</profiles>
-
-
 </project>

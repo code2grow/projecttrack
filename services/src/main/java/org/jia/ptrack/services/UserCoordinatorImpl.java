@@ -1,9 +1,11 @@
 package org.jia.ptrack.services;
 
+import org.jia.ptrack.domain.DataStoreException;
+import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.User;
 import org.jia.ptrack.domain.UserRepository;
 
-public class UserCoordinatorImpl implements UserCoordinator {
+public class UserCoordinatorImpl implements IUserCoordinator {
 
 	private UserRepository userRepository;
 
@@ -11,12 +13,14 @@ public class UserCoordinatorImpl implements UserCoordinator {
 		this.userRepository = userRepository;
 	}
 
-	public User getUser(String login, String password) {
+	public User getUser(String login, String password)
+			throws DataStoreException, ObjectNotFoundException {
 		User user = userRepository.findUser(login);
 		if ((user != null) && (user.isPasswordValid(password))) {
 			return user;
 		} else {
-			throw new RuntimeException("not used");
+			throw new ObjectNotFoundException(
+					"No user found with that name and password");
 		}
 	}
 

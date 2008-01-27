@@ -27,48 +27,46 @@ public class DefaultStateMachineFactory {
 		Status complete = new Status("Complete", projectManager);
 		Status closed = new Status("Closed", null);
 
-		// TODO - consider using a factory for Status objects
-		
-		proposal.setRejectionStatus(proposal);
-		proposal.setApprovalStatus(planning);
-		proposal.setInitialState(true);
+		proposal.rejectionStatus = proposal;
+		proposal.approvalStatus = planning;
+		proposal.initialState = true;
 
-		planning.setRejectionStatus(proposal);
-		planning.setApprovalStatus(analysis);
+		planning.rejectionStatus = proposal;
+		planning.approvalStatus = analysis;
 
-		analysis.setRejectionStatus(planning);
-		analysis.setApprovalStatus(architecture);
+		analysis.rejectionStatus = planning;
+		analysis.approvalStatus = architecture;
 
-		architecture.setRejectionStatus(analysis);
-		architecture.setApprovalStatus(initialDevelopment);
+		architecture.rejectionStatus = analysis;
+		architecture.approvalStatus = initialDevelopment;
 
-		initialDevelopment.setRejectionStatus(architecture);
-		initialDevelopment.setApprovalStatus(betaDeployment);
+		initialDevelopment.rejectionStatus = architecture;
+		initialDevelopment.approvalStatus = betaDeployment;
 
-		betaDeployment.setRejectionStatus(initialDevelopment);
-		betaDeployment.setApprovalStatus(betaTesting);
+		betaDeployment.rejectionStatus = initialDevelopment;
+		betaDeployment.approvalStatus = betaTesting;
 
-		betaTesting.setRejectionStatus(initialDevelopment);
-		betaTesting.setApprovalStatus(finalDevelopment);
+		betaTesting.rejectionStatus = initialDevelopment;
+		betaTesting.approvalStatus = finalDevelopment;
 
-		finalDevelopment.setRejectionStatus(betaTesting);
-		finalDevelopment.setApprovalStatus(uatDeployment);
+		finalDevelopment.rejectionStatus = betaTesting;
+		finalDevelopment.approvalStatus = uatDeployment;
 
-		uatDeployment.setRejectionStatus(finalDevelopment);
-		uatDeployment.setApprovalStatus(uaTesting);
+		uatDeployment.rejectionStatus = finalDevelopment;
+		uatDeployment.approvalStatus = uaTesting;
 
-		uaTesting.setRejectionStatus(uatDeployment);
-		uaTesting.setApprovalStatus(productionDeployment);
+		uaTesting.rejectionStatus = uatDeployment;
+		uaTesting.approvalStatus = productionDeployment;
 
-		productionDeployment.setRejectionStatus(finalDevelopment);
-		productionDeployment.setApprovalStatus(complete);
+		productionDeployment.rejectionStatus = finalDevelopment;
+		productionDeployment.approvalStatus = complete;
 
-		complete.setRejectionStatus(productionDeployment);
-		complete.setApprovalStatus(closed);
+		complete.rejectionStatus = productionDeployment;
+		complete.approvalStatus = closed;
 
-		closed.setRejectionStatus(closed);
-		closed.setApprovalStatus(closed);
-		closed.setFinalState(true);
+		closed.rejectionStatus = closed;
+		closed.approvalStatus = closed;
+		closed.finalState = true;
 
 		return new StateMachine(name, proposal);
 	}

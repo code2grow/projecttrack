@@ -20,7 +20,7 @@ public class User implements Serializable
   private String lastName;
   private String login;
   private String password;
-  private Set<RoleType> roles;
+  private Set roles;
   private Department department;
 
   public User()
@@ -34,7 +34,7 @@ public class User implements Serializable
   
 
   public User(String login, String firstName, String lastName,
-              String password, Set<RoleType> roles, Department department)
+              String password, Set roles, Department department)
   {
     this.login = login;
     this.firstName = firstName;
@@ -106,24 +106,16 @@ public class User implements Serializable
     return firstName + " " + lastName;
   }
 
-  public String getFullName() {
-	  return toString();
-  }
-  
 public boolean isPasswordValid(String password) {
 	return getPassword().equals(password);
 }
 
-public Set<RoleType> getRoles() {
+public Set getRoles() {
 	return roles;
 }
 
 public Department getDepartment() {
 	return department;
-}
-
-boolean hasRole(RoleType role) {
-	return roles.contains(role);
 }
 
 }

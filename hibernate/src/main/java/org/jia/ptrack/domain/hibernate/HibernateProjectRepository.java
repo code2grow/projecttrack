@@ -21,23 +21,26 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 		getHibernateTemplate().save(project);
 	}
 
-	public Project get(int id)  {
+	public Project get(String id)  {
 		// pia-lab-method-stub(hibernate-repository)
 		Project project = (Project) getHibernateTemplate().get(Project.class,
 								new Integer(id));
 		return project;
 	}
 
-	public Project merge(Project project) {
+	public Project update(Project project) {
 		// pia-lab-method-stub(hibernate-repository)
 		return (Project) getHibernateTemplate().merge(project);
 	}
 
-	public List<Project> getAllProjects(ProjectColumnType sortColumn) {
-    return getHibernateTemplate().findByNamedQuery(
-        Project.class.getName() + ".findAllProjects_"
-            + computeSortOrder(sortColumn));
-  }
+	public List getAllProjects(ProjectColumnType sortColumn) {
+		// pia-lab-method-stub(hibernate-repository)
+		String queryString = "from Project as p order by p." + computeSortOrder(sortColumn);
+		/// caching
+		//	getHibernateTemplate().setCacheQueries(true);
+		List projects = getHibernateTemplate().find(queryString);
+		return projects;
+	}
 
 	protected String computeSortOrder(ProjectColumnType sortColumn) {
 		if (sortColumn == null || ProjectColumnType.NAME.equals(sortColumn))
@@ -52,7 +55,7 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 				+ sortColumn);
 	}
 
-	public List<Project> getProjectsWaitingApprovalByRole(final RoleType role,
+	public List getProjectsWaitingApprovalByRole(final RoleType role,
 			final ProjectColumnType sortColumn) {
 		// pia-lab-method-stub(hibernate-repository)
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
@@ -65,7 +68,7 @@ public class HibernateProjectRepository extends HibernateDaoSupport implements
 				criteria.add(Restrictions.eq("status.role", role));
 				criteria.addOrder(Order.asc(computeSortOrder(sortColumn)));
 				// If we were caching
-				//criteria.setCacheable(true);
+				criteria.setCacheable(true);
 				return criteria.list();
 			}
 		});

@@ -1,6 +1,7 @@
 package org.jia.ptrack.domain.hibernate;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -10,6 +11,10 @@ import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
+import org.hibernate.transform.ResultTransformer;
+import org.jia.ptrack.domain.DataStoreException;
+import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Operation;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;

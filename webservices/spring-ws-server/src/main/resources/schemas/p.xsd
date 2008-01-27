@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.chrisrichardson.net/schemas/ptrack-spring-ws.xsd" xmlns:p="http://www.chrisrichardson.net/schemas/ptrack-spring-ws.xsd" xmlns:pt="http://www.chrisrichardson.net/schemas/ptrack-spring-ws">
-  <xs:import namespace="http://www.chrisrichardson.net/schemas/ptrack-spring-ws" schemaLocation="ptrack-ws.xsd"/>
-  <xs:element name="ProjectsWaitingForApprovalRequest">
-    <xs:complexType/>
-  </xs:element>
-</xs:schema>

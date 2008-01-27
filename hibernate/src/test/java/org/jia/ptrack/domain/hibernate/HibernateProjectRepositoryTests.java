@@ -5,15 +5,18 @@ import java.util.List;
 import net.chrisrichardson.ormunit.hibernate.HibernatePersistenceTests;
 import net.chrisrichardson.util.TxnCallback;
 
+import org.jia.ptrack.domain.DataStoreException;
+import org.jia.ptrack.domain.ObjectNotFoundException;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
-import org.jia.ptrack.domain.ProjectMother;
+import org.jia.ptrack.domain.ProjectFactory;
 import org.jia.ptrack.domain.ProjectRepository;
 import org.jia.ptrack.domain.RoleType;
 import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserMother;
+import org.jia.ptrack.domain.UserFactory;
+import org.ptrack.domain.hibernate.HibernatePTrackTestConstants;
 import org.springframework.dao.support.DataAccessUtils;
 
 public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
@@ -37,8 +40,8 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		initialStatus = sm.getInitialStatus();
 	}
 
-	public void testAddProject()  {
-		Project project = ProjectMother.makeProjectInProposalState(initialStatus, null);
+	public void testAddProject() throws DataStoreException {
+		Project project = ProjectFactory.makeProject3(initialStatus, null);
 		projectRepository.add(project);
 
 		assertNotNull(getHibernateTemplate().get(Project.class,
@@ -46,8 +49,9 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 
 	}
 
-	public void testGetProject()  {
-		final Project project = ProjectMother.makeProjectInProposalState(initialStatus, null);
+	public void testGetProject() throws ObjectNotFoundException,
+			DataStoreException {
+		final Project project = ProjectFactory.makeProject3(initialStatus, null);
 		getHibernateTemplate().save(project);
 
 		Project p2 = projectRepository.get(project.getId());
@@ -55,20 +59,24 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		assertEquals(project.getId(), p2.getId());
 	}
 
-	public void testGetAllProjectsSortedByByName()  {
+	public void testGetAllProjectsSortedByByName() throws ObjectNotFoundException,
+			DataStoreException {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.NAME));
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.NAME));
 	}
 
-	public void testGetAllProjectsSortedByByRole() {
+	public void testGetAllProjectsSortedByByRole() throws ObjectNotFoundException,
+			DataStoreException {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.ROLE));
 	}
 
-	public void testGetAllProjectsSortedByByStatus() {
+	public void testGetAllProjectsSortedByByStatus()
+			throws ObjectNotFoundException, DataStoreException {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.STATUS));
 	}
 
-	public void testGetAllProjectsSortedByByType() {
+	public void testGetAllProjectsSortedByByType() throws ObjectNotFoundException,
+			DataStoreException {
 		assertNotEmpty(projectRepository.getAllProjects(ProjectColumnType.TYPE));
 	}
 
@@ -76,12 +84,14 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		assertFalse(projects.isEmpty());
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByName() {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByName()
+			throws ObjectNotFoundException, DataStoreException {
 		assertNotEmpty(projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 				ProjectColumnType.NAME));
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByRole() {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByRole()
+			throws ObjectNotFoundException, DataStoreException {
 		final List<Project> projects = projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 								ProjectColumnType.ROLE);
 		assertNotEmpty(projects);
@@ -90,7 +100,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 
 			public void execute() throws Throwable {
 				Project project = projectRepository.get(projects.get(0).getId());
-				User projectManager = UserMother.makeProjectManager(null);
+				User projectManager = UserFactory.makeProjectManager(null);
 				while (project.changeStatus(true, projectManager, "Cool!"));
 				System.out.println("committing");
 			}});
@@ -102,18 +112,20 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByStatus() {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByStatus()
+			throws ObjectNotFoundException, DataStoreException {
 		assertNotEmpty(projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 				ProjectColumnType.STATUS));
 	}
 
-	public void testGetProjectsWaitingApprovalByRoleSortedByByType() {
+	public void testGetProjectsWaitingApprovalByRoleSortedByByType()
+			throws ObjectNotFoundException, DataStoreException {
 		assertNotEmpty(projectRepository.getProjectsWaitingApprovalByRole(RoleType.PROJECT_MANAGER,
 				ProjectColumnType.TYPE));
 	}
 	
-	public void testMerge()  {
-		Project project = ProjectMother.makeProjectInProposalState(initialStatus, null);
+	public void testUpdate() throws DataStoreException {
+		Project project = ProjectFactory.makeProject3(initialStatus, null);
 		projectRepository.add(project);
 		
 		project = projectRepository.get(project.getId());
@@ -121,9 +133,9 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		String newDescription = "new description: " + Long.toString(System.currentTimeMillis());
 		project.setDescription(newDescription);
 		
-		logger.debug("merging");
-		projectRepository.merge(project);
-		logger.debug("merging");
+		logger.debug("updating");
+		projectRepository.update(project);
+		logger.debug("updated");
 
 		project = projectRepository.get(project.getId());
 		assertEquals(newDescription, project.getDescription());

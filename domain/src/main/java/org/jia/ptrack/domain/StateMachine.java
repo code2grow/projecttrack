@@ -1,5 +1,6 @@
 package org.jia.ptrack.domain;
 
+import java.io.Serializable;
 
 public class StateMachine {
 

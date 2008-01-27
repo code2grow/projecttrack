@@ -1,11 +1,9 @@
 package org.jia.ptrack.web;
 
 import java.io.Serializable;
-
 import javax.faces.context.FacesContext;
 
-import org.jia.ptrack.services.ProjectCoordinator;
-import org.jia.ptrack.services.UserCoordinator;
+import org.jia.ptrack.services.*;
 
 /**
  * <p>Title: </p>
@@ -20,8 +18,8 @@ import org.jia.ptrack.services.UserCoordinator;
 public class BaseBean implements Serializable
 {
   private Visit visit;
-  private ProjectCoordinator projectCoordinator;
-  private UserCoordinator userCoordinator;
+  private IProjectCoordinator projectCoordinator;
+  private IUserCoordinator userCoordinator;
 
   public BaseBean()
   {
@@ -53,22 +51,22 @@ public class BaseBean implements Serializable
 
   // Accessors for business objects
 
-  public ProjectCoordinator getProjectCoordinator()
+  public IProjectCoordinator getProjectCoordinator()
   {
     return projectCoordinator;
   }
 
-  public void setProjectCoordinator(ProjectCoordinator projectCoordinator)
+  public void setProjectCoordinator(IProjectCoordinator projectCoordinator)
   {
     this.projectCoordinator = projectCoordinator;
   }
 
-  public UserCoordinator getUserCoordinator()
+  public IUserCoordinator getUserCoordinator()
   {
     return userCoordinator;
   }
 
-  public void setUserCoordinator(UserCoordinator userCoordinator)
+  public void setUserCoordinator(IUserCoordinator userCoordinator)
   {
     this.userCoordinator = userCoordinator;
   }
