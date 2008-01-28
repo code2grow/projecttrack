@@ -14,6 +14,12 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>PTrack web application</name>
 
+    <properties>
+            <cloudtools.plugin.aws.properties>specifyMe</cloudtools.plugin.aws.properties>
+            <cloudtools.plugin.jmxTestFile>specifyMe</cloudtools.plugin.jmxTestFile>
+            <cloudtools.plugin.threadCount>specifyMe</cloudtools.plugin.threadCount>
+    </properties>
+
 	<dependencies>
 
 		<dependency>
@@ -161,8 +167,36 @@
 					</connectors>
 				</configuration>
 			</plugin>
-		</plugins>
-	</build>
+       
+            <plugin>
+                <groupId>net.chrisrichardson</groupId>
+                <artifactId>cloudtools-maven-plugin</artifactId>
+                <configuration>
+                    <awsPropertiesFile>${cloudtools.plugin.aws.properties}</awsPropertiesFile>
+                    <schemaName>ptrack</schemaName>
+                    <schemaUsers>
+                        <param>
+                            ptrack:ptrack
+                        </param>
+                    </schemaUsers>
+                    <catalinaOptsBuilder>
+                        {builder, databasePrivateDnsName ->
+                            builder.arg("-server")
+                            builder.arg("-Xmx1000m")
+                            builder.prop("com.sun.management.jmxremote")
+                            builder.prop("com.sun.management.jmxremote.port", 8091)
+                            builder.prop("com.sun.management.jmxremote.authenticate", false)
+                            builder.prop("com.sun.management.jmxremote.ssl", false)
+                            builder.prop("ptrack.application.environment", "ec2") 
+                            builder.prop("jdbc.db.server", databasePrivateDnsName)}
+                    </catalinaOptsBuilder>
+                    <jmxTestFile>${cloudtools.plugin.jmxTestFile}</jmxTestFile>
+                    <threadCount>${cloudtools.plugin.threadCount}</threadCount>
+                </configuration>
+            </plugin>
+        
+        </plugins>
+ 	</build>
 
 	<profiles>
 		<profile>
