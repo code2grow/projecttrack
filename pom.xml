@@ -132,8 +132,12 @@
 			<dependency>
 				<groupId>org.acegisecurity</groupId>
 				<artifactId>acegi-security</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.6</version>
 				<exclusions>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
 					<exclusion>
 						<artifactId>spring-remoting</artifactId>
 						<groupId>org.springframework</groupId>
@@ -161,12 +165,6 @@
 						<artifactId>xercesImpl</artifactId>
 					</exclusion>
 				</exclusions>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-				<version>1.0.4</version>
 			</dependency>
 
 			<dependency>
