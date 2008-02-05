@@ -36,6 +36,7 @@
 	<bean id="daoAuthenticationProvider"
 		class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
 		<property name="userDetailsService" ref="userDetailsService" />
+        <property name="passwordEncoder" ref="passwordEncoder"/>
 		<property name="userCache">
 			<bean
 				class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
@@ -55,6 +56,10 @@
 		</property>
 	</bean>
 
+    <bean id="passwordEncoder" 
+        class="org.jia.ptrack.domain.hibernate.PtrackPasswordEncoder"
+        factory-method="getInstance"/>
+ 
 <!-- 
 	<bean id="userDetailsService"
 		class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">

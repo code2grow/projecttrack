@@ -6,33 +6,33 @@ import java.util.Set;
 public class UserMother {
 
 	public static User makeProjectManager(Department department) {
-		return new User("proj_mgr", "Sean", "Sullivan", "faces",
+		return new User("proj_mgr", "Sean", "Sullivan", new Password("faces"),
 				makeRoleTypeSet(RoleType.PROJECT_MANAGER,
 						RoleType.PROJECT_APPROVER, RoleType.PROJECT_CREATOR,
 						RoleType.PROJECT_VIEWER), department);
 	}
 
 	public static User makeSystemsManager(Department department) {
-		return new User("sys_mgr", "Ed", "LaCalle", "faces", makeRoleTypeSet(
+		return new User("sys_mgr", "Ed", "LaCalle", new Password("faces"), makeRoleTypeSet(
 				RoleType.SYSTEMS_MANAGER, RoleType.PROJECT_APPROVER,
 				RoleType.PROJECT_VIEWER), department);
 	}
 
 	public static User makeQAManager(Department department) {
-		return new User("qa_mgr", "Tracey", "Burroughs", "faces",
+		return new User("qa_mgr", "Tracey", "Burroughs", new Password("faces"),
 				makeRoleTypeSet(RoleType.QA_MANAGER, RoleType.PROJECT_APPROVER,
 						RoleType.PROJECT_VIEWER), department);
 	}
 
 	public static User makeDevelopmentManager(Department department) {
-		return new User("dev_mgr", "Devora", "Shapiro", "faces",
+		return new User("dev_mgr", "Devora", "Shapiro", new Password("faces"),
 				makeRoleTypeSet(RoleType.DEVELOPMENT_MANAGER,
 						RoleType.PROJECT_APPROVER, RoleType.PROJECT_VIEWER),
 				department);
 	}
 
 	public static User makeBusinessAnalyst(Department department) {
-		return new User("analyst", "Marvin", "Walton", "faces",
+		return new User("analyst", "Marvin", "Walton", new Password("faces"),
 				makeRoleTypeSet(RoleType.BUSINESS_ANALYST,
 						RoleType.PROJECT_APPROVER, RoleType.PROJECT_VIEWER),
 				department);
@@ -43,14 +43,14 @@ public class UserMother {
 				"upper_mgr",
 				"Casey",
 				"Langer",
-				"faces",
+				new Password("faces"),
 				makeRoleTypeSet(RoleType.UPPER_MANAGER, RoleType.PROJECT_VIEWER),
 				null);
 	}
 
   public static User makeMarketingDepartmentProjectManager(
       Department department) {
-    return new User("proj_mgr2", "John", "Doe", "faces",
+    return new User("proj_mgr2", "John", "Doe", new Password("faces"),
 				makeRoleTypeSet(RoleType.PROJECT_MANAGER,
 						RoleType.PROJECT_APPROVER, RoleType.PROJECT_CREATOR),
 				department);
