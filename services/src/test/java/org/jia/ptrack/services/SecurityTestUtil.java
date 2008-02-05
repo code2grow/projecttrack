@@ -28,7 +28,7 @@ public class SecurityTestUtil {
 	}
 
 	public static void setUser(User user) {
-		setUser(user.getLogin(), user.getPassword(), toArray(user.getRoles()));
+		setUser(user.getLogin(), user.getPassword().getPasswordString(), toArray(user.getRoles()));
 	}
 
 	private static RoleType[] toArray(Set roles) {

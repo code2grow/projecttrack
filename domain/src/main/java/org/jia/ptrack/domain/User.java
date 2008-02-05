@@ -19,7 +19,7 @@ public class User implements Serializable
   private String firstName;
   private String lastName;
   private String login;
-  private String password;
+  private Password password;
   private Set<RoleType> roles;
   private Department department;
 
@@ -28,13 +28,13 @@ public class User implements Serializable
   }
 
   public User(String login, String firstName, String lastName,
-			String password, RoleType role, Department department) {
+			Password password, RoleType role, Department department) {
 	  this(login, firstName, lastName, password, Collections.singleton(role), department);
   }
   
 
   public User(String login, String firstName, String lastName,
-              String password, Set<RoleType> roles, Department department)
+              Password password, Set<RoleType> roles, Department department)
   {
     this.login = login;
     this.firstName = firstName;
@@ -75,12 +75,7 @@ public class User implements Serializable
     this.lastName = lastName;
   }
 
-  public void setPassword(String password)
-  {
-    this.password = password;
-  }
-
-  public String getPassword()
+  public Password getPassword()
   {
     return password;
   }

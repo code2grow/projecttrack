@@ -14,6 +14,11 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>Ptrack Hibernate persistence</name>
 	<dependencies>
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.3</version>
+        </dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>

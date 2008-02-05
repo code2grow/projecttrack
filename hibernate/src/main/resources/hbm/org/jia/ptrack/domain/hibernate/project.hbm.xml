@@ -70,11 +70,33 @@
             from Project p order by p.type
             ]]>
     	</query>
+        
+        <query name="findProjectsCreatedByUser">
+    		<![CDATA[
+                select distinct p
+                from Project p 
+                inner join fetch p.status
+                left outer join fetch p.operationHistory h
+                left outer join fetch h.toStatus
+                left outer join fetch h.fromStatus
+                left outer join fetch h.user
+                where p.initiatedBy = ?
+            ]]>
+        </query>
+
+        <query name="findProjectArtifactsCreatedByUser">
+    		<![CDATA[
+                select distinct p
+                from Project p
+                left outer join fetch p.artifacts 
+                where p.initiatedBy = ?
+            ]]>
+        </query>
 
 	</class>
 
 	
-
+    
 <!--  $pia-lab-end(hibernate-orm)$ -->
 
 </hibernate-mapping>

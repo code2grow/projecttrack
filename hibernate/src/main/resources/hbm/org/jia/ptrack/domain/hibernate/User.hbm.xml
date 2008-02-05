@@ -12,7 +12,9 @@
 		<many-to-one name="department" column="department_id"/>
 		<property name="firstName" />
 		<property name="lastName" />
-		<property name="password" />
+		<component name="password">
+            <property name="passwordString" type="org.jia.ptrack.domain.hibernate.EncryptedPasswordUserType"/>
+        </component>            
 		<set name="roles" cascade="all" table="USER_ROLES">
 			<key column="login" />
 			<element column="role"
