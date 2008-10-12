@@ -12,18 +12,23 @@ import org.jia.ptrack.domain.ProjectMother;
 import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
+import org.jia.ptrack.domain.UserRepository;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class HibernateProjectPersistenceTests extends
 		HibernatePersistenceTests<HibernateProjectPersistenceTests> {
 	private Project project;
-
+	private UserRepository userRepository;
 	private Integer pid;
 
 	protected String[] getConfigLocations() {
 		return HibernatePTrackTestConstants.PTRACK_APP_CTXS;
 	}
 
+	public void setUserRepository(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+	
 	public void testSaveProject() {
 
 		createAndSaveProject();
@@ -48,7 +53,7 @@ public class HibernateProjectPersistenceTests extends
 	public void changeStatusFirstTime() {
 		logger.debug("changing status 1");
 
-		final User projectManager = load(User.class, "proj_mgr");
+    User projectManager = userRepository.findUser("proj_mgr");
 		Project project = load(Project.class, pid);
 		project.changeStatus(true, projectManager, "I like it");
 		logger.debug("updated project 1");
@@ -66,7 +71,7 @@ public class HibernateProjectPersistenceTests extends
 	public void changeStatusAgain() {
 		logger.debug("changing status 2");
 
-		User projectManager = load(User.class, "proj_mgr");
+    User projectManager = userRepository.findUser("proj_mgr");
 		project = load(Project.class, pid);
 		project.changeStatus(true, projectManager, "I like it again");
 		logger.debug("updated project 2");
@@ -106,7 +111,7 @@ public class HibernateProjectPersistenceTests extends
 	}
 
 	private void makeProject() {
-		StateMachine stateManager = new DefaultStateMachineFactory()
+		StateMachine stateManager = DefaultStateMachineFactory
 				.makeStateMachine("default");
 		Status initialStatus = stateManager.getInitialStatus();
 		save(initialStatus);

@@ -1,7 +1,7 @@
 package org.jia.ptrack.domain;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>Title: </p>
@@ -46,38 +46,21 @@ public class Operation implements Serializable
   {
     return timestamp;
   }
-  public void setTimestamp(java.util.Date timestamp)
-  {
-    this.timestamp = timestamp;
-  }
-  public void setFromStatus(Status fromStatus)
-  {
-    this.fromStatus = fromStatus;
-  }
+
   public Status getFromStatus()
   {
     return fromStatus;
   }
-  public void setToStatus(Status toStatus)
-  {
-    this.toStatus = toStatus;
-  }
+
   public Status getToStatus()
   {
     return toStatus;
-  }
-  public void setComments(String comments)
-  {
-    this.comments = comments;
   }
   public String getComments()
   {
     return comments;
   }
-  public void setUser(User user)
-  {
-    this.user = user;
-  }
+
   public User getUser()
   {
     return user;

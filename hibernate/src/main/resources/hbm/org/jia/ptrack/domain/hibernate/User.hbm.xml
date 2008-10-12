@@ -6,15 +6,20 @@
 	default-access="field">
 
 	<class name="User" table="users"> <!-- problem with postgres -->
-		<id name="login" type="string">
-			<generator class="assigned" />
+		<id name="id" >
+			<generator class="native" />
 		</id>
-		<many-to-one name="department" column="department_id"/>
-		<property name="firstName" />
-		<property name="lastName" />
-		<component name="password">
+		<component name="login">
+			<property name="login"/>
+         </component>
+		<many-to-one name="department" column="department_id"/>   
+        <component name="name">
+    		<property name="firstName" />
+    		<property name="lastName" />
+        </component>
+		<component name="password" >
             <property name="passwordString" type="org.jia.ptrack.domain.hibernate.EncryptedPasswordUserType"/>
-        </component>            
+        </component>
 		<set name="roles" cascade="all" table="USER_ROLES">
 			<key column="login" />
 			<element column="role"
@@ -23,7 +28,7 @@
 	</class>
 
 	<query name="User.findByLogin">
-		from User u inner join fetch u.roles where u.login = :login
+		from User u inner join fetch u.roles where u.login.login = :login
 	</query>
 </hibernate-mapping>
 

@@ -10,7 +10,6 @@ import org.acegisecurity.acl.basic.BasicAclEntry;
 import org.acegisecurity.acl.basic.NamedEntityObjectIdentity;
 import org.acegisecurity.acl.basic.SimpleAclEntry;
 import org.jia.ptrack.domain.Project;
-import org.jia.ptrack.domain.User;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 
@@ -35,13 +34,13 @@ public class HibernatePTrackAclRepository extends HibernateDaoSupport implements
 
 		List usersInSameDepartment = getHibernateTemplate()
 				.findByNamedParam(
-						"select u from Project p, User u where u.department = p.initiatedBy.department and p.id = :projectId ",
+						"select u.login.login from Project p, User u where u.department = p.initiatedBy.department and p.id = :projectId ",
 						"projectId", new Integer(id));
 
 		for (Iterator it = usersInSameDepartment.iterator(); it.hasNext();) {
-			User user = (User) it.next();
-			System.out.println("Adding to acl:" + user.getLogin());
-			SimpleAclEntry aclEntry = new SimpleAclEntry(user.getLogin(),
+			String login = (String) it.next();
+      System.out.println("Adding to acl:" + login);
+			SimpleAclEntry aclEntry = new SimpleAclEntry(login,
 					aclObjectIdentity, null, SimpleAclEntry.READ
 							| SimpleAclEntry.WRITE);
 			result.add(aclEntry);

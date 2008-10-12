@@ -81,7 +81,27 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.0</version>
+            </dependency>
+          <dependency>
+             <groupId>net.chrisrichardson</groupId>
+             <artifactId>arid-dao</artifactId>
+             <version>1.1-SNAPSHOT</version>
+         </dependency>
+         <dependency>
+             <groupId>net.chrisrichardson</groupId>
+             <artifactId>arid-framework</artifactId>
+             <version>1.1-SNAPSHOT</version>
+         </dependency>
+         <dependency>
+             <groupId>net.chrisrichardson</groupId>
+             <artifactId>arid-base</artifactId>
+             <version>1.1-SNAPSHOT</version>
+         </dependency>
+		<dependency>
 				<groupId>org.easymock</groupId>
 				<artifactId>easymock</artifactId>
 				<version>2.2</version>

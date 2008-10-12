@@ -13,13 +13,14 @@ import org.jia.ptrack.domain.RoleType;
 import org.jia.ptrack.domain.StateMachine;
 import org.jia.ptrack.domain.Status;
 import org.jia.ptrack.domain.User;
-import org.jia.ptrack.domain.UserMother;
+import org.jia.ptrack.domain.UserRepository;
 import org.springframework.dao.support.DataAccessUtils;
 
 public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 
 	private ProjectRepository projectRepository;
-
+	private UserRepository userRepository;
+	
 	private Status initialStatus;
 
 	protected String[] getConfigLocations() {
@@ -30,7 +31,12 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 		this.projectRepository = projectRepository;
 	}
 
-	protected void onSetUp() throws Exception {
+	
+	public void setUserRepository(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
+  protected void onSetUp() throws Exception {
 		super.onSetUp();
 		StateMachine sm = (StateMachine) DataAccessUtils
 				.uniqueResult(getHibernateTemplate().find("from StateMachine where name = ?", "default"));
@@ -90,7 +96,7 @@ public class HibernateProjectRepositoryTests extends HibernatePersistenceTests {
 
 			public void execute() throws Throwable {
 				Project project = projectRepository.get(projects.get(0).getId());
-				User projectManager = UserMother.makeProjectManager(null);
+				User projectManager = userRepository.findUser("proj_mgr");
 				while (project.changeStatus(true, projectManager, "Cool!"));
 				System.out.println("committing");
 			}});

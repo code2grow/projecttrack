@@ -7,7 +7,7 @@
 
 	<bean id="seleniumLauncher"
 		class="net.chrisrichardson.umangite.SeleniumLauncher" >
-		<property name="browserType" value="*firefox"/>
+        <property name="browserType" value="*chrome c:/program files/Mozilla firefox2/firefox.exe"/>
 	</bean>
 
 	<bean id="properties"

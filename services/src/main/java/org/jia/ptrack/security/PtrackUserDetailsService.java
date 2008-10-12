@@ -29,12 +29,9 @@ public class PtrackUserDetailsService implements UserDetailsService {
     }
   }
 
-  private org.acegisecurity.userdetails.User makeAcegiUser(User user) {
-    return new org.acegisecurity.userdetails.User(user.getLogin(),
-        EncryptedPasswordUtil.getEncryptedPasswordWithoutPrefix(user
-            .getPassword().getPasswordString()), true, true, true, true,
-        makeGrantedAuthorities(user));
-  }
+	private org.acegisecurity.userdetails.User makeAcegiUser(User user) {
+		return new org.acegisecurity.userdetails.User(user.getLogin().getLogin(), EncryptedPasswordUtil.getEncryptedPasswordWithoutPrefix(user.getPassword().getPasswordString()), true, true, true, true, makeGrantedAuthorities(user));
+	}
 
   private GrantedAuthority[] makeGrantedAuthorities(User user) {
     GrantedAuthority[] result = new GrantedAuthority[user.getRoles().size()];

@@ -1,9 +1,9 @@
 package org.jia.ptrack.domain;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
+
 
 /**
  * <p>Title: </p>
@@ -16,9 +16,9 @@ import java.util.Set;
 
 public class User implements Serializable
 {
-  private String firstName;
-  private String lastName;
-  private String login;
+  private int id;
+  private PersonName name;
+  private UserId login;
   private Password password;
   private Set<RoleType> roles;
   private Department department;
@@ -27,52 +27,43 @@ public class User implements Serializable
   {
   }
 
-  public User(String login, String firstName, String lastName,
-			Password password, RoleType role, Department department) {
-	  this(login, firstName, lastName, password, Collections.singleton(role), department);
-  }
-  
-
-  public User(String login, String firstName, String lastName,
-              Password password, Set<RoleType> roles, Department department)
+  public User(UserId login, PersonName name, Password password,
+              Set<RoleType> roles, Department department)
   {
     this.login = login;
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.name = name;
     this.password = password;
     this.roles = roles;
     assert !roles.isEmpty();
-	this.department = department;
+	  this.department = department;
   }
 
-  public void setLogin(String login)
-  {
-    this.login = login;
+  public int getId() {
+    return id;
   }
-
-  public String getLogin()
+  
+  public UserId getLogin()
   {
     return login;
   }
 
   public String getFirstName()
   {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName)
-  {
-    this.firstName = firstName;
+    return name.getFirstName();
   }
 
   public String getLastName()
   {
-    return lastName;
+    return name.getLastName();
   }
 
-  public void setLastName(String lastName)
-  {
-    this.lastName = lastName;
+  
+   public void setFirstName(String firstName) {
+    name.setFirstName(firstName);
+  }
+
+  public void setLastName(String lastName) {
+    name.setLastName(lastName);
   }
 
   public Password getPassword()
@@ -98,7 +89,7 @@ public class User implements Serializable
 
   public String toString()
   {
-    return firstName + " " + lastName;
+    return name.getFirstName() + " " + name.getLastName();
   }
 
   public String getFullName() {

@@ -17,15 +17,13 @@ public class HibernateStatePersistenceTests extends HibernatePersistenceTests {
 
 	public void testSaveState() {
 
-		StateMachine stateManager = new DefaultStateMachineFactory()
-				.makeStateMachine("default");
+		StateMachine stateManager = DefaultStateMachineFactory.makeStateMachine("default");
 		hibernateTemplate.save(stateManager.getInitialStatus());
 	}
 
 	public void testTraverseState() {
 
-		StateMachine stateManager = new DefaultStateMachineFactory()
-				.makeStateMachine("default");
+		StateMachine stateManager = DefaultStateMachineFactory.makeStateMachine("default");
 		final Status initialStatus = stateManager.getInitialStatus();
 		hibernateTemplate.save(initialStatus);
 
