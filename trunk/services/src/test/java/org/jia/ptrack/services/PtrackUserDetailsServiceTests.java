@@ -26,7 +26,7 @@ public class PtrackUserDetailsServiceTests extends
 
 	public void testKnownUser() {
 		User projectManager = UserMother.makeProjectManager(new Department("IT"));
-		UserDetails user = userDetailsService.loadUserByUsername(projectManager.getLogin());
+		UserDetails user = userDetailsService.loadUserByUsername(projectManager.getLogin().getLogin());
 		assertNotNull(user);
 		assertEquals(projectManager.getRoles().size(), user.getAuthorities().length);
 		

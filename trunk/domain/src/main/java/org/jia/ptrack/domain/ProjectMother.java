@@ -36,6 +36,45 @@ public class ProjectMother {
         "blah, blah, blah"));
     return project;
   }
+  
+  /*
+  public static Project makeProjectInRequirementsStateFluently(Status initialStatus, User user) {
+    Project project = new Project(initialStatus)
+        .name("Test Project #1")
+        .description("description")
+        .requirementsContactName("Rick Jones")
+        .requirementsContactEmail("jones@nowhere.com")
+        .type(ProjectType.EXTERNAL_DB)
+        .artifact(ArtifactType.ARCHITECTURE)
+        .artifact(ArtifactType.DEPLOYMENT)
+        .artifact(ArtifactType.MAINTENANCE)
+        .initiatedBy(user);
+    assertTrue("change status", project.changeStatus(true, user,
+    "blah, blah, blah"));
+    assertTrue("change status", project.changeStatus(true, user,
+    "blah, blah, blah"));
+    return project;
+  }
+  
+  public static Project makeProjectInRequirementsStateFluently(Status initialStatus, User user) {
+    Project project = new Project.ProjectBuilder(initialStatus)
+        .name("Test Project #1")
+        .description("description")
+        .requirementsContactName("Rick Jones")
+        .requirementsContactEmail("jones@nowhere.com")
+        .type(ProjectType.EXTERNAL_DB)
+        .artifact(ArtifactType.ARCHITECTURE)
+        .artifact(ArtifactType.DEPLOYMENT)
+        .artifact(ArtifactType.MAINTENANCE)
+        .initiatedBy(user);
+    assertTrue("change status", project.changeStatus(true, user,
+    "blah, blah, blah"));
+    assertTrue("change status", project.changeStatus(true, user,
+    "blah, blah, blah"));
+    return project;
+  }
+   */
+
 
   public static Project makeProjectInCompleteState(Status initialStatus, User user,
       Collection users) {
@@ -104,8 +143,7 @@ public class ProjectMother {
   }
 
   public static Project makeProjectInRequirementsState() {
-    StateMachine stateMachine = new DefaultStateMachineFactory()
-        .makeStateMachine("default");
+    StateMachine stateMachine = DefaultStateMachineFactory.makeStateMachine("default");
 
     Department itDepartment = new Department("IT");
 

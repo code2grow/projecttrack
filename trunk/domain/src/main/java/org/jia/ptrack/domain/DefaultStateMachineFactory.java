@@ -2,7 +2,7 @@ package org.jia.ptrack.domain;
 
 public class DefaultStateMachineFactory {
 
-	public StateMachine makeStateMachine(String name) {
+	public static StateMachine makeStateMachine(String name) {
 		RoleType systemsManager = RoleType.SYSTEMS_MANAGER;
 		RoleType developmentManager = RoleType.DEVELOPMENT_MANAGER;
 		RoleType projectManager = RoleType.PROJECT_MANAGER;

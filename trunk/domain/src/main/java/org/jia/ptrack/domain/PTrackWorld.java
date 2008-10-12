@@ -22,7 +22,7 @@ public class PTrackWorld {
   private final User marketingDepartmentProjectManager;
 
   public PTrackWorld() {
-    itDepartment = new Department("IT");
+    itDepartment = DepartmentMother.makeItDepartment();
 
     itProjectManager = UserMother.makeProjectManager(itDepartment);
     itBusinessAnalyst = UserMother.makeBusinessAnalyst(itDepartment);
@@ -40,13 +40,13 @@ public class PTrackWorld {
     itDepartmentEmployees.add(itBusinessAnalyst);
     itDepartmentEmployees.add(upperManager);
 
-    stateMachine = new DefaultStateMachineFactory().makeStateMachine("default");
+    stateMachine = DefaultStateMachineFactory.makeStateMachine("default");
     initialStatus = stateMachine.getInitialStatus();
     projectInCompleteState = ProjectMother.makeProjectInCompleteState(initialStatus, itProjectManager, getAllITDepartmentEmployees());
     projectInRequirementsState = ProjectMother.makeProjectInRequirementsState(initialStatus, itProjectManager);
     projectInProposalState = ProjectMother.makeProjectInProposalState(initialStatus, itProjectManager);
     
-    marketingDepartment = new Department("Marketing");
+    marketingDepartment = DepartmentMother.makeMarketingDepartment();
     marketingDepartmentProjectManager = UserMother.makeMarketingDepartmentProjectManager(marketingDepartment);
     marketingDepartmentEmployees = new LinkedList<User>();
     marketingDepartmentEmployees.add(marketingDepartmentProjectManager);

@@ -8,6 +8,8 @@ import java.util.List;
 public class Project
     implements Serializable
 {
+  
+ 
   private String name;
   private User initiatedBy;
   private String description;
@@ -27,6 +29,47 @@ public class Project
   private String initialComments;
   private Contact requirementsContact;
 
+  
+  public class ProjectBuilder {
+    private String name;
+    private User initiatedBy;
+    private String description;
+    private List<Operation> operationHistory;
+    private List artifacts;
+    private ProjectType type;
+    private int id;
+    private Status status;
+    
+    public ProjectBuilder(Status initialStatus) {
+      this.status = status;
+    }
+
+    ProjectBuilder name(String name) {
+      this.name = name;
+      return this;
+    }
+  
+    ProjectBuilder description(String description) {
+      this.description = description;
+      return this;
+    }
+
+    ProjectBuilder initiatedBy(User initiatedBy) {
+      this.initiatedBy = initiatedBy;
+      return this;
+    }
+    
+    public Project make() {
+      // Verify that we have everything
+      return new Project(this);
+    }
+  }
+  
+  public Project(ProjectBuilder builder) {
+    this.name = builder.name;
+    this.initiatedBy = builder.initiatedBy;
+  }
+
   public Project()
   {
     operationHistory = new ArrayList();
@@ -36,7 +79,7 @@ public class Project
   public Project(Status initialStatus)
   {
     this();
-    setInitialStatus(initialStatus);
+    this.status = initialStatus;
   }
 
   public void setName(String name)
@@ -166,11 +209,6 @@ public class Project
     return initialComments;
   }
 
-  public String toString()
-  {
-    return name;
-  }
-
   public String getRequirementsContactEmail()
   {
     return requirementsContact == null ? null : requirementsContact.getEmail();
@@ -186,7 +224,7 @@ public class Project
 
 	
 	public boolean isValidStateChange(boolean approve) {
-		return getStatus().isValidStateChange(approve);
+		return status.isValidStateChange(approve);
 	}
 
 	public boolean isApprovable(User user) {
@@ -200,4 +238,19 @@ public class Project
 	public int getVersion() {
 		return version;
 	}
+
+
+  public Project(String name, ProjectType type, String description,
+      User initiatedBy, Status status, List artifacts,
+      String initialComments, Contact requirementsContact) {
+    super();
+    this.name = name;
+    this.initiatedBy = initiatedBy;
+    this.description = description;
+    this.artifacts = artifacts;
+    this.type = type;
+    this.status = status;
+    this.initialComments = initialComments;
+    this.requirementsContact = requirementsContact;
+  }
 }

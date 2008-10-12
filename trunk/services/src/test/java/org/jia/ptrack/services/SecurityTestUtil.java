@@ -7,14 +7,18 @@ import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.TestingAuthenticationToken;
+import org.jia.ptrack.domain.Password;
 import org.jia.ptrack.domain.RoleType;
 import org.jia.ptrack.domain.User;
+import org.jia.ptrack.domain.UserId;
 
 public class SecurityTestUtil {
 
-	public static void setUser(String userId, String password, RoleType[] roles) {
-		SecurityContextHolder.getContext().setAuthentication(
-				new TestingAuthenticationToken(userId, password,
+	public static void setUser(UserId userId, Password password, RoleType[] roles) {
+		String login = userId.getLogin();
+    String passwordString = password.getPasswordString();
+    SecurityContextHolder.getContext().setAuthentication(
+				new TestingAuthenticationToken(login, passwordString,
 						SecurityTestUtil.makeGrantedAuthorities(roles)));
 	}
 
@@ -28,7 +32,7 @@ public class SecurityTestUtil {
 	}
 
 	public static void setUser(User user) {
-		setUser(user.getLogin(), user.getPassword().getPasswordString(), toArray(user.getRoles()));
+		setUser(user.getLogin(), user.getPassword(), toArray(user.getRoles()));
 	}
 
 	private static RoleType[] toArray(Set roles) {

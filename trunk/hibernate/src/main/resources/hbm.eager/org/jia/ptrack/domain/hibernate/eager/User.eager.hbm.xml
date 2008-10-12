@@ -8,13 +8,20 @@
 	default-access="field">
 
 	<class name="User" table="users"><!-- problem with postgres -->
-		<id name="login" type="string">
-			<generator class="assigned" />
+		<id name="id" >
+			<generator class="native" />
 		</id>
+		<component name="login">
+			<property name="login"/>
+         </component>
 		<many-to-one name="department" column="department_id" />
-		<property name="firstName" />
-		<property name="lastName" />
-		<property name="password" />
+        <component name="name">
+    		<property name="firstName" />
+    		<property name="lastName" />
+        </component>
+		<component name="password" >
+            <property name="passwordString"/>
+        </component>
 		<set name="roles" cascade="all" table="USER_ROLES"
 			fetch="join">
 			<key column="login" />
@@ -24,7 +31,7 @@
 	</class>
 
 	<query name="User.findByLogin">
-		from User u inner join fetch u.roles where u.login = :login
+		from User u inner join fetch u.roles where u.login.login = :login
 	</query>
 	
 </hibernate-mapping>

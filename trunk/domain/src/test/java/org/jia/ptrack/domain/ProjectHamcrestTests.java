@@ -1,15 +1,15 @@
 package org.jia.ptrack.domain;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.Arrays;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.jia.ptrack.domain.ProjectMatchers.withinInclusivePeriod;
+
 import java.util.Date;
 import java.util.List;
 
 import junit.framework.TestCase;
 
-public class ProjectTests extends TestCase {
+public class ProjectHamcrestTests extends TestCase {
 
   private Project project;
   private User projectManager;
@@ -36,6 +36,7 @@ public class ProjectTests extends TestCase {
 
   public void testProjectInProposalState() {
     assertTrue(project.getHistory().isEmpty());
+    assertThat(project.getStatus(), is(state0));
 
   }
 
@@ -43,9 +44,10 @@ public class ProjectTests extends TestCase {
     boolean result = project.changeStatus(true, projectManager, "Excellent");
     Date endTime = new Date();
 
-    assertTrue(result);
-    assertEquals(state1, project.getStatus());
-
+    assertThat(result, is(true));
+    
+    assertThat(project.getStatus(), is(state1));
+    
     assertHistoryContains(project, startTime, endTime, expectedOperation0);
   }
 
@@ -67,8 +69,7 @@ public class ProjectTests extends TestCase {
     assertEquals(expectedOperation.getUser(), operation.getUser());
     assertEquals(expectedOperation.getFromStatus(), operation.getFromStatus());
     assertEquals(expectedOperation.getToStatus(), operation.getToStatus());
-    assertFalse(operation.getTimestamp().before(startTime));
-    assertFalse(operation.getTimestamp().after(endTime));
+    assertThat(operation.getTimestamp(), is(withinInclusivePeriod(startTime, endTime)));
   }
 
   public void testChangeStatusTwice() {
@@ -84,58 +85,4 @@ public class ProjectTests extends TestCase {
     assertHistoryContains(project, startTime, endTime, expectedOperation0, expectedOperation1);
 
   }
-
-  public void testProjectRejection() {
-    assertTrue(project.changeStatus(true, projectManager, "Excellent"));
-    assertTrue(project.changeStatus(false, projectManager, "Awful"));
-    assertEquals(2, project.getHistory().size());
-  }
-
-  public void testProjectDisallowedRejection() {
-    assertTrue(project.isValidStateChange(true));
-    assertFalse(project.isValidStateChange(false));
-    assertFalse(project.changeStatus(false, projectManager, "Awful"));
-    assertTrue(project.getHistory().isEmpty());
-  }
-
-  public void testProjectApproval_invalidRole() {
-    assertFalse(project.changeStatus(true, businessAnalyst, "Excellent"));
-    assertEquals(0, project.getHistory().size());
-  }
-
-  public void testArtifacts() {
-    assertEquals(2, project.getArtifacts().length);
-    ArtifactType[] artifacts = new ArtifactType[] { ArtifactType.ARCHITECTURE };
-    project.setArtifacts(artifacts);
-    assertEquals(1, project.getArtifacts().length);
-    assertTrue(Arrays.equals(artifacts, project.getArtifacts()));
-  }
-
-  public void testRequiredContactEmail() {
-    String email1 = "foo@bar.com";
-    String email2 = "baz@bar.com";
-    project.setRequirementsContactEmail(email1);
-    assertEquals(email1, project.getRequirementsContactEmail());
-    project.setRequirementsContactEmail(email2);
-    assertEquals(email2, project.getRequirementsContactEmail());
-  }
-
-  public void testRequiredContactName() {
-    String name1 = "Foo Bar";
-    String name2 = "Baz Not";
-    project.setRequirementsContactName(name1);
-    assertEquals(name1, project.getRequirementsContactName());
-    project.setRequirementsContactName(name2);
-    assertEquals(name2, project.getRequirementsContactName());
-  }
-
-  public void testSerializability() throws IOException {
-    project.changeStatus(true, projectManager, "Excellent");
-
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    ObjectOutputStream os = new ObjectOutputStream(bos);
-    os.writeObject(project);
-    os.close();
-  }
-
 }

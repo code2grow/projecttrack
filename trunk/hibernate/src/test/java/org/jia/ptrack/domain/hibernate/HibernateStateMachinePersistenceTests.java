@@ -14,7 +14,7 @@ public class HibernateStateMachinePersistenceTests extends
 	}
 	
 	public void test() {
-		StateMachine sm = new DefaultStateMachineFactory().makeStateMachine("unique" + System.currentTimeMillis());
+		StateMachine sm = DefaultStateMachineFactory.makeStateMachine("unique" + System.currentTimeMillis());
 		save(sm);
 		sm = (StateMachine) load(StateMachine.class, new Integer(sm.getId()));
 		assertNotNull(sm);

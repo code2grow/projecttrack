@@ -3,9 +3,11 @@ package org.jia.ptrack.services;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jia.ptrack.domain.Password;
 import org.jia.ptrack.domain.Project;
 import org.jia.ptrack.domain.ProjectColumnType;
 import org.jia.ptrack.domain.RoleType;
+import org.jia.ptrack.domain.UserId;
 import org.jia.ptrack.domain.UserMother;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
@@ -33,7 +35,7 @@ public class ProjectFetchJoinHQLTests extends AbstractDependencyInjectionSpringC
 	protected void onSetUp() throws Exception {
 		super.onSetUp();
 		SecurityTestUtil.clearUser();
-		SecurityTestUtil.setUser("proj_mgr", "faces", new RoleType[] {});
+		SecurityTestUtil.setUser(new UserId("proj_mgr"), new Password("faces"), new RoleType[] {});
 	}
 
 	public void testGetAllProjects()  {
